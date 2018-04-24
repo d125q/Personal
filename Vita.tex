@@ -1,9 +1,9 @@
 \documentclass[version=last, paper=A4, DIV=12, toc=bibliography]{scrartcl}%
 \directlua{pdf.setminorversion(7)}%
 
-%
+% 
 % Packages
-%
+% 
 
 % Fonts, languages, and miscellaneous text commands
 \usepackage{fontspec}%
@@ -15,7 +15,7 @@
 
 % Microtypography and quotations
 \usepackage[final, babel]{microtype}%
-\usepackage[strict]{csquotes}%
+\usepackage[autopunct, autostyle, strict]{csquotes}%
 
 % Mathematics
 \usepackage{mathtools}%
@@ -58,9 +58,9 @@
 % Hyphens and dashes
 \usepackage[shortcuts]{extdash}%
 
-%
+% 
 % Setup
-%
+% 
 
 \RedeclareSectionCommand[beforeskip=-.25\baselineskip]{section}%
 
@@ -80,29 +80,33 @@
 \addbibresource{Publications.bib}%
 \nocite{*}%
 \AtBeginBibliography{\small}%
+
 \unimathsetup{%
   math-style=ISO, bold-style=ISO%
 }%
+
 \mathtoolsset{mathic}%
+
 \sisetup{%
   detect-all, detect-display-math, binary-units%
 }%
+
 \hypersetup{%
   unicode, colorlinks, breaklinks,%
-  pdftitle={Dario Gjorgjevski},%
+  pdftitle={Curriculum vitae -- Dario Gjorgjevski},%
   pdfauthor={Dario Gjorgjevski},%
   pdfsubject={Curriculum vitae}%
 }%
 
-%
+% 
 % Commands
-%
+% 
 
 \newcommand*{\EducationEntry}[6]{%
   \noindent%
   \begin{tabular}{p{.7\textwidth-2\tabcolsep}>{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}}
     \textsf{#2} & \Verb+#1+\\
-    \textit{#4}, \num[round-mode=places, round-precision=2, round-integer-to-decimal]{#5} GPA & #3\\
+    \textit{#4}, GPA\@: \num[round-mode=places, round-precision=2, round-integer-to-decimal]{#5}. & #3\\
     \multicolumn{2}{p{\textwidth-2\tabcolsep}}{\begin{addmargin}{2em}\small#6\end{addmargin}}
   \end{tabular}%
 }
@@ -116,23 +120,22 @@
   \end{tabular}%
 }
 
-%
+% 
 % Document
-%
+% 
 
 \begin{document}
 
-\begin{addmargin}{.125\textwidth}
+\begin{addmargin}{.15\textwidth}
   \begin{center}
     \bfseries\LARGE Dario Gjorgjevski
   \end{center}
   \begin{FlushLeft}
     \begin{description}[itemsep=.1em, leftmargin=*]
     \item[\faHome] Kruševska~\textnumero~21\hfill\textbullet\hfill
-      2320~Delčevo\hfill\textbullet\hfill Republic of Macedonia
+      2320~Delčevo\hfill\textbullet\hfill Macedonia
     \item[\faAddressCard] \href{mailto:dario.gjorgjevski@gmail.com}%
-      {\nolinkurl{dario.gjorgjevski@gmail.com}}\hfill
-      (+389)~72~215~992
+      {\nolinkurl{dario.gjorgjevski@gmail.com}}\hfill (+389)~72~215~992
     \end{description}
   \end{FlushLeft}
 \end{addmargin}
@@ -148,53 +151,53 @@
 }{%
   10/10%
 }{%
-  Strong background in linear algebra, statistics, stochastic
-  processes, compilers, machine learning, and cryptography.
-  Bachelor's thesis: \enquote{Error\-/Correcting Codes in the Rank
-    Metric (With Applications to Cryptography)}, supervised by prof.\
-  Simona Samardjiska.%
+  Strong background in linear algebra, statistics, stochastic processes,
+  compilers, machine learning, and cryptography.  Bachelor's thesis:
+  \textquote[][,]{Error\-/Correcting Codes in the Rank Metric (With Applications
+    to Cryptography)} supervised by prof.\ Simona Samardjiska.%
 }
 
-{\noindent\small Over \num{40} Massive Open Online Courses on such
-  subjects as: game theory, probabilistic graphical models,
-  combinatorics, and programming language theory.  See
-  \href{https://github.com/d125q/Personal/tree/master/Certifications}{here}
-  for a full list of certifications.\par}
+{\noindent\small Over \num{40} Massive Open Online Courses on such subjects as:
+  game theory, probabilistic graphical models, combinatorics, and programming
+  language theory.  See
+  \href{https://github.com/d125q/Personal/tree/master/Certifications}{here} for
+  a full list of certifications.\par}
 
 \addsec{Experience}
 
 \WorkEntry{2017-11-20/}{%
   Infinite Analytics, Inc.%
 }{%
-  Data Science%
+  Data Science/Engineering%
 }{%
   \begin{itemize}[noitemsep, leftmargin=*]
-  \item Scraping of clients' websites and product catalogs using
-    Scala/Akka and Python/Scrapy.
-  \item Dynamic upstream configuration with persistence across
-    restarts using NGINX Plus.
-  \item Acquisition, monitoring, and analysis of server utilization
-    data using Python, the Elastic Stack, NGINX Plus, and Google
-    Stackdriver.
-  \item Consumer insights using Apache Spark (Scala and Python).%
+  \item Scraping of clients' websites and product catalogs using Scala/Akka and
+    Python/Scrapy.
+  \item Dynamic upstream configuration with persistence across restarts using
+    NGINX Plus.
+  \item Acquisition, monitoring, and analysis of server utilization data using
+    Python, the Elastic Stack, NGINX Plus, and Google Stackdriver.
+  \item Behavior\-/driven development of a Scala/Apache Spark program to compute
+    \emph{customer insights} using fact tables of over \num{2} billion entries
+    each.
   \end{itemize}%
 }
 
 \WorkEntry{2017-07-07/09-20}{%
-  École polytechnique fédérale de Lausanne\newline%
-  Laboratory for Communications and Applications 2%
+  École polytechnique fédérale de Lausanne (LCA2)%
 }{%
   Research Internship%
 }{%
-  Worked under the supervision of Jagdish Prasad Achara and prof.\
-  Jean\=/Yves Le Boudec on:
+  Worked under the supervision of Jagdish Prasad Achara and prof.\ Jean\=/Yves
+  Le Boudec on:
   \begin{itemize}[noitemsep, leftmargin=*]
-  \item T\=/RECS\@: A Software Testbed for Multi\-/Agent Real\-/Time
-    Control of Electric Grids.  I implemented new functionality and
-    fixed bugs using Python and Mininet.
-  \item Modeling of smart grid power traces at a timescale of
+  \item T\=/RECS\@: A Software Testbed for Multi\-/Agent Real\-/Time Control of
+    Electric Grids.  I implemented new functionality, refactored old code, and
+    fixed bugs using Python/Mininet.
+  \item Time series modeling of smart grid power traces at a timescale of
     \SI{20}{\ms} using approaches based on wavelets and long\-/range
-    dependence\--- as well as deep learning.
+    dependence\--- as well increasing the resolution of mean\-/aggregated
+    measurements via deep\-/learning methods for super\-/resolution.
   \end{itemize}%
 }
 
@@ -204,64 +207,60 @@
 }{%
   Computer Laboratory Assistantship%
 }{%
-  Full responsibility for computer laboratory exercises and homework
-  assignments in:
+  Full responsibility for computer laboratory exercises and homework assignments
+  in:
   \begin{labeling}{Probability and Statistics}
   \item[Linear Algebra] Least squares, linear codes, and low\-/rank
-    approximations using Mathematica\textsuperscript{\textregistered}
-    and \textsc{SageMath}.
-  \item[Probability and Statistics] Data visualization, Monte Carlo
-    methods, inference, hypothesis testing, and linear regression
-    using R.
+    approximations using Mathematica\textsuperscript{\textregistered} and
+    \textsc{SageMath}.
+  \item[Probability and Statistics] Data visualization, Monte Carlo methods,
+    inference, hypothesis testing, and linear regression using R.
   \item[Databases] ER modeling, relational algebra, and ANSI SQL\@.
   \end{labeling}%
 }
 
 \WorkEntry{2016-06-15/09-15}{%
-  École polytechnique fédérale de Lausanne\newline%
-  Security and Cryptography Laboratory%
+  École polytechnique fédérale de Lausanne (LASEC)%
 }{Research Internship}{%
-  Worked under the supervision of Sonia Bogos and prof.\ Serge
-  Vaudenay on the \emph{Learning With Errors} (LWE) problem.  I
-  studied and built upon state\-/of\-/the\-/art algorithms to improve
-  their complexity.%
+  Worked under the supervision of Sonia Bogos and prof.\ Serge Vaudenay on the
+  \emph{Learning With Errors} (LWE) problem.  I studied and built upon
+  state\-/of\-/the\-/art solving algorithms to improve their complexity.%
 }
 
 \addsec{Honors and Achievements}
 
 \begin{itemize}
-\item Best student paper at the \nth{14} International Conference on
-  Informatics and Information Technologies held on April 7\--9, 2017
-  in Hotel Bistra, Mavrovo, Macedonia.
+\item Best student paper at the \nth{14} International Conference on Informatics
+  and Information Technologies held on April 7\--9, 2017 in Hotel Bistra,
+  Mavrovo, Macedonia.
 \item Scholarships to attend the
   \href{http://summerschool-croatia.cs.ru.nl/2016/}{2016} and
-  \href{http://summerschool-croatia.cs.ru.nl/2017/}{2017} editions of
-  the Summer School on Real\-/World Crypto and Privacy held in
-  Šibenik, Croatia.
-\item Dean's list at the \textsf{Faculty for Computer Science and
-    Engineering} throughout the entire duration of study.
-\item Merit\-/based scholarships from the \textsf{Faculty of Computer
-    Science and Engineering}, the \textsf{Ministry of Education and
-    Science of Macedonia}, and the \textsf{Municipality of Delchevo}.
+  \href{http://summerschool-croatia.cs.ru.nl/2017/}{2017} editions of the Summer
+  School on Real\-/World Crypto and Privacy held in Šibenik, Croatia.
+\item Dean's list at the \textsf{Faculty for Computer Science and Engineering}
+  throughout the entire duration of study.
+\item Merit\-/based scholarships from the \textsf{Faculty of Computer Science
+    and Engineering}, the \textsf{Ministry of Education and Science of
+    Macedonia}, and the \textsf{Municipality of Delčevo}.
 \end{itemize}
 
 \addsec{Computational Skills}
 
 \begingroup
 \setkomafont{labelinglabel}{\sffamily}
-\begin{labeling}[~--]{Programming Languages}
-\item[Programming Languages] Fluent in: Python, C/\CC, Java, Bash, R,
+\begin{labeling}[~--]{Document Preparation}
+\item[Programming] Fluent in: Python, R, Java, C/\CC, Bash,
   Mathematica\textsuperscript{\textregistered}.
 
   Familiar with: Scala, SQL, Common Lisp, Emacs Lisp, Racket, Lua, Haskell,
   Standard ML, JavaScript.
 \item[Operating Systems] GNU/Linux (Arch Linux and Debian).
-\item[Text Editors and IDEs] GNU Emacs and IntelliJ IDEA\@.
+\item[Text Editors/IDEs] GNU Emacs and IntelliJ IDEA\@.
 \item[Document Preparation] \Hologo{(La)TeX}.
 \item[Version Control] Git.
-\item[Miscellaneous] Proficient using: the Elastic Stack
-  (Elasticsearch, Kibana, Logstash, and Beat), Ansible, NGINX, and the
-  Apache HTTP Server.
+\item[Miscellaneous] Proficient using: the Elastic Stack (Elasticsearch, Kibana,
+  Logstash, and Beat), Apache Spark, HDFS, Ansible, NGINX, and the Apache HTTP
+  Server.
 \end{labeling}
 \endgroup
 
@@ -270,6 +269,7 @@
 \end{document}
 
 %%% Local Variables:
+%%% fill-column: 80
 %%% TeX-command-extra-options: "-shell-escape"
 %%% TeX-engine: luatex
 %%% TeX-master: t
