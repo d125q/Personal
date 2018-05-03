@@ -17,6 +17,9 @@
 \usepackage[final, babel]{microtype}%
 \usepackage[autostyle, autopunct, strict]{csquotes}%
 
+% Patching
+\usepackage{xpatch}
+
 % Mathematics
 \usepackage{mathtools}%
 \usepackage{amsthm}%
@@ -53,7 +56,7 @@
   C\nolinebreak%
   \hspace{-.05em}\raisebox{.4ex}{\relsize{-3}{\textbf{+}}}\nolinebreak%
   \hspace{-.10em}\raisebox{.4ex}{\relsize{-3}{\textbf{+}}}%
-}
+}%
 
 % Hyphens and dashes
 \usepackage[shortcuts]{extdash}%
@@ -80,6 +83,36 @@
 \addbibresource{Publications.bib}%
 \nocite{*}%
 \AtBeginBibliography{\small}%
+
+\newbibmacro*{name:bold}[2]{%
+  \def\do##1{\iffieldequalstr{hash}{##1}{\bfseries\listbreak}{}}%
+  \dolistloop{\boldnames}%
+}%
+
+\newcommand*{\boldnames}{}%
+
+\xpretobibmacro{name:family}{%
+  \begingroup\usebibmacro{name:bold}{#1}{#2}%
+}{}{}%
+\xpretobibmacro{name:given-family}{%
+  \begingroup\usebibmacro{name:bold}{#1}{#2}%
+}{}{}%
+\xpretobibmacro{name:family-given}{%
+  \begingroup\usebibmacro{name:bold}{#1}{#2}%
+}{}{}%
+\xpretobibmacro{name:delim}{%
+  \begingroup\normalfont%
+}{}{}%
+
+\xapptobibmacro{name:family}{\endgroup}{}{}%
+\xapptobibmacro{name:given-family}{\endgroup}{}{}%
+\xapptobibmacro{name:family-given}{\endgroup}{}{}%
+\xapptobibmacro{name:delim}{\endgroup}{}{}%
+
+\renewcommand*{\boldnames}{}%
+\forcsvlist{\listadd\boldnames}{%
+  {90e97b67720ed4a478d19395e2c396d7}%
+}%
 
 \unimathsetup{%
   math-style=ISO, bold-style=ISO%
