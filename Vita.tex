@@ -21,9 +21,8 @@
 \usepackage{amsthm}%
 \usepackage[ruled, longend]{algorithm2e}%
 \usepackage{prftree}%
-\usepackage[warnings-off={%
-  mathtools-colon, mathtools-overbracket%
-}]{unicode-math}%
+\usepackage[warnings-off={mathtools-colon,
+  mathtools-overbracket}]{unicode-math}%
 
 % Verbatim text and source code listings
 \usepackage{fancyvrb}%
@@ -50,14 +49,14 @@
 \usepackage{cleveref}%
 
 % Bibliography
-\usepackage[hyperref, block=space, backend=biber]{biblatex}%
+\usepackage[hyperref, block=space, sorting=ydnt, backend=biber]{biblatex}%
 
 % Logos
 \usepackage{hologo}%
 \newcommand*{\CC}{%
   C\nolinebreak%
-  \hspace{-.05em}\raisebox{.4ex}{\relsize{-3}{\textbf{+}}}\nolinebreak%
-  \hspace{-.10em}\raisebox{.4ex}{\relsize{-3}{\textbf{+}}}%
+  \hspace{-.05em}\raisebox{.3ex}{\relsize{-2}{\textbf{+}}}\nolinebreak%
+  \hspace{-.10em}\raisebox{.3ex}{\relsize{-2}{\textbf{+}}}%
 }%
 
 % Hyphens and dashes
@@ -66,6 +65,11 @@
 %
 % Setup
 %
+
+\setromanfont{Libertinus Serif}
+\setsansfont{Libertinus Sans}
+\setmathfont{Libertinus Math}
+\setmonofont[Scale=MatchLowercase]{Iosevka Term Slab}
 
 \RedeclareSectionCommand[beforeskip=-.25\baselineskip]{section}%
 
@@ -127,7 +131,8 @@
 }%
 
 \hypersetup{%
-  unicode, colorlinks, breaklinks,%
+  unicode,%
+  breaklinks,%
   pdftitle={Curriculum vitae -- Dario Gjorgjevski},%
   pdfauthor={Dario Gjorgjevski},%
   pdfsubject={Curriculum vitae}%
@@ -137,21 +142,44 @@
 % Commands
 %
 
-\newcommand*{\EducationEntry}[6]{%
+\newcommand*{\EducationEntry}[8]{%
   \noindent%
-  \begin{tabular}{p{.7\textwidth-2\tabcolsep}>{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}}
-    \textsf{#2} & \Verb+#1+\\
-    \textit{#4}, GPA\@: \num[round-mode=places, round-precision=2, round-integer-to-decimal]{#5}. & #3\\
-    \multicolumn{2}{p{\textwidth-2\tabcolsep}}{\begin{addmargin}{2em}\small#6\end{addmargin}}
+  \begin{tabular}{%
+    p{.7\textwidth-2\tabcolsep}
+    >{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}%
+    }
+    \textsf{#2} & \Verb+#1+ \\
+    \textit{#4} & #3 \\
+    GPA of \num[round-mode=places, round-precision=2,
+    round-integer-to-decimal]{#5}, on a scale from #6 to #7 & \\
+    \multicolumn{2}{p{\textwidth-2\tabcolsep}}%
+    {%
+    \begin{addmargin}{1em}
+      \begin{small}
+        #8\par
+      \end{small}
+    \end{addmargin}%
+    }
   \end{tabular}%
 }
 
 \newcommand*{\WorkEntry}[4]{%
   \noindent%
-  \begin{tabular}{p{.7\textwidth-2\tabcolsep}>{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}}
-    \textsf{#2} & \Verb+#1+\\
-    \textit{#3} &\\
-    \multicolumn{2}{p{\textwidth-2\tabcolsep}}{\begin{addmargin}{2em}\small#4\end{addmargin}}
+  \begin{tabular}%
+    {%
+    p{.7\textwidth-2\tabcolsep}%
+    >{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}%
+    }
+    \textsf{#2} & \Verb+#1+ \\
+    \textit{#3} & \\
+    \multicolumn{2}{p{\textwidth-2\tabcolsep}}%
+    {%
+    \begin{addmargin}{3em}
+      \begin{small}
+        #4\par
+      \end{small}
+    \end{addmargin}%
+    }
   \end{tabular}%
 }
 
@@ -161,14 +189,16 @@
 
 \begin{document}
 
-\begin{addmargin}{.15\textwidth}
+\begin{addmargin}{.2\textwidth}
   \begin{center}
-    \bfseries\LARGE Dario Gjorgjevski
+    \begin{LARGE}
+      \textbf{Dario Gjorgjevski}
+    \end{LARGE}
   \end{center}
   \begin{FlushLeft}
-    \begin{description}[itemsep=.1em, leftmargin=*]
-    \item[\faHome] Kruševska~\textnumero~21\hfill\textbullet\hfill
-      2320~Delčevo\hfill\textbullet\hfill Macedonia
+    \begin{description}[noitemsep, leftmargin=*]
+    \item[\faHome] Kruševska \textnumero~21\hfill\textbullet\hfill 2320
+      Delčevo\hfill\textbullet\hfill Macedonia
     \item[\faAddressCard] \href{mailto:dario.gjorgjevski@gmail.com}%
       {\nolinkurl{dario.gjorgjevski@gmail.com}}\hfill (+389)~72~215~992
     \end{description}
@@ -177,89 +207,87 @@
 
 \addsec{Education}
 
-\EducationEntry{2013-09-15/2018-01-30}{%
-  Ss.\ Cyril and Methodius University%
-}{%
-  Bachelor's degree%
-}{%
-  Computer Science and Engineering%
-}{%
-  10/10%
-}{%
+\EducationEntry%
+{2013-09-15/2018-01-30}{Ss.\ Cyril and Methodius University}%
+{Bachelor's degree}{Computer Science and Engineering}%
+{10}{5 (E/F)}{10 (A)}%
+{%
   Strong background in linear algebra, statistics, stochastic processes,
-  compilers, machine learning, and cryptography.  Bachelor's thesis:
-  \textquote[][,]{Error\-/Correcting Codes in the Rank Metric (With Applications
-    to Cryptography)} supervised by prof.\ Simona Samardjiska.%
+  compilers, machine learning, and cryptography.  Bachelor's thesis on the topic
+  of code\-/based cryptography, titled \textquote{Error\-/Correcting Codes in
+    the Rank Metric (With Applications to Cryptography)} and supervised by
+  prof.\ Simona Samardjiska.%
 }
 
-{\noindent\small Over \num{40} Massive Open Online Courses on such subjects as:
-  game theory, probabilistic graphical models, combinatorics, and programming
-  language theory.  See
-  \href{https://github.com/d125q/Personal/tree/master/Certifications}{here} for
-  a full list of certifications.\par}
+\begin{small}
+  \noindent Over \num{40} \textsf{Massive Open Online Courses} on topics related
+  to game theory, probabilistic graphical models, Bayesian statistics,
+  combinatorics, programming language theory, etc.  Certifications available
+  upon request.\par
+\end{small}
 
 \addsec{Experience}
 
-\WorkEntry{2017-11-20/}{%
-  Infinite Analytics, Inc.%
-}{%
-  Data Science/Engineering%
-}{%
+\WorkEntry%
+{2017-11-20/2018-06-15}{Infinite Analytics, Inc.}%
+{Data Science/Engineering}%
+{%
   \begin{itemize}[noitemsep, leftmargin=*]
   \item Scraping of clients' websites and product catalogs using Scala/Akka and
     Python/Scrapy.
-  \item Dynamic upstream configuration with persistence across restarts using
+  \item Dynamic configuration of upstreams with persistence across restarts in
     NGINX Plus.
-  \item Acquisition, monitoring, and analysis of server utilization data using
-    Python, the Elastic Stack, NGINX Plus, and Google Stackdriver.
+  \item Acquisition, monitoring, analysis, and visualization of server
+    utilization data using Python, the Elastic stack, NGINX Plus, and Google
+    Stackdriver.
   \item Behavior\-/driven development of a Scala/Apache Spark program to compute
-    \emph{customer insights} using over \num{2} billion facts about \num{50}
-    million customers.
+    and visualize \emph{customer insights} using over \num{2} billion facts
+    about \num{50} million customers.
   \end{itemize}%
 }
 
-\WorkEntry{2017-07-07/09-20}{%
-  École polytechnique fédérale de Lausanne (LCA2)%
+\WorkEntry%
+{2017-07-07/09-20}{École polytechnique fédérale de Lausanne (LCA2)}{%
+  Research Internship\newline%
+  Supervisors: \href{https://people.epfl.ch/276750}{Jagdish Prasad Achara} and
+  \href{https://people.epfl.ch/jean-yves.leboudec}{prof.\ Jean\=/Yves Le
+    Boudec}%
 }{%
-  Research Internship%
-}{%
-  Worked under the supervision of Jagdish Prasad Achara and prof.\ Jean\=/Yves
-  Le Boudec on:
   \begin{itemize}[noitemsep, leftmargin=*]
-  \item T\=/RECS\@: A Software Testbed for Multi\-/Agent Real\-/Time Control of
-    Electric Grids.  I implemented new functionality, refactored old code, and
-    fixed bugs using Python/Mininet.
+  \item Implementing new functionality and refactoring old code using
+    Python/Mininet in T\=/RECS, a \emph{Software \underline{T}estbed for
+      Multi\-/Agent \underline{R}eal\-/Time Control of El\underline{ec}tric
+      \underline{S}ystems}.
   \item Time series modeling of smart grid power traces at a timescale of
-    \SI{20}{\ms} using approaches based on wavelets and long\-/range
-    dependence\--- as well increasing the resolution of mean\-/aggregated
-    measurements via deep\-/learning methods for super\-/resolution.
+    \SI{20}{\ms} using approaches based on wavelets and long\-/range dependence.
+  \item Increasing the resolution of mean\-/aggregated data using deep learning
+    for super\-/resolution.
   \end{itemize}%
 }
 
-\WorkEntry{2016-10/2017-02}{%
-  Ss.\ Cyril and Methodius University\newline%
-  Faculty of Computer Science and Engineering%
-}{%
+\WorkEntry%
+{2016-10/2017-02}{Ss.\ Cyril and Methodius University}{%
   Computer Laboratory Assistantship%
 }{%
-  Full responsibility for computer laboratory exercises and homework assignments
-  in:
+  Full responsibility for conducting computational exercises and homework
+  assignments in:
   \begin{labeling}{Probability and Statistics}
   \item[Linear Algebra] Least squares, linear codes, and low\-/rank
-    approximations using Mathematica\textsuperscript{\textregistered} and
+    approximations with Mathematica\textsuperscript{\textregistered} and
     \textsc{SageMath}.
   \item[Probability and Statistics] Data visualization, Monte Carlo methods,
-    statistical inference, hypothesis testing, and linear regression using R.
+    statistical inference, hypothesis testing, and linear regression with R.
   \item[Databases] ER modeling, relational algebra, and ANSI SQL\@.
   \end{labeling}%
 }
 
-\WorkEntry{2016-06-15/09-15}{%
-  École polytechnique fédérale de Lausanne (LASEC)%
-}{Research Internship}{%
-  Worked under the supervision of Sonia Bogos and prof.\ Serge Vaudenay on the
-  \emph{Learning With Errors} (LWE) problem.  I studied and built upon
-  state\-/of\-/the\-/art solving algorithms to improve their complexity.%
+\WorkEntry{2016-06-15/09-15}{École polytechnique fédérale de Lausanne (LASEC)}{%
+  Research Internship\newline%
+  Supervisors: \href{https://lasec.epfl.ch/~bogos/}{Sonia Bogos} and
+  \href{https://lasec.epfl.ch/~vaudenay/}{prof.\ Serge Vaudenay}%
+}{%
+  Studying and improving upon the complexity of state\-/of\-/the\-/art solving
+  algorithms for the \emph{Learning With Errors} (LWE) problem.%
 }
 
 \addsec{Honors and Achievements}
@@ -272,8 +300,7 @@
   \href{http://summerschool-croatia.cs.ru.nl/2016/}{2016} and
   \href{http://summerschool-croatia.cs.ru.nl/2017/}{2017} editions of the Summer
   School on Real\-/World Crypto and Privacy held in Šibenik, Croatia.
-\item Dean's list at the \textsf{Faculty for Computer Science and Engineering}
-  throughout the entire duration of study.
+\item Dean's list at the \textsf{Faculty for Computer Science and Engineering}.
 \item Merit\-/based scholarships from the \textsf{Faculty of Computer Science
     and Engineering}, the \textsf{Ministry of Education and Science of
     Macedonia}, and the \textsf{Municipality of Delčevo}.
@@ -284,18 +311,17 @@
 \begingroup
 \setkomafont{labelinglabel}{\sffamily}
 \begin{labeling}[~--]{Document Preparation}
-\item[Programming] Fluent in: Python, R, Java, C/\CC, Bash,
+\item[Programming] Fluent in: Python, R, Scala, SQL, Bash,
   Mathematica\textsuperscript{\textregistered}.
 
-  Familiar with: Scala, SQL, Common Lisp, Emacs Lisp, Racket, Lua, Haskell,
-  Standard ML, JavaScript.
+  Familiar with: Java, C/\CC, Lua, various Lisps, Haskell, Standard ML.
 \item[Operating Systems] GNU/Linux (Arch Linux and Debian).
 \item[Text Editors/IDEs] GNU Emacs and IntelliJ IDEA\@.
 \item[Document Preparation] \Hologo{(La)TeX}.
 \item[Version Control] Git.
-\item[Miscellaneous] Proficient using: the Elastic Stack (Elasticsearch, Kibana,
-  Logstash, and Beat), Apache Spark, HDFS, Ansible, NGINX, and the Apache HTTP
-  Server.
+\item[Miscellaneous] The SciPy stack, scikit\=/learn, Keras, Scrapy,
+  \textsc{SageMath}, mlr, tidyverse, JAGS, Apache Spark, HDFS, the Elastic
+  stack, Ansible, and NGINX\@.
 \end{labeling}
 \endgroup
 
