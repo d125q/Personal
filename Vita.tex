@@ -142,6 +142,7 @@
 %
 
 \newcommand*{\Institution}{\textsc}
+\newcommand*{\Description}{\textit}
 
 \newcommand*{\EducationEntry}[8]{%
   \noindent%
@@ -150,7 +151,7 @@
     >{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}%
     }
     \Institution{#2} & \Verb+#1+ \\
-    \textit{#4} & #3 \\
+    \Description{#4} & #3 \\
     GPA of \num[round-mode=places, round-precision=2,
     round-integer-to-decimal]{#5}, on a scale from #6 to #7 & \\
     \multicolumn{2}{p{\textwidth-2\tabcolsep}}%
@@ -173,7 +174,7 @@
     >{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}%
     }
     \Institution{#2} & \Verb+#1+ \\
-    \textit{#3} & \\
+    \Description{#3} & \\
     \multicolumn{2}{p{\textwidth-2\tabcolsep}}%
     {%
     \begin{addmargin}{3em}
