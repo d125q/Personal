@@ -12,8 +12,12 @@
 \usepackage{varwidth}%
 \usepackage{relsize}%
 
+% KOMA-Script
+\usepackage{scrdate}%
+\usepackage{scrlayer-scrpage}%
+
 % Patching
-\usepackage{xpatch}
+\usepackage{xpatch}%
 
 % Mathematics
 \usepackage{mathtools}%
@@ -143,6 +147,10 @@
 
 \newcommand*{\Institution}{\textsc}
 \newcommand*{\Description}{\textit}
+\newcommand*{\ISODate}{\texttt}
+
+\rofoot{Typeset on \ISODate{\ISOToday}}%
+\pagestyle{scrheadings}%
 
 \newcommand*{\EducationEntry}[8]{%
   \noindent%
