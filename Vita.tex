@@ -141,13 +141,15 @@
 % Commands
 %
 
+\newcommand*{\Institution}{\textsc}
+
 \newcommand*{\EducationEntry}[8]{%
   \noindent%
   \begin{tabular}{%
     p{.7\textwidth-2\tabcolsep}
     >{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}%
     }
-    \textsf{#2} & \Verb+#1+ \\
+    \Institution{#2} & \Verb+#1+ \\
     \textit{#4} & #3 \\
     GPA of \num[round-mode=places, round-precision=2,
     round-integer-to-decimal]{#5}, on a scale from #6 to #7 & \\
@@ -170,7 +172,7 @@
     p{.7\textwidth-2\tabcolsep}%
     >{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}%
     }
-    \textsf{#2} & \Verb+#1+ \\
+    \Institution{#2} & \Verb+#1+ \\
     \textit{#3} & \\
     \multicolumn{2}{p{\textwidth-2\tabcolsep}}%
     {%
@@ -221,10 +223,9 @@
 }
 
 \begin{small}
-  \noindent Over \num{40} \textsf{Massive Open Online Courses} on topics related
-  to game theory, probabilistic graphical models, Bayesian statistics,
-  combinatorics, programming language theory, etc.  Certifications available
-  upon request.\par
+  \noindent Over \num{40} Massive Open Online Courses on topics related to game
+  theory, probabilistic graphical models, Bayesian statistics, combinatorics,
+  programming language theory, etc.  Certifications available upon request.\par
 \end{small}
 
 \addsec{Experience}
@@ -301,10 +302,11 @@
   \href{http://summerschool-croatia.cs.ru.nl/2016/}{2016} and
   \href{http://summerschool-croatia.cs.ru.nl/2017/}{2017} editions of the Summer
   School on Real\-/World Crypto and Privacy held in Šibenik, Croatia.
-\item Dean's list at the \textsf{Faculty for Computer Science and Engineering}.
-\item Merit\-/based scholarships from the \textsf{Faculty of Computer Science
-    and Engineering}, the \textsf{Ministry of Education and Science of
-    Macedonia}, and the \textsf{Municipality of Delčevo}.
+\item Dean's list at the \Institution{Faculty for Computer Science and
+    Engineering}.
+\item Merit\-/based scholarships from the \Institution{Faculty of Computer
+    Science and Engineering}, the \Institution{Ministry of Education and Science
+    of Macedonia}, and the \Institution{Municipality of Delčevo}.
 \end{itemize}
 
 \addsec{Computational Skills}
