@@ -27,9 +27,11 @@
 \usepackage[warnings-off={mathtools-colon,
   mathtools-overbracket}]{unicode-math}%
 
-% Verbatim text and source code listings
+% Verbatim, colored boxes, and source code listings
 \usepackage{fancyvrb}%
-\usepackage[newfloat]{minted}%
+\usepackage{tcolorbox}%
+\usepackage[newfloat]{minted}
+\tcbuselibrary{many, minted}
 
 % Microtypography and quotations
 \usepackage[final, babel]{microtype}%
@@ -58,8 +60,8 @@
 \usepackage{hologo}%
 \newcommand*{\CC}{%
   C\nolinebreak%
-  \hspace{-.05em}\raisebox{.3ex}{\relsize{-2}{\textbf{+}}}\nolinebreak%
-  \hspace{-.10em}\raisebox{.3ex}{\relsize{-2}{\textbf{+}}}%
+  \hspace{-.05em}\raisebox{.3ex}{\relsize{-2}{+}}\nolinebreak%
+  \hspace{-.10em}\raisebox{.3ex}{\relsize{-2}{+}}%
 }%
 
 % Hyphens and dashes
@@ -136,6 +138,7 @@
 \hypersetup{%
   unicode,%
   breaklinks,%
+  colorlinks,%
   pdftitle={Curriculum vitae -- Dario Gjorgjevski},% chktex 8
   pdfauthor={Dario Gjorgjevski},%
   pdfsubject={Curriculum vitae}%
@@ -145,50 +148,59 @@
 % Commands
 %
 
-\newcommand*{\Institution}{\textsc}
-\newcommand*{\Description}{\textit}
-\newcommand*{\ISODate}{\texttt}
+\NewDocumentCommand{\Institution}{m}{\textsf{#1}}%
+\NewDocumentCommand{\Unit}{m}{\textit{#1}}
+\NewDocumentCommand{\ISODate}{m}{\texttt{#1}}%
+\NewDocumentCommand{\Rounded}{o m}{%
+  \num[round-mode=places, round-precision=\IfNoValueTF{#1}{2}{#1},
+  round-integer-to-decimal]{#2}%
+}%
 
 \rofoot{(Typeset on \ISODate{\ISOToday})}%
 \pagestyle{scrheadings}%
 
-\newcommand*{\EducationEntry}[8]{%
+\NewDocumentCommand{\EducationEntry}{m m m m m m m m m}{%
   \noindent%
   \begin{tabular}{%
-    p{.7\textwidth-2\tabcolsep}
+    p{.7\textwidth-2\tabcolsep}%
     >{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}%
-    }
-    \Institution{#2} & \ISODate{#1} \\
-    \Description{#4} & #3 \\
-    GPA of \num[round-mode=places, round-precision=2,
-    round-integer-to-decimal]{#5}, on a scale from #6 to #7 & \\
+    }%
+    \Institution{#2}                              & \ISODate{#1} \\
+    \Unit{#3}                                     & #4           \\
+    #5                                            & #6           \\
+    GPA of \Rounded{#7}, scale #8                 &              \\
     \multicolumn{2}{p{\textwidth-2\tabcolsep}}%
     {%
-    \begin{addmargin}{1em}
-      \begin{small}
-        #8\par
-      \end{small}
+    \begin{addmargin}{2em}
+      \small#9\par%
     \end{addmargin}%
-    }
+    }%
   \end{tabular}%
   \par%
 }
 
-\newcommand*{\WorkEntry}[4]{%
+% {Date}{Institution}[Unit]{Location}{Position}[Supervisors]{Description}
+\NewDocumentCommand{\WorkEntry}{m m o m m o m}{%
   \noindent%
   \begin{tabular}%
     {%
     p{.7\textwidth-2\tabcolsep}%
     >{\raggedleft\arraybackslash}p{.3\textwidth-2\tabcolsep}%
     }
-    \Institution{#2} & \ISODate{#1} \\
-    \Description{#3} & \\
+    \Institution{#2}          & \ISODate{#1} \\
+    \IfNoValueTF{#3}{%
+    #5                        & #4           \\
+    }{%
+    \Unit{#3}                 & #4           \\
+    #5                        &              \\
+    }
+    \IfNoValueF{#6}{%
+    Supervisors: #6           &              \\
+    }
     \multicolumn{2}{p{\textwidth-2\tabcolsep}}%
     {%
-    \begin{addmargin}{3em}
-      \begin{small}
-        #4\par
-      \end{small}
+    \begin{addmargin}{2em}
+      \small#7\par
     \end{addmargin}%
     }
   \end{tabular}%
@@ -203,7 +215,7 @@
 
 \begin{addmargin}{.2\textwidth}
   \begin{center}
-    \LARGE\bfseries Dario Gjorgjevski\par
+    \LARGE\bfseries Dario Gjorgjevski
   \end{center}
   \begin{flushleft}
     \begin{description}[noitemsep, leftmargin=*]
@@ -215,30 +227,52 @@
   \end{flushleft}
 \end{addmargin}
 
-\addsec{Education}
+\addsec{Education}\label{sec:education}
 
 \EducationEntry%
-{2013-09-15/2018-01-30}{Ss.\ Cyril and Methodius University}% chktex 8
-{Bachelor's degree}{Computer Science and Engineering}%
-{10}{5 (E/F)}{10 (A)}%
+{2013-09-15/2018-01-30}% chktex 8
+{\href{http://ukim.edu.mk/}{Ss.\ Cyril and Methodius University}}%
+{\href{https://finki.ukim.mk/}{Faculty of Computer Science and Engineering}}%
+{Skopje, Macedonia}%
+{Computer Science and Engineering}{Bachelor's degree}%
+{10}{from 5 (E/F) to 10 (A)}%
 {%
   Strong background in linear algebra, statistics, stochastic processes,
-  compilers, machine learning, and cryptography.  Bachelor's thesis on the topic
-  of code\-/based cryptography, titled \textquote{Error\-/Correcting Codes in
-    the Rank Metric (With Applications to Cryptography)} and supervised by
-  prof.\ Simona Samardjiska.%
+  compilers, machine learning, and cryptography.  Bachelor's thesis on
+  code\-/based cryptography, titled \textquote{Error\-/Correcting Codes in the
+    Rank Metric (With Applications to Cryptography)} and supervised by prof.\
+  Simona Samardjiska.%
 }
 
-\begin{small}
-  \noindent Over \num{40} Massive Open Online Courses on topics related to game
+\begin{tcolorbox}[size=fbox, fontupper=\small, fontlower=\footnotesize]
+  Over \num{40} \emph{Massive Open Online Courses} on topics related to game
   theory, probabilistic graphical models, Bayesian statistics, combinatorics,
-  programming language theory, etc.  Certifications available upon request.\par
-\end{small}
+  programming language theory, mathematical optimization, etc.%
+  \tcblower%
+  Certifications available at
+  \url{https://github.com/d125q/Personal/tree/master/Certifications}.
+\end{tcolorbox}
 
-\addsec{Experience}
+\addsec{Experience}\label{sec:experience}
 
 \WorkEntry%
-{2017-11-20/2018-06-15}{Infinite Analytics, Inc.}% chktex 8
+{2018-07-18/}% chktex 8
+{\href{https://www.so1.ai/en/}{Segment of One}}%
+{Berlin, Germany}%
+{Data Engineering}%
+{%
+  \begin{itemize}[noitemsep, leftmargin=*]
+  \item Modeling clients' business rules as \emph{minimum\-/cost flow} problems.
+  \item Developing internal ETL tools and processes; implementing
+    \emph{change data capture} for heterogeneous data sources.
+  \item Configuring, monitoring, and optimizing Vertica clusters and databases.
+  \end{itemize}
+}
+
+\WorkEntry%
+{2017-11-20/2018-06-15}% chktex 8
+{\href{http://infiniteanalytics.com/}{Infinite Analytics, Inc.}}%
+{Skopje, Macedonia}%
 {Data Science/Engineering}%
 {%
   \begin{itemize}[noitemsep, leftmargin=*]
@@ -247,8 +281,7 @@
   \item Dynamic configuration of upstreams with persistence across restarts in
     NGINX Plus.
   \item Acquisition, monitoring, analysis, and visualization of server
-    utilization data using Python, the Elastic stack, NGINX Plus, and Google
-    Stackdriver.
+    utilization data.
   \item Behavior\-/driven development of a Scala/Apache Spark program to compute
     and visualize \emph{customer insights} using over \num{2} billion facts
     about \num{50} million customers.
@@ -256,15 +289,19 @@
 }
 
 \WorkEntry%
-{2017-07-07/09-20}{École polytechnique fédérale de Lausanne (LCA2)}{% chktex 8
-  Research Internship\newline%
-  Supervisors: \href{https://people.epfl.ch/276750}{Jagdish Prasad Achara} and
-  \href{https://people.epfl.ch/jean-yves.leboudec}{prof.\ Jean\=/Yves Le
-    Boudec}%
-}{%
+{2017-07-07/09-20}% chktex 8
+{\href{https://epfl.ch/}{École polytechnique fédérale de Lausanne}}%
+[\href{http://lca.epfl.ch/}{Laboratory for Communications and Applications}]%
+{Lausanne, Switzerland}%
+{Research Internship}%
+[%
+\href{https://people.epfl.ch/276750}{Jagdish Prasad Achara} and
+\href{https://people.epfl.ch/jean-yves.leboudec}{prof.\ Jean\=/Yves Le Boudec}%
+]%
+{%
   \begin{itemize}[noitemsep, leftmargin=*]
-  \item Implementing new functionality and refactoring old code using
-    Python/Mininet in T\=/RECS, a \emph{Software \underline{T}estbed for
+  \item Implementing software agents (\mintinline{python}{asyncio}) and network
+    emulation (Mininet) in T\=/RECS, a \emph{Software \underline{T}estbed for
       Multi\-/Agent \underline{R}eal\-/Time Control of El\underline{ec}tric
       \underline{S}ystems}.
   \item Time series modeling of smart grid power traces at a timescale of
@@ -275,15 +312,17 @@
 }
 
 \WorkEntry%
-{2016-10/2017-02}{Ss.\ Cyril and Methodius University}{% chktex 8
-  Computer Laboratory Assistantship%
-}{%
+{2016-10/2017-02}% chktex 8
+{\href{http://ukim.edu.mk/}{Ss.\ Cyril and Methodius University}}%
+[\href{https://finki.ukim.mk/}{Faculty of Computer Science and Engineering}]%
+{Skopje, Macedonia}%
+{Computer Laboratory Assistantship}%
+{%
   Full responsibility for conducting computational exercises and homework
   assignments in:
   \begin{labeling}{Probability and Statistics}
   \item[Linear Algebra] Least squares, linear codes, and low\-/rank
-    approximations with Mathematica\textsuperscript{\textregistered} and
-    \textsc{SageMath}.
+    approximations with Mathematica and \textsc{SageMath}.
   \item[Probability and Statistics] Data visualization, Monte Carlo methods,
     statistical inference, hypothesis testing, and linear regression with R.
   \item[Databases] ER modeling, relational algebra, and ANSI SQL\@.
@@ -291,16 +330,21 @@
 }
 
 \WorkEntry%
-{2016-06-15/09-15}{École polytechnique fédérale de Lausanne (LASEC)}{%chktex 8
-  Research Internship\newline%
-  Supervisors: \href{https://lasec.epfl.ch/~bogos/}{Sonia Bogos} and
-  \href{https://lasec.epfl.ch/~vaudenay/}{prof.\ Serge Vaudenay}%
-}{%
+{2016-06-15/09-15}%chktex 8
+{\href{https://epfl.ch/}{École polytechnique fédérale de Lausanne}}%
+[\href{https://lasec.epfl.ch/}{Security and Cryptography Laboratory}]%
+{Lausanne, Switzerland}%
+{Research Internship}%
+[%
+\href{https://lasec.epfl.ch/~bogos/}{Sonia Bogos} and
+\href{https://lasec.epfl.ch/~vaudenay/}{prof.\ Serge Vaudenay}%
+]%
+{%
   Studying and improving upon the complexity of state\-/of\-/the\-/art solving
   algorithms for the \emph{Learning With Errors} (LWE) problem.%
 }
 
-\addsec{Honors and Achievements}
+\addsec{Honors and Achievements}\label{sec:honors-achievements}
 
 \begin{itemize}
 \item Best student paper at the \nth{14} International Conference on Informatics
@@ -310,38 +354,51 @@
   \href{http://summerschool-croatia.cs.ru.nl/2016/}{2016} and
   \href{http://summerschool-croatia.cs.ru.nl/2017/}{2017} editions of the Summer
   School on Real\-/World Crypto and Privacy held in Šibenik, Croatia.
-\item Dean's list at the \Institution{Faculty for Computer Science and
-    Engineering}.
-\item Merit\-/based scholarships from the \Institution{Faculty of Computer
-    Science and Engineering}, the \Institution{Ministry of Education and Science
-    of Macedonia}, and the \Institution{Municipality of Delčevo}.
+\item Dean's list at the Faculty for Computer Science and Engineering.
+\item Merit\-/based scholarships from the Faculty of Computer Science and
+  Engineering, the Ministry of Education and Science of Macedonia, and the
+  Municipality of Delčevo.
 \end{itemize}
 
-\addsec{Computational Skills}
+\addsec{Skills}\label{sec:skills}
+
+\subsection*{Programming and
+  Computation}\label{subsec:programming-computation}
 
 \begingroup
-\setkomafont{labelinglabel}{\sffamily}
-\begin{labeling}[~--]{Document Preparation}
-\item[Programming] Fluent in: Python, R, Scala, SQL, Bash,
-  Mathematica\textsuperscript{\textregistered}.
+\setkomafont{labelinglabel}{\itshape}%
+\begin{labeling}[~\==]{Academic exposure to}
+\item[Proficient with]
+  \begingroup
+  \setkomafont{labelinglabel}{\normalfont}
+  \begin{labeling}[~\==]{Python}
+  \item[Python] NumPy, SciPy, Pandas, scikit\=/learn, Keras, Scrapy, NetworkX.
+  \item[R] tidyverse, mlr, caret, interfaces to JAGS/Stan.
 
-  Familiar with: Java, C, \CC, Lua, various Lisps, Haskell, Standard ML\@.
-\item[Operating Systems] GNU/Linux (Arch Linux and Debian).
-\item[Text Editors/IDEs] GNU Emacs and IntelliJ IDEA\@.
-\item[Document Preparation] \Hologo{(La)TeX}.% chktex 36
-\item[Version Control] Git.
-\item[Miscellaneous] The SciPy stack, scikit\=/learn, Keras, Scrapy,
-  \textsc{SageMath}, mlr, tidyverse, JAGS, Apache Spark, HDFS, the Elastic
-  stack, Ansible, and NGINX\@.
+    Packages for time series analysis, network analysis, text mining.
+  \item[SQL] Vertica, PostgreSQL, Redshift.
+  \item[Shell] sh, Bash, Zsh.
+  \item[CAS] Mathematica, \textsc{SageMath}.
+  \item[(D)VCS] Git.%chktex 36
+  \end{labeling}
+  \endgroup
+\item[Familiar with] Scala, C, C++, Java.
+\item[Academic exposure to] various Lisps, Haskell, Standard ML\@.
 \end{labeling}
 \endgroup
+
+\subsection*{Document Preparation}\label{subsec:document-preparation}
+
+\begin{itemize}[leftmargin=*]
+\item \Hologo{(La)TeX}, Jupyter, Sweave/knitr, Wolfram Notebooks.%chktex 36
+\item Matplotlib, Ti\emph{k}Z/PGF, PSTricks, ggplot2, gnuplot, Graphviz.
+\end{itemize}
 
 \printbibliography[title=Publications]
 
 \end{document}
 
 %%% Local Variables:
-%%% fill-column: 80
 %%% TeX-command-extra-options: "-shell-escape"
 %%% TeX-engine: luatex
 %%% TeX-master: t
