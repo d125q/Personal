@@ -219,6 +219,9 @@ TSWLatexianTemp*
 auto/*
 *.el
 
+# reftex
+*.rel
+
 # expex forward references with \gathertags
 *-tags.tex
 
