@@ -58,7 +58,7 @@
 
 % Logos
 \usepackage{hologo}%
-\newcommand*{\CC}{%
+\NewDocumentCommand{\CC}{}{%
   C\nolinebreak%
   \hspace{-.05em}\raisebox{.3ex}{\relsize{-2}{+}}\nolinebreak%
   \hspace{-.10em}\raisebox{.3ex}{\relsize{-2}{+}}%
@@ -79,7 +79,7 @@
 \RedeclareSectionCommand[beforeskip=-.25\baselineskip]{section}%
 
 \makeatletter%
-\renewcommand*{\sectionlinesformat}[4]{%
+\RenewDocumentCommand{\sectionlinesformat}{m m m m}{%
   \ifstr{#1}{section}{%
     \parbox[t]{\linewidth}{%
       \raggedsection\@hangfrom{\hskip #2#3}{#4}\par%
@@ -129,7 +129,9 @@
 \mathtoolsset{mathic}%
 
 \sisetup{%
-  detect-all, detect-display-math, binary-units%
+  detect-all,%
+  detect-display-math,%
+  binary-units%
 }%
 
 \hypersetup{%
@@ -262,7 +264,8 @@
   \item Modeling clients' business rules as \emph{minimum\-/cost flow} problems.
   \item Developing internal ETL tools and processes; implementing
     \emph{change data capture} for heterogeneous data sources.
-  \item Configuring, monitoring, and optimizing Vertica clusters and databases.
+  \item Scaling of feature calculation and predictive analytics to
+    terabyte scale inside a Vertica cluster.
   \end{itemize}
 }
 
