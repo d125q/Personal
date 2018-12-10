@@ -1,0 +1,12 @@
+\ProvidesFile{supervisor.dbx}[2014/06/14 Supervisor field for theses]
+\RequireBiber[3]
+\DeclareDatamodelFields[type=list, datatype=name]{supervisor}
+\DeclareDatamodelEntryfields[thesis]{supervisor}
+
+%%% Local Variables:
+%%% fill-column: 80
+%%% mode: latex
+%%% TeX-command-extra-options: "-shell-escape"
+%%% TeX-engine: luatex
+%%% TeX-master: Vita
+%%% End:
