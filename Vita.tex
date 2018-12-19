@@ -180,7 +180,7 @@ datamodel=supervisor]{biblatex}%
   round-integer-to-decimal]{#2}%
 }%
 
-\rofoot{(Typeset on \ISODate{\ISOToday})}%
+\rofoot{\texttt{(Typeset on \ISOToday)}}%
 \pagestyle{scrheadings}%
 
 \NewDocumentCommand{\EducationEntry}{m m m m m m m m m}{%
@@ -237,19 +237,34 @@ datamodel=supervisor]{biblatex}%
 
 \begin{document}
 
-\begin{addmargin}{.2\textwidth}
-  \begin{center}
-    \LARGE\bfseries Dario Gjorgjevski
-  \end{center}
-  \begin{flushleft}
+\begin{center}\LARGE\bfseries
+  Dario Gjorgjevski
+\end{center}
+
+\begin{center}
+  \begin{minipage}[c]{.4\columnwidth}
     \begin{description}[noitemsep, leftmargin=*]
-    \item[\faHome] Kruševska \textnumero~21\hfill\textbullet\hfill 2320
-      Delčevo\hfill\textbullet\hfill Macedonia
-    \item[\faAddressCard] \href{mailto:dario.gjorgjevski@gmail.com}%
-      {\nolinkurl{dario.gjorgjevski@gmail.com}}\hfill (+389)~72~215~992
+    \item[\faInbox] \href{mailto:dario.gjorgjevski@gmail.com}%
+      {\nolinkurl{dario.gjorgjevski@gmail.com}}
+    \item[\faKey] \Verb+744A 4F0B 4F1C 9371+
+    \item[\faPhone] (+389)~70~784~142
     \end{description}
-  \end{flushleft}
-\end{addmargin}
+  \end{minipage}%
+  \begin{minipage}[c]{.3\columnwidth}
+    \begin{description}[noitemsep, leftmargin=*, widest=\faHome]
+    \item[\faHome] Kruševska \textnumero~21
+    \item 2320 Delčevo
+    \item Macedonia
+    \end{description}
+  \end{minipage}%
+  \begin{minipage}[c]{.3\columnwidth}
+    \begin{description}[noitemsep, leftmargin=*]
+    \item[\faGithub] \href{https://github.com/d125q}{\nolinkurl{d125q}}
+    \item[\faLinkedin] \href{https://www.linkedin.com/in/dario-gjorgjevski/}%
+      {\nolinkurl{dario-gjorgjevski}}
+    \end{description}
+  \end{minipage}
+\end{center}
 
 \addsec{Education}\label{sec:education}
 
@@ -262,8 +277,9 @@ datamodel=supervisor]{biblatex}%
 {10}{from 5 (E/F) to 10 (A)}%
 {%
   Strong background in linear algebra, statistics, stochastic processes,
-  compilers, machine learning, and cryptography.
-  \Autocites{Gjorgjevski:Combining_LWE-Solving_Algorithms,
+  compilers, machine learning, and cryptography.  Transcripts available upon
+  request.  Publications:
+  \autocites{Gjorgjevski:Combining_LWE-Solving_Algorithms,
     Gjorgjevski:ECC_in_the_Rank_Metric,
     Gjorgjevski:Using_Distributed_Representations}.%
 }
@@ -274,7 +290,8 @@ datamodel=supervisor]{biblatex}%
   programming language theory, mathematical optimization, etc.%
   \tcblower%
   Certifications available at
-  \url{https://github.com/d125q/Personal/tree/master/Certifications}.
+  \href{https://github.com/d125q/Personal/tree/master/Certifications}%
+  {\faGithub\,\nolinkurl{/Personal/tree/master/Certifications}}.
 \end{tcolorbox}
 
 \addsec{Experience}\label{sec:experience}
