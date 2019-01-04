@@ -1,4 +1,4 @@
-\documentclass[paper=A4, fontsize=11pt, DIV=12, toc=bibliography]{scrartcl}%
+\documentclass[version=last, fontsize=10pt, paper=A4, toc=bibliography]{scrartcl}%
 \directlua{pdf.setminorversion(7)}% chktex 36
 
 %
@@ -68,12 +68,10 @@ datamodel=supervisor]{biblatex}%
 
 \setromanfont{Libertinus Serif}%
 \setsansfont{Libertinus Sans}%
-\setmathfont{Libertinus Math}%
 \setmonofont[Scale=MatchLowercase]{Iosevka Type Slab}%
+\setmathfont{Libertinus Math}%
 \newfontfamily\scpfamily[Scale=MatchLowercase]{Source Code Pro}%
 \DeclareTextFontCommand{\textscp}{\scpfamily}%
-
-\RedeclareSectionCommand[beforeskip=0.75em plus 0.75pt]{section}%
 
 \makeatletter%
 \RenewDocumentCommand{\sectionlinesformat}{m m m m}{%
@@ -182,6 +180,7 @@ datamodel=supervisor]{biblatex}%
 
 \rofoot{\texttt{(Typeset on \ISOToday)}}%
 \pagestyle{scrheadings}%
+\KOMAoption{DIV}{last}%
 
 \NewDocumentCommand{\EducationEntry}{m m m m m m m m m}{%
   \noindent%
@@ -237,34 +236,35 @@ datamodel=supervisor]{biblatex}%
 
 \begin{document}
 
-\begin{center}\LARGE\bfseries
-  Dario Gjorgjevski
+\begin{center}
+  \huge\bfseries Dario Gjorgjevski
 \end{center}
 
-\begin{center}
-  \begin{minipage}[c]{.4\columnwidth}
-    \begin{description}[noitemsep, leftmargin=*]
-    \item[\faInbox] \href{mailto:dario.gjorgjevski@gmail.com}%
-      {\nolinkurl{dario.gjorgjevski@gmail.com}}
-    \item[\faKey] \Verb+744A 4F0B 4F1C 9371+
-    \item[\faPhone] (+389)~70~784~142
-    \end{description}
-  \end{minipage}%
-  \begin{minipage}[c]{.3\columnwidth}
-    \begin{description}[noitemsep, leftmargin=*, widest=\faHome]
-    \item[\faHome] Kruševska \textnumero~21
-    \item 2320 Delčevo
-    \item Macedonia
-    \end{description}
-  \end{minipage}%
-  \begin{minipage}[c]{.3\columnwidth}
-    \begin{description}[noitemsep, leftmargin=*]
-    \item[\faGithub] \href{https://github.com/d125q}{\nolinkurl{d125q}}
-    \item[\faLinkedin] \href{https://www.linkedin.com/in/dario-gjorgjevski/}%
-      {\nolinkurl{dario-gjorgjevski}}
-    \end{description}
-  \end{minipage}
-\end{center}
+\begin{minipage}[t]{.35\columnwidth}
+  \begin{description}[noitemsep, leftmargin=*, widest=\faInbox]
+  \item[\faInbox] \href{mailto:dario.gjorgjevski@gmail.com}%
+    {\nolinkurl{dario.gjorgjevski@gmail.com}}
+  \item[\faKey] \Verb+744A 4F0B 4F1C 9371+
+  \item[\faPhone] (+389)~70~784~142
+  \end{description}
+\end{minipage}
+\begin{minipage}[t]{.30\columnwidth}
+  \begin{description}[noitemsep, leftmargin=*, widest=\faHome]
+  \item[\faHome] Alfred\=/Jung\=/Straße 14
+  \item 10369 Berlin
+  \item Germany
+  \end{description}
+\end{minipage}%
+\begin{minipage}[t]{.30\columnwidth}
+  \begin{description}[noitemsep, leftmargin=*, widest=\faGithub]
+  \item[\faGithub] \href{https://github.com/d125q}{\nolinkurl{d125q}}
+  \item[\faStackExchange]
+    \href{https://stackexchange.com/users/3671527/d125q}%
+    {\nolinkurl{d125q}}
+  \item[\faLinkedin] \href{https://www.linkedin.com/in/dario-gjorgjevski/}%
+    {\nolinkurl{dario-gjorgjevski}}
+  \end{description}
+\end{minipage}
 
 \addsec{Education}\label{sec:education}
 
@@ -277,9 +277,8 @@ datamodel=supervisor]{biblatex}%
 {10}{from 5 (E/F) to 10 (A)}%
 {%
   Strong background in linear algebra, statistics, stochastic processes,
-  compilers, machine learning, and cryptography.  Transcripts available upon
-  request.  Publications:
-  \autocites{Gjorgjevski:Combining_LWE-Solving_Algorithms,
+  operations research, and cryptography.  Transcripts available upon request.
+  Publications: \autocites{Gjorgjevski:Combining_LWE-Solving_Algorithms,
     Gjorgjevski:ECC_in_the_Rank_Metric,
     Gjorgjevski:Using_Distributed_Representations}.%
 }
@@ -337,7 +336,7 @@ datamodel=supervisor]{biblatex}%
 {Lausanne, Switzerland}%
 {Research Internship}%
 [%
-\href{https://people.epfl.ch/276750}{Jagdish Prasad Achara} and
+\href{https://people.epfl.ch/276750}{Jagdish Achara} and
 \href{https://people.epfl.ch/jean-yves.leboudec}{prof.\ Jean\=/Yves Le Boudec}%
 ]%
 {%
@@ -364,7 +363,7 @@ datamodel=supervisor]{biblatex}%
   assignments in:
   \begin{labeling}{Probability and Statistics}
   \item[Linear Algebra] Least squares, linear codes, and low\-/rank
-    approximations with Mathematica and \textsc{SageMath}.
+    approximations with Mathematica\textregistered{} and \textsc{SageMath}.
   \item[Probability and Statistics] Data visualization, Monte Carlo methods,
     statistical inference, hypothesis testing, and linear regression with R.
   \item[Databases] ER modeling, relational algebra, and ANSI SQL\@.
@@ -421,7 +420,7 @@ datamodel=supervisor]{biblatex}%
     Packages for time series analysis, network analysis, text mining.
   \item[SQL] Vertica, PostgreSQL, Redshift.
   \item[Shell] sh, Bash, Zsh.
-  \item[CAS] Mathematica, \textsc{SageMath}.
+  \item[CAS] Mathematica\textregistered, \textsc{SageMath}.
   \item[(D)VCS] Git.%chktex 36
   \end{labeling}
   \endgroup
