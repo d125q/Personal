@@ -218,9 +218,9 @@
     \PrintInstitution{#2}                   & #4             \\
     GPA of \PrintRounded{#5}; scale #6.     &                \\
     \multicolumn{2}{M{2}{2}}{%
-    \IfValueT{#7}{\raggedright Thesis: \citetitle{#7}~\autocite{#7}.\par}%
-    \IfValueT{#8}{\raggedright Publications: \autocites{#8}.\par}%
-    \IfValueT{#9}{\raggedright #9\par}%
+    \IfValueT{#7}{Thesis: \citetitle{#7}~\autocite{#7}.\par}%
+    \IfValueT{#8}{Publications: \autocites{#8}.\par}%
+    \IfValueT{#9}{#9\par}%
     }%
   \end{tabularx}%
   \par%
