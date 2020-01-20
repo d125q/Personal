@@ -272,6 +272,7 @@
   \medskip%
   {\DancingFamily\Large Curriculum vitæ\par}%
   \medskip%
+  \begingroup%
   \renewcommand*{\arraystretch}{1.5}
   \begin{tabularx}{\textwidth}{P{1.25} P{1.20} P{0.55}}
     \PrintInfo{\faAt}{\GmailURL{dario.gjorgjevski}}
@@ -285,7 +286,8 @@
       \PrintInfo{\faKey}{\inputminted{shell-session}{PublicKey.shell-session}}
     &
       \SEFlair{3671527}{Pictures/d125q-SE-Flair.png}
-  \end{tabularx}
+  \end{tabularx}%
+  \endgroup
 \end{minipage}%
 \noindent%
 \begin{minipage}[t]{.25\textwidth}
