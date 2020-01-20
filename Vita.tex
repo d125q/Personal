@@ -19,26 +19,35 @@
 \RequirePackage{titlesec}
 
 \RequirePackage{mathtools}%
+\mathtoolsset{mathic}
+
 \RequirePackage{amsthm}%
 \RequirePackage[ruled,longend]{algorithm2e}%
-\RequirePackage{prftree}%
+\RequirePackage{prftree}
+
 \RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{%
   unicode-math%
 }%
+\unimathsetup{bold-style=ISO,math-style=ISO}%
 \setmathfont{Libertinus Math}
 
 \RequirePackage{adjustbox}%
 \RequirePackage{graphicx}%
-\RequirePackage{tikz}
+
+\RequirePackage{tikz}%
+\usetikzlibrary{calc,fit,positioning}
 
 \RequirePackage{fancyvrb}%
-\RequirePackage[newfloat]{minted}%
-\RequirePackage{tcolorbox}
+\RequirePackage[newfloat]{minted}
+
+\RequirePackage{tcolorbox}%
+\tcbuselibrary{most,minted}
 
 \RequirePackage[final,babel]{microtype}%
 \RequirePackage[style=american,autostyle,autopunct,strict]{csquotes}
 
-\RequirePackage{siunitx}
+\RequirePackage{siunitx}%
+\sisetup{detect-all,detect-display-math,binary-units}
 
 \RequirePackage[inline]{enumitem}
 
@@ -47,18 +56,28 @@
 \RequirePackage{tabularx}
 
 \RequirePackage{hyperref}%
+\hypersetup{%
+  unicode,%
+  breaklinks,%
+  colorlinks,%
+  pdftitle={Dario Gjorgjevski’s curriculum vitæ},%
+  pdfauthor={Dario Gjorgjevski},%
+  pdfsubject={Curriculum vitæ}%
+}
+
 \RequirePackage{cleveref}
 
 \RequirePackage[style=numeric,backend=biber,datamodel=supervisor]{%
   biblatex%
-}
+}%
+\addbibresource{Theses_and_Publications.bib}
 
 \RequirePackage{hologo}%
 \RequirePackage[country=DE]{phonenumbers}%
 \RequirePackage[shortcuts]{extdash}
 
 %
-% Setup
+% Font families
 %
 
 \newfontfamily\LSFamily[Scale=MatchUppercase]{Libertinus Sans}%
@@ -70,6 +89,10 @@
 \newfontfamily\DancingFamily[Scale=MatchLowercase]{Dancing Script}%
 \DeclareTextFontCommand{\TextDancing}{\DancingFamily}
 
+%
+% Titling and bibliography
+%
+
 \def\sectionfont{\Large\sffamily\bfseries}%
 \titleformat{\section}{\sectionfont}{\thesection}{1em}{}[\titlerule]%
 \titlespacing{\section}{0pt}{*2.5}{*1.5}
@@ -78,22 +101,6 @@
 \titleformat{\subsection}{\subsectionfont}{\thesubsection}{1em}{}%
 \titlespacing{\subsection}{0pt}{*1.75}{*1.25}
 
-\unimathsetup{math-style=ISO,bold-style=ISO}%
-\mathtoolsset{mathic}%
-\sisetup{detect-all,detect-display-math,binary-units}%
-\usetikzlibrary{calc,fit,positioning}%
-\tcbuselibrary{most,minted}
-
-\hypersetup{%
-  unicode,%
-  breaklinks,%
-  colorlinks,%
-  pdftitle={Dario Gjorgjevski’s curriculum vitæ},%
-  pdfauthor={Dario Gjorgjevski},%
-  pdfsubject={Curriculum vitæ}%
-}
-
-\addbibresource{Theses_and_Publications.bib}%
 \AtBeginBibliography{\small}%
 \newbibmacro*{name:bold}[2]{%
   \def\do##1{%
@@ -140,7 +147,7 @@
 }{}{}
 
 %
-% Commands
+% Commands and column types
 %
 
 \NewDocumentCommand{\PrintInfo}{m m}{%
@@ -254,7 +261,7 @@
 }
 
 %
-% Document
+% Main content
 %
 
 \begin{document}%
