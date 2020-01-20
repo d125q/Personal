@@ -6,7 +6,11 @@
 %
 
 \RequirePackage{fontspec}%
-\RequirePackage{fontawesome5}%
+\setromanfont{Libertinus Serif}%
+\setsansfont{Libertinus Sans}%
+\setmonofont[Scale=MatchLowercase]{Fira Code}%
+\RequirePackage{fontawesome5}
+
 \RequirePackage[american]{babel}
 
 \RequirePackage{xpatch}
@@ -20,7 +24,8 @@
 \RequirePackage{prftree}%
 \RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{%
   unicode-math%
-}
+}%
+\setmathfont{Libertinus Math}
 
 \RequirePackage{adjustbox}%
 \RequirePackage{graphicx}%
@@ -166,6 +171,13 @@
   round-precision=\IfNoValueTF{#1}{2}{#1}%
   ]{#2}%
 }%
+\NewDocumentCommand{\PrintInteger}{m}{%
+  \num[%
+  round-mode=places,%
+  round-precision=0,%
+  zero-decimal-to-integer
+  ]{#1}%
+}%
 \NewDocumentCommand{\GmailURL}{m}{%
   \href{mailto:#1@gmail.com}{\nolinkurl{#1@gmail.com}}
 }%
@@ -216,11 +228,11 @@
   \begin{tabularx}{\linewidth}{P{1.25} R{0.75}}
     \PrintDegree{#1}                        & \PrintDate{#3} \\
     \PrintInstitution{#2}                   & #4             \\
-    GPA of \PrintRounded{#5}; scale #6.     &                \\
     \multicolumn{2}{M{2}{2}}{%
-    \IfValueT{#7}{Thesis: \citetitle{#7}~\autocite{#7}.\par}%
-    \IfValueT{#8}{Publications: \autocites{#8}.\par}%
-    \IfValueT{#9}{#9\par}%
+    \IfValueT{#7}{Thesis: \citetitle{#7}~\autocite{#7}.}%
+    \IfValueT{#8}{\par Publications: \autocites{#8}.\par}%
+    GPA of \PrintRounded{#5}; scale #6.%
+    \IfValueT{#9}{\par #9}%
     }%
   \end{tabularx}%
   \par%
@@ -529,8 +541,8 @@
   Gjorgjevski_Gjorgjevikj:Using_Distributed_Representations%
   ]%
   [%
-  As a senior, conducted computational exercises and examinations as well as
-  homework assignments in:
+  Earned \PrintInteger{240} ECTS credits.  As a senior, conducted computational
+  exercises and examinations as well as homework assignments in:
   \begin{description}%
     [leftmargin=*,widest=Linear Algebra,font=\normalfont\itshape]
   \item[Linear Algebra] Least squares, linear codes, and low\-/rank
