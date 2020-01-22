@@ -233,8 +233,8 @@
 \NewDocumentCommand{\EducationEntry}{m m m m m m o o o}{%
   \noindent%
   \begin{tabularx}{\linewidth}{P{1.25} R{0.75}}
-    \PrintDegree{#1}                        & \PrintDate{#3} \\
-    \PrintInstitution{#2}                   & #4             \\
+    \PrintDegree{#1}                        & Class of #3 \\
+    \PrintInstitution{#2}                   & #4          \\
     \multicolumn{2}{M{2}{2}}{%
     \IfValueT{#7}{Thesis: \citetitle{#7}~\autocite{#7}.}%
     \IfValueT{#8}{\par Publications: \autocites{#8}.\par}%
@@ -540,7 +540,7 @@
   \EducationEntry%
   {Computer Science \& Engineering (B.Sc.)}%
   {\href{http://ukim.edu.mk/}{Ss.\ Cyril and Methodius University}}%
-  {2013-09-15/2018-01-30}% chktex 8
+  {2017}%
   {Skopje, MK}%
   {10}%
   {from 5 (E/F) to 10 (A)}%
