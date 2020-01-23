@@ -80,14 +80,14 @@
 % Font families
 %
 
-\newfontfamily\LSFamily[Scale=MatchUppercase]{Libertinus Sans}%
-\DeclareTextFontCommand{\TextLS}{\LSFamily}
+\newfontfamily\LSBSCFamily%
+[Scale=MatchUppercase,Letters=SmallCaps,LetterSpace=3.0]%
+{LibertinusSans-Bold.otf}
 
 \newfontfamily\SCPFamily[Scale=MatchLowercase]{Source Code Pro}%
 \DeclareTextFontCommand{\TextSCP}{\SCPFamily}
 
-\newfontfamily\DancingFamily[Scale=MatchLowercase]{Dancing Script}%
-\DeclareTextFontCommand{\TextDancing}{\DancingFamily}
+\newfontfamily\DSFamily[Scale=MatchLowercase]{Dancing Script}
 
 %
 % Titling and bibliography
@@ -104,7 +104,7 @@
 \AtBeginBibliography{\small}%
 \newbibmacro*{name:bold}[2]{%
   \def\do##1{%
-    \iffieldequalstr{hash}{##1}{\LSFamily\scshape\bfseries\listbreak}{}%
+    \iffieldequalstr{hash}{##1}{\LSBSCFamily\listbreak}{}%
   }%
   \dolistloop{\boldnames}%
 }%
@@ -268,9 +268,9 @@
 \pagestyle{empty}
 \noindent%
 \begin{minipage}[c]{0.75\textwidth}
-  {\LSFamily\scshape\bfseries\Huge Dario Gjorgjevski\par}%
+  {\LSBSCFamily\Huge Dario Gjorgjevski\par}%
   \medskip%
-  {\DancingFamily\Large Curriculum vitæ\par}%
+  {\DSFamily\Large Curriculum vitæ\par}%
   \medskip%
   \begingroup%
   \renewcommand*{\arraystretch}{1.5}
