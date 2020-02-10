@@ -226,7 +226,7 @@ Scale=MatchLowercase,%
   ]{#1}%
 }%
 \NewDocumentCommand{\GmailURL}{m}{%
-  \href{mailto:#1@gmail.com}{\nolinkurl{#1@gmail.com}}
+  \href{mailto:#1@gmail.com}{\nolinkurl{#1@gmail.com}}%
 }%
 \NewDocumentCommand{\GitHubURL}{o m}{%
   \faGithub\href{https://github.com/\IfValueT{#1}{#1/}#2}{\nolinkurl{/#2}}%
