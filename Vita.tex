@@ -1,5 +1,18 @@
-\documentclass[11pt,letterpaper]{article}%
+\documentclass[%
+version=last,%
+fontsize=11pt,%
+paper=A4,%
+headinclude=false,%
+footinclude=false,%
+headlines=0,%
+footlines=0,%
+areasetadvanced,%
+toc=bibnumbered,%
+]{scrartcl}%
 \directlua{pdf.setminorversion(7)}% chktex 36
+\areaset{19.5cm}{27cm}%
+\setparsizes{0pt}{0pt}{0pt plus 1fil}%
+\pagestyle{empty}
 
 %
 % Packages
@@ -9,97 +22,124 @@
 \setmainfont{Libertinus Serif}%
 \setsansfont{Libertinus Sans}%
 \setmonofont[Scale=MatchLowercase]{Fira Code}%
-\RequirePackage{fontawesome5}
-
+\RequirePackage{fontawesome5}%
 \RequirePackage[american]{babel}
 
 \RequirePackage{xpatch}
 
-\RequirePackage[margin=1cm,noheadfoot,nomarginpar]{geometry}%
-\RequirePackage{titlesec}
-
 \RequirePackage{mathtools}%
-\mathtoolsset{mathic}
-
 \RequirePackage{amsthm}%
 \RequirePackage[ruled,longend]{algorithm2e}%
-\RequirePackage{prftree}
-
-\RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{%
-  unicode-math%
+\RequirePackage{prftree}%
+\RequirePackage[newfloat]{minted}%
+\RequirePackage[warnings-off={
+  mathtools-colon,%
+  mathtools-overbracket,%
+}]{unicode-math}%
+\mathtoolsset{mathic}%
+\unimathsetup{%
+  math-style=ISO,%
+  bold-style=ISO,%
 }%
-\unimathsetup{bold-style=ISO,math-style=ISO}%
 \setmathfont{Libertinus Math}
 
 \RequirePackage{adjustbox}%
-\RequirePackage{graphicx}%
-
 \RequirePackage{tikz}%
-\usetikzlibrary{calc,fit,positioning}
-
-\RequirePackage{fancyvrb}%
-\RequirePackage[newfloat]{minted}
-
 \RequirePackage{tcolorbox}%
-\tcbuselibrary{most,minted}
+\usetikzlibrary{%
+  calc,%
+  fit,%
+  positioning,%
+}%
+\tcbuselibrary{%
+  most,%
+  minted,%
+}
 
-\RequirePackage[final,babel]{microtype}%
-\RequirePackage[style=american,autostyle,autopunct,strict]{csquotes}
+\RequirePackage[%
+final,%
+babel,%
+]{microtype}%
+\RequirePackage[%
+style=american,%
+autostyle,%
+autopunct,%
+strict,%
+]{csquotes}
 
-\RequirePackage{siunitx}%
-\sisetup{detect-all,detect-display-math,binary-units}
-
-\RequirePackage[inline]{enumitem}
-
+\RequirePackage[%
+inline,%
+]{enumitem}%
 \RequirePackage{array}%
 \RequirePackage{booktabs}%
 \RequirePackage{tabularx}
 
+\RequirePackage{siunitx}%
+\RequirePackage[%
+country=DE,%
+]{phonenumbers}%
+\RequirePackage[%
+shortcuts,%
+]{extdash}%
+\sisetup{%
+  detect-all,%
+  detect-display-math,%
+  binary-units%,
+}
+
 \RequirePackage{hyperref}%
+\RequirePackage{cleveref}%
 \hypersetup{%
   unicode,%
   breaklinks,%
   colorlinks,%
   pdftitle={Dario Gjorgjevski’s curriculum vitæ},%
   pdfauthor={Dario Gjorgjevski},%
-  pdfsubject={Curriculum vitæ}%
+  pdfsubject={Curriculum vitæ},%
 }
 
-\RequirePackage{cleveref}
-
-\RequirePackage[style=numeric,backend=biber,datamodel=supervisor]{%
-  biblatex%
-}%
+\RequirePackage[%
+style=numeric,
+backend=biber,%
+datamodel=supervisor,%
+]{biblatex}%
 \addbibresource{Theses_and_Publications.bib}
-
-\RequirePackage{hologo}%
-\RequirePackage[country=DE]{phonenumbers}%
-\RequirePackage[shortcuts]{extdash}
 
 %
 % Font families
 %
 
-\newfontfamily\LSBSCFamily%
-[Scale=MatchUppercase,Letters=SmallCaps,LetterSpace=3.0]%
-{LibertinusSans-Bold.otf}
+\newfontfamily\LSBSCFamily[
+Scale=MatchUppercase,%
+Letters=SmallCaps,%
+LetterSpace=3.0,%
+]{LibertinusSans-Bold.otf}
 
-\newfontfamily\SCPFamily[Scale=MatchLowercase]{Source Code Pro}%
+\newfontfamily\SCPFamily[%
+Scale=MatchLowercase,%
+]{Source Code Pro}%
 \DeclareTextFontCommand{\TextSCP}{\SCPFamily}
 
-\newfontfamily\DSFamily[Scale=MatchLowercase]{Dancing Script}
+\newfontfamily\DSFamily[%
+Scale=MatchLowercase,%
+]{Dancing Script}
 
 %
 % Titling and bibliography
 %
 
-\def\sectionfont{\Large\sffamily\bfseries}%
-\titleformat{\section}{\sectionfont}{\thesection}{1em}{}[\titlerule]%
-\titlespacing{\section}{0pt}{*2.5}{*1.5}
-
-\def\subsectionfont{\large\sffamily\bfseries}%
-\titleformat{\subsection}{\subsectionfont}{\thesubsection}{1em}{}%
-\titlespacing{\subsection}{0pt}{*1.75}{*1.25}
+\makeatletter%
+\renewcommand{\sectionlinesformat}[4]{%
+  \ifstr{#1}{section}{%
+    \parbox[t]{\linewidth}{%
+      \raggedsection\@hangfrom{\hskip #2#3}{#4}\par%
+      \kern-.75\ht\strutbox\rule{\linewidth}{.75pt}%
+    }%
+  }{%
+    \@hangfrom{\hskip #2#3}{#4}%
+  }%
+}
+\makeatother
 
 \AtBeginBibliography{\small}%
 \newbibmacro*{name:bold}[2]{%
@@ -152,11 +192,11 @@
 
 \NewDocumentCommand{\PrintInfo}{m m}{%
   \begin{adjustbox}{valign=m,minipage=.1\linewidth}
-    \textnormal{#1}%
+    \textnormal{#1}
   \end{adjustbox}%
   \hfill%
   \begin{adjustbox}{valign=m,minipage=.9\linewidth}
-    #2%
+    #2
   \end{adjustbox}%
 }%
 \NewDocumentCommand{\PrintISODate}{m}{%
@@ -175,14 +215,14 @@
   \num[%
   round-mode=places,%
   round-integer-to-decimal,%
-  round-precision=\IfNoValueTF{#1}{2}{#1}%
+  round-precision=\IfNoValueTF{#1}{2}{#1},%
   ]{#2}%
 }%
 \NewDocumentCommand{\PrintInteger}{m}{%
   \num[%
   round-mode=places,%
   round-precision=0,%
-  zero-decimal-to-integer
+  zero-decimal-to-integer,%
   ]{#1}%
 }%
 \NewDocumentCommand{\GmailURL}{m}{%
@@ -195,7 +235,7 @@
   \begin{adjustbox}{valign=m,minipage=\linewidth}
     \href{https://stackexchange.com/users/#1}{%
       \adjustimage{frame=1pt,width=\linewidth}{#2}%
-    }%
+    }
   \end{adjustbox}%
 }
 
@@ -231,7 +271,7 @@
 % 8. Citation keys for other publications (optional)
 % 9. Remaining notes                      (optional)
 \NewDocumentCommand{\EducationEntry}{m m m m m m o o o}{%
-  \noindent%
+  \par%
   \begin{tabularx}{\linewidth}{P{1.35} R{0.65}}
     \PrintDegree{#1}                        & Class of #3 \\
     \PrintInstitution{#2}                   & #4          \\
@@ -240,7 +280,7 @@
     \IfValueT{#8}{\par Publications: \autocites{#8}.\par}%
     GPA of \PrintRounded{#5}; scale #6.%
     \IfValueT{#9}{\par #9}%
-    }%
+    }
   \end{tabularx}%
   \par%
 }
@@ -251,7 +291,7 @@
 % 4. Location
 % 5. Description
 \NewDocumentCommand{\WorkEntry}{m m m m m}{%
-  \noindent%
+  \par%
   \begin{tabularx}{\linewidth}{P{1.25} R{0.75}}
     \PrintPosition{#1}        & \PrintISODate{#3}    \\
     \PrintInstitution{#2}     & #4                   \\
@@ -265,8 +305,6 @@
 %
 
 \begin{document}%
-\pagestyle{empty}
-\noindent%
 \begin{minipage}[c]{0.75\textwidth}
   {\LSBSCFamily\Huge Dario Gjorgjevski\par}%
   \medskip%
@@ -289,7 +327,7 @@
   \end{tabularx}%
   \endgroup
 \end{minipage}%
-\noindent%
+\hfill%
 \begin{minipage}[t]{.25\textwidth}
   \center%
   \begin{tikzpicture}[baseline=(Dario.center)]
@@ -300,7 +338,6 @@
   \end{tikzpicture}
 \end{minipage}
 
-\noindent%
 \begin{minipage}[t]{0.575\textwidth}
   \section{Experience}%
   \label{sec:experience}
@@ -452,7 +489,6 @@
   }%
 \end{minipage}%
 \hfill%
-\noindent%
 \begin{minipage}[t]{.4\textwidth}
   \section{Strengths}%
   \label{sec:strengths}
@@ -533,7 +569,6 @@
   \end{itemize}
 \end{minipage}
 
-\noindent%
 \begin{minipage}[t]{.575\textwidth}
   \section{Education}%
   \label{sec:education}
@@ -572,11 +607,10 @@
     \GitHubURL[d125q]{Personal/tree/master/Certifications}.
   \end{tcolorbox}
 
-  \printbibliography[type=thesis,title=Theses,heading=bibnumbered]
-  \printbibliography[nottype=thesis,title=Publications,heading=bibnumbered]%
+  \printbibliography[type=thesis,title=Theses]%
+  \printbibliography[nottype=thesis,title=Publications]
 \end{minipage}%
 \hfill%
-\noindent%
 \begin{minipage}[t]{.4\textwidth}
   \section{Projects}%
   \label{sec:projects}
