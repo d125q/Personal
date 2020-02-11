@@ -109,11 +109,16 @@ datamodel=supervisor,%
 % Font families
 %
 
-\newfontfamily\LSBSCFamily[
-Scale=MatchUppercase,%
-Letters=SmallCaps,%
+\newfontfamily\SpacedLSFamily[%
 LetterSpace=3.0,%
-]{LibertinusSans-Bold.otf}
+]{Libertinus Sans}%
+\NewDocumentCommand{\NameFont}{}{\bfseries\scshape\SpacedLSFamily}%
+\DeclareTextFontCommand{\PrintName}{\NameFont}
+
+\DeclareTextFontCommand{\PrintISODate}{\ttfamily}%
+\DeclareTextFontCommand{\PrintInstitution}{\sffamily}%
+\DeclareTextFontCommand{\PrintDegree}{\bfseries\sffamily}%
+\DeclareTextFontCommand{\PrintPosition}{\bfseries\sffamily}
 
 \newfontfamily\SCPFamily[%
 Scale=MatchLowercase,%
@@ -122,7 +127,8 @@ Scale=MatchLowercase,%
 
 \newfontfamily\DSFamily[%
 Scale=MatchLowercase,%
-]{Dancing Script}
+]{Dancing Script}%
+\DeclareTextFontCommand{\TextDS}{\DSFamily}
 
 %
 % Titling and bibliography
@@ -144,7 +150,7 @@ Scale=MatchLowercase,%
 \AtBeginBibliography{\small}%
 \newbibmacro*{name:bold}[2]{%
   \def\do##1{%
-    \iffieldequalstr{hash}{##1}{\LSBSCFamily\listbreak}{}%
+    \iffieldequalstr{hash}{##1}{\NameFont\listbreak}{}%
   }%
   \dolistloop{\boldnames}%
 }%
@@ -190,27 +196,6 @@ Scale=MatchLowercase,%
 % Commands and column types
 %
 
-\NewDocumentCommand{\PrintInfo}{m m}{%
-  \begin{adjustbox}{valign=m,minipage=.1\linewidth}
-    \textnormal{#1}
-  \end{adjustbox}%
-  \hfill%
-  \begin{adjustbox}{valign=m,minipage=.9\linewidth}
-    #2
-  \end{adjustbox}%
-}%
-\NewDocumentCommand{\PrintISODate}{m}{%
-  \texttt{#1}%
-}%
-\NewDocumentCommand{\PrintInstitution}{m}{%
-  \textsf{#1}%
-}%
-\NewDocumentCommand{\PrintDegree}{m}{%
-  \textsf{\textbf{#1}}%
-}%
-\NewDocumentCommand{\PrintPosition}{m}{%
-  \textsf{\textbf{#1}}%
-}%
 \NewDocumentCommand{\PrintRounded}{o m}{%
   \num[%
   round-mode=places,%
@@ -224,6 +209,15 @@ Scale=MatchLowercase,%
   round-precision=0,%
   zero-decimal-to-integer,%
   ]{#1}%
+}%
+\NewDocumentCommand{\PrintInfo}{m m}{%
+  \begin{adjustbox}{valign=m,minipage=.1\linewidth}
+    \textnormal{#1}
+  \end{adjustbox}%
+  \hfill%
+  \begin{adjustbox}{valign=m,minipage=.9\linewidth}
+    #2
+  \end{adjustbox}%
 }%
 \NewDocumentCommand{\GmailURL}{m}{%
   \href{mailto:#1@gmail.com}{\nolinkurl{#1@gmail.com}}%
@@ -306,9 +300,9 @@ Scale=MatchLowercase,%
 
 \begin{document}%
 \begin{minipage}[c]{0.75\textwidth}
-  {\LSBSCFamily\Huge Dario Gjorgjevski\par}%
+  {\Huge\PrintName{Dario Gjorgjevski}\par}%
   \medskip%
-  {\DSFamily\Large Curriculum vitæ\par}%
+  {\Large\TextDS{Curriculum vitæ}\par}%
   \medskip%
   \begingroup%
   \renewcommand*{\arraystretch}{1.5}
@@ -361,7 +355,7 @@ Scale=MatchLowercase,%
       fontlower=\footnotesize,%
       halign title=center,%
       halign upper=center,%
-      halign lower=center%
+      halign lower=center,%
     }%
     \begin{adjustbox}{valign=m,minipage=.25\linewidth}
       \begin{tcolorbox}[title=Nakadi,remember as=Kafka,width=\linewidth]
@@ -378,9 +372,13 @@ Scale=MatchLowercase,%
       \begin{tikzpicture}%
         [overlay,remember picture]
         \node[%
-        draw,rectangle,thick,dotted,%
-        fit=(Spark),inner sep=8pt,%
-        label={\footnotesize Apache Airflow}%
+        draw,%
+        rectangle,%
+        thick,%
+        dotted,%
+        fit=(Spark),%
+        inner sep=8pt,%
+        label={\footnotesize Apache Airflow},%
         ] (Scheduling) {};
       \end{tikzpicture}
     \end{adjustbox}%
@@ -412,9 +410,13 @@ Scale=MatchLowercase,%
         \draw[->] (Presto) to (S3);
         \draw[->] (Spark.north east) to[out=20,in=160] (Exasol.north west);
         \node[%
-        draw,rectangle,thick,dotted,%
-        fit=(Exasol) (Presto),inner sep=8pt,%
-        label={\footnotesize Reporting}%
+        draw,%
+        rectangle,%
+        thick,%
+        dotted,%
+        fit=(Exasol) (Presto),%
+        inner sep=8pt,%
+        label={\footnotesize Reporting},%
         ] (Reporting) {};
       \end{tikzpicture}
     \end{adjustbox}%
@@ -502,7 +504,7 @@ Scale=MatchLowercase,%
     valign=center,%
     on line,%
     rounded corners,%
-    colframe=black%
+    colframe=black,%
     ]
     \tcbitem{}Algorithms, Data Structures%
     \tcbitem{}Probability Theory, Statistics%
@@ -526,7 +528,7 @@ Scale=MatchLowercase,%
     valign=center,%
     on line,%
     rounded corners,%
-    colframe=black%
+    colframe=black,%
     ]
     \tcbitem{}Python%
     \tcbitem{}GNU/Linux%
@@ -582,7 +584,7 @@ Scale=MatchLowercase,%
   [Gjorgjevski:ECC_in_the_Rank_Metric]%
   [%
   Gjorgjevski:Combining_LWE-Solving_Algorithms,%
-  Gjorgjevski_Gjorgjevikj:Using_Distributed_Representations%
+  Gjorgjevski_Gjorgjevikj:Using_Distributed_Representations,%
   ]%
   [%
   Earned \PrintInteger{240} ECTS credits.  As a senior, conducted computational
@@ -628,8 +630,9 @@ Scale=MatchLowercase,%
   \item[Predicting readmission of diabetic patients]
     \begin{itemize}%
       [%
-      nosep,leftmargin=*,%
-      before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax}%
+      nosep,
+      leftmargin=*,%
+      before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
       ]
     \item Learning from imbalanced data using \mintinline{R}{mlr}.
     \item \emph{Fully reproducible reporting} using \mintinline{R}{knitr}.
@@ -647,8 +650,9 @@ Scale=MatchLowercase,%
   \item[Substitution ciphers for Macedonian text]
     \begin{itemize}%
       [%
-      nosep,leftmargin=*,%
-      before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax}%
+      nosep,
+      leftmargin=*,%
+      before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
       ]
     \item Create substitution ciphers; and
     \item Break substitution ciphers using Markov chain Monte Carlo (MCMC)
