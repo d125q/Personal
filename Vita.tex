@@ -14,9 +14,7 @@ toc=bibnumbered,%
 \setparsizes{0pt}{0pt}{0pt plus 1fil}%
 \pagestyle{empty}
 
-%
-% Packages
-%
+%% Packages
 
 \RequirePackage{fontspec}%
 \setmainfont{Libertinus Serif}%
@@ -105,9 +103,7 @@ datamodel=supervisor,%
 ]{biblatex}%
 \addbibresource{Theses_and_Publications.bib}
 
-%
-% Font families
-%
+%% Configuration
 
 \newfontfamily\SpacedLSFamily[%
 LetterSpace=3.0,%
@@ -129,10 +125,6 @@ Scale=MatchLowercase,%
 Scale=MatchLowercase,%
 ]{Dancing Script}%
 \DeclareTextFontCommand{\TextDS}{\DSFamily}
-
-%
-% Titling and bibliography
-%
 
 \makeatletter%
 \renewcommand{\sectionlinesformat}[4]{%
@@ -191,10 +183,6 @@ Scale=MatchLowercase,%
   \newunit%
   \usebibmacro{thesissupervisor}%
 }{}{}
-
-%
-% Commands and column types
-%
 
 \NewDocumentCommand{\PrintRounded}{o m}{%
   \num[%
@@ -255,6 +243,27 @@ Scale=MatchLowercase,%
   }X%
 }
 
+\newadjustboxenv{minipagebox}[2][0]{%
+  valign=m,%
+  minipage={#2},%
+  margin=0 0 0 {#1},%
+}
+
+\NewDocumentEnvironment{UniformTCBItems}{m}{%
+  \begin{tcbitemize}[%
+  raster columns={#1},%
+  raster equal height=rows,%
+  size=fbox,%
+  halign=flush left,%
+  valign=center,%
+  on line,%
+  rounded corners,%
+  colframe=black,%
+  ]%
+}{%
+  \end{tcbitemize}%
+}
+
 % 1. Degree
 % 2. Institution
 % 3. Date
@@ -294,9 +303,7 @@ Scale=MatchLowercase,%
   \par%
 }
 
-%
-% Main content
-%
+%% Document
 
 \begin{document}%
 \begin{minipage}[c]{0.75\textwidth}
@@ -357,20 +364,19 @@ Scale=MatchLowercase,%
       halign upper=center,%
       halign lower=center,%
     }%
-    \begin{adjustbox}{valign=m,minipage=.25\linewidth}
-      \begin{tcolorbox}[title=Nakadi,remember as=Kafka,width=\linewidth]
+    \begin{minipagebox}{.225\linewidth}
+      \begin{tcolorbox}[title=Nakadi,remember as=Kafka]
         Apache Kafka%
         \tcblower%
-        JSON events
+        \texttt{.json.gz} events
       \end{tcolorbox}
-    \end{adjustbox}%
+    \end{minipagebox}%
     \hfill%
-    \begin{adjustbox}{valign=m,minipage=.25\linewidth,margin=0 0 0 16pt}
-      \begin{tcolorbox}[title=Databricks,remember as=Spark,width=\linewidth]
+    \begin{minipagebox}[16pt]{.25\linewidth}
+      \begin{tcolorbox}[title={Databricks on Amazon AWS},remember as=Spark]
         Apache Spark™
       \end{tcolorbox}%
-      \begin{tikzpicture}%
-        [overlay,remember picture]
+      \begin{tikzpicture}[overlay,remember picture]
         \node[%
         draw,%
         rectangle,%
@@ -381,24 +387,24 @@ Scale=MatchLowercase,%
         label={\footnotesize Apache Airflow},%
         ] (Scheduling) {};
       \end{tikzpicture}
-    \end{adjustbox}%
+    \end{minipagebox}%
     \hfill%
-    \begin{adjustbox}{valign=m,minipage=.2\linewidth}
-      \begin{tcolorbox}[remember as=Oracle,width=\linewidth]
+    \begin{minipagebox}{.2\linewidth}
+      \begin{tcolorbox}[remember as=Oracle]
         Oracle DWH
       \end{tcolorbox}%
-      \newline%
-      \begin{tcolorbox}[remember as=S3,width=\linewidth]
+      \\%
+      \begin{tcolorbox}[remember as=S3]
         Amazon S3
       \end{tcolorbox}%
-    \end{adjustbox}%
+    \end{minipagebox}%
     \hfill%
-    \begin{adjustbox}{valign=m,minipage=.15\linewidth,margin=0 0 0 16pt}
-      \begin{tcolorbox}[remember as=Exasol,width=\linewidth]
+    \begin{minipagebox}[16pt]{.15\linewidth}
+      \begin{tcolorbox}[remember as=Exasol]
         Exasol
       \end{tcolorbox}%
-      \newline%
-      \begin{tcolorbox}[remember as=Presto,width=\linewidth]
+      \\%
+      \begin{tcolorbox}[remember as=Presto]
         Presto
       \end{tcolorbox}%
       \begin{tikzpicture}%
@@ -407,7 +413,7 @@ Scale=MatchLowercase,%
         \draw[->] (Spark) to (Oracle);
         \draw[->] (Spark) to (S3);
         \draw[->] (Oracle) to (Exasol);
-        \draw[->] (Presto) to (S3);
+        \draw[<->] (Presto) to (S3);
         \draw[->] (Spark.north east) to[out=20,in=160] (Exasol.north west);
         \node[%
         draw,%
@@ -419,8 +425,8 @@ Scale=MatchLowercase,%
         label={\footnotesize Reporting},%
         ] (Reporting) {};
       \end{tikzpicture}
-    \end{adjustbox}%
-    \medskip
+    \end{minipagebox}%
+    \vspace{\baselineskip}
   }
 
   \WorkEntry%
@@ -496,23 +502,14 @@ Scale=MatchLowercase,%
   \label{sec:strengths}
   \subsection{Theoretical Knowledge}%
   \label{sec:theoretical-knowledge}
-  \begin{tcbitemize}[%
-    raster columns=2,%
-    raster equal height=rows,%
-    size=fbox,%
-    halign=flush left,%
-    valign=center,%
-    on line,%
-    rounded corners,%
-    colframe=black,%
-    ]
+  \begin{UniformTCBItems}{2}
     \tcbitem{}Algorithms, Data Structures%
     \tcbitem{}Probability Theory, Statistics%
     \tcbitem{}Databases%
     \tcbitem{}Distributed Systems, Big Data Technologies%
     \tcbitem{}Linear Algebra%
     \tcbitem{}Cryptography
-  \end{tcbitemize}
+  \end{UniformTCBItems}
 
   \subsection{%
     \texorpdfstring%
@@ -520,16 +517,7 @@ Scale=MatchLowercase,%
     {Hands-On Experience}%
   }%
   \label{sec:hands-on-experience}
-  \begin{tcbitemize}[%
-    raster columns=2,%
-    raster equal height=rows,%
-    size=fbox,%
-    halign=flush left,%
-    valign=center,%
-    on line,%
-    rounded corners,%
-    colframe=black,%
-    ]
+  \begin{UniformTCBItems}{2}
     \tcbitem{}Python%
     \tcbitem{}GNU/Linux%
     \tcbitem{}SQL incl.\ PL/SQL, Apache Spark™%
@@ -538,7 +526,7 @@ Scale=MatchLowercase,%
     \tcbitem{}Apache Airflow%
     \tcbitem{}Computer Algebra%
     \tcbitem{}\LaTeX{} incl.\ Ti\emph{k}Z/PGF
-  \end{tcbitemize}
+  \end{UniformTCBItems}
 
   \begingroup%
   \small%
