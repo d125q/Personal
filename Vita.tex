@@ -347,85 +347,88 @@ Scale=MatchLowercase,%
   {2019-09/}% chktex 8
   {Berlin, DE}%
   {%
-    Part of the team handling Zalando SE’s \emph{core data}: articles and
-    sales.%
-    \medskip%
-    \newline%
-    \tcbset{%
-      enhanced,%
-      size=fbox,%
-      on line,%
-      box align=center,%
-      fonttitle=\small,%
-      fontupper=\small,%
-      fontlower=\footnotesize,%
-      halign title=center,%
-      halign upper=center,%
-      halign lower=center,%
-    }%
-    \begin{minipagebox}{.225\linewidth}
-      \begin{tcolorbox}[title=Nakadi,remember as=Kafka]
-        Apache Kafka%
-        \tcblower%
-        \texttt{.json.gz} events
-      \end{tcolorbox}
-    \end{minipagebox}%
-    \hfill%
-    \begin{minipagebox}[16pt]{.25\linewidth}
-      \begin{tcolorbox}[title={Databricks on Amazon AWS},remember as=Spark]
-        Apache Spark™
-      \end{tcolorbox}%
-      \begin{tikzpicture}[overlay,remember picture]
-        \node[%
-        draw,%
-        rectangle,%
-        thick,%
-        dotted,%
-        fit=(Spark),%
-        inner sep=8pt,%
-        label={\footnotesize Apache Airflow},%
-        ] (Scheduling) {};
-      \end{tikzpicture}
-    \end{minipagebox}%
-    \hfill%
-    \begin{minipagebox}{.2\linewidth}
-      \begin{tcolorbox}[remember as=Oracle]
-        Oracle DWH
-      \end{tcolorbox}%
-      \\%
-      \begin{tcolorbox}[remember as=S3]
-        Amazon S3
-      \end{tcolorbox}%
-    \end{minipagebox}%
-    \hfill%
-    \begin{minipagebox}[16pt]{.15\linewidth}
-      \begin{tcolorbox}[remember as=Exasol]
-        Exasol
-      \end{tcolorbox}%
-      \\%
-      \begin{tcolorbox}[remember as=Presto]
-        Presto
-      \end{tcolorbox}%
-      \begin{tikzpicture}%
-        [overlay,remember picture,>=stealth,shorten >=2pt,shorten <=2pt]
-        \draw[->] (Kafka) to (Spark);
-        \draw[->] (Spark) to (Oracle);
-        \draw[->] (Spark) to (S3);
-        \draw[->] (Oracle) to (Exasol);
-        \draw[<->] (Presto) to (S3);
-        \draw[->] (Spark.north east) to[out=20,in=160] (Exasol.north west);
-        \node[%
-        draw,%
-        rectangle,%
-        thick,%
-        dotted,%
-        fit=(Exasol) (Presto),%
-        inner sep=8pt,%
-        label={\footnotesize Reporting},%
-        ] (Reporting) {};
-      \end{tikzpicture}
-    \end{minipagebox}%
-    \vspace{\baselineskip}
+    \begin{minipage}{\linewidth}
+      Part of the team handling Zalando SE’s \emph{core data}: articles and
+      sales.%
+    \end{minipage}
+    \vskip0.75\baselineskip%
+    \begin{minipage}{\linewidth}
+      \tcbset{%
+        enhanced,%
+        size=fbox,%
+        on line,%
+        box align=center,%
+        fonttitle=\small,%
+        fontupper=\small,%
+        fontlower=\footnotesize,%
+        halign title=center,%
+        halign upper=center,%
+        halign lower=center,%
+      }%
+      \begin{minipagebox}{.225\linewidth}
+        \begin{tcolorbox}[title=Nakadi,remember as=Kafka]
+          Apache Kafka%
+          \tcblower%
+          \texttt{.json.gz} events
+        \end{tcolorbox}
+      \end{minipagebox}%
+      \hfill%
+      \begin{minipagebox}[16pt]{.25\linewidth}
+        \begin{tcolorbox}[title={Databricks on Amazon AWS},remember as=Spark]
+          Apache Spark™
+        \end{tcolorbox}%
+        \begin{tikzpicture}[overlay,remember picture]
+          \node[%
+          draw,%
+          rectangle,%
+          thick,%
+          dotted,%
+          fit=(Spark),%
+          inner sep=8pt,%
+          label={[align=center,scale=0.75]Apache Airflow},%
+          ] (Scheduling) {};
+        \end{tikzpicture}
+      \end{minipagebox}%
+      \hfill%
+      \begin{minipagebox}{.2\linewidth}
+        \begin{tcolorbox}[remember as=Oracle]
+          Oracle DWH
+        \end{tcolorbox}%
+        \\%
+        \begin{tcolorbox}[remember as=S3]
+          Amazon S3
+        \end{tcolorbox}%
+      \end{minipagebox}%
+      \hfill%
+      \begin{minipagebox}[16pt]{.15\linewidth}
+        \begin{tcolorbox}[remember as=Exasol]
+          Exasol
+        \end{tcolorbox}%
+        \\%
+        \begin{tcolorbox}[remember as=Presto]
+          Presto
+        \end{tcolorbox}%
+        \begin{tikzpicture}%
+          [overlay,remember picture,>=stealth,shorten >=2pt,shorten <=2pt]
+          \draw[->] (Kafka) to (Spark);
+          \draw[->] (Spark) to (Oracle);
+          \draw[->] (Spark) to (S3);
+          \draw[->] (Oracle) to (Exasol);
+          \draw[<->] (Presto) to (S3);
+          \draw[->] (Spark.north east) to[out=20,in=160] (Exasol.north west);
+          \node[%
+          draw,%
+          rectangle,%
+          thick,%
+          dotted,%
+          fit=(Exasol) (Presto),%
+          inner sep=8pt,%
+          label={[align=center,scale=0.75]Apache Superset\\MicroStrategy},%
+          ] (Reporting) {};
+        \end{tikzpicture}
+      \end{minipagebox}%
+    \end{minipage}
+    \vskip0.75\baselineskip%
   }
 
   \WorkEntry%
