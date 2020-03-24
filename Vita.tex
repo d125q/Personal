@@ -347,12 +347,17 @@ Scale=MatchLowercase,%
   {2019-09/}% chktex 8
   {Berlin, DE}%
   {%
-    \begin{minipage}{\linewidth}
-      Part of the team handling Zalando SE’s \emph{core data}: articles and
-      sales.%
-    \end{minipage}
-    \vskip0.75\baselineskip%
-    \begin{minipage}{\linewidth}
+    \begin{itemize}[%
+      topsep=0pt,%
+      before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
+      label={},%
+      labelsep*=0pt,%
+      itemindent=0pt,%
+      leftmargin=*,%
+      ]
+    \item Part of the team handling Zalando SE’s \emph{core data}: articles and
+      sales.
+    \item
       \tcbset{%
         enhanced,%
         size=fbox,%
@@ -426,9 +431,8 @@ Scale=MatchLowercase,%
           label={[align=center,scale=0.75]Apache Superset\\MicroStrategy},%
           ] (Reporting) {};
         \end{tikzpicture}
-      \end{minipagebox}%
-    \end{minipage}
-    \vskip0.75\baselineskip%
+      \end{minipagebox}
+    \end{itemize}
   }
 
   \WorkEntry%
@@ -621,9 +625,8 @@ Scale=MatchLowercase,%
     and targeted attacks on the Internet topology.  Jupyter Notebook and source
     code available at \GitHubURL[d125q]{Internet_Robustness}.
   \item[Predicting readmission of diabetic patients]
-    \begin{itemize}%
-      [%
-      nosep,
+    \begin{itemize}[%
+      nosep,%
       leftmargin=*,%
       before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
       ]
@@ -641,9 +644,8 @@ Scale=MatchLowercase,%
     payloads stored on an LPC1769 microcontroller.  Won prize for highest
     throughput.  Source code available at \GitHubURL[d125q]{DMA_Workshop}.
   \item[Substitution ciphers for Macedonian text]
-    \begin{itemize}%
-      [%
-      nosep,
+    \begin{itemize}[%
+      nosep,%
       leftmargin=*,%
       before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
       ]
