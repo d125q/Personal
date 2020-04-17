@@ -383,15 +383,9 @@ Scale=MatchLowercase,%
           Apache Spark™
         \end{tcolorbox}%
         \begin{tikzpicture}[overlay,remember picture]
-          \node[%
-          draw,%
-          rectangle,%
-          thick,%
-          dotted,%
-          fit=(Spark),%
-          inner sep=8pt,%
-          label={[align=center,scale=0.75]Apache Airflow},%
-          ] (Scheduling) {};
+          \node[draw,rectangle,thick,dotted,fit=(Spark),%
+          inner sep=6pt,%
+          label={[align=center,scale=0.75]Apache Airflow},] (Scheduling) {};
         \end{tikzpicture}
       \end{minipagebox}%
       \hfill%
@@ -420,16 +414,14 @@ Scale=MatchLowercase,%
           \draw[->] (Spark) to (S3);
           \draw[->] (Oracle) to (Exasol);
           \draw[<->] (Presto) to (S3);
+          \draw[->] (S3.south) to[out=-160,in=-20]%
+          node[near start,below right=-2pt and -2pt,scale=0.75]%
+          {Amazon SNS/SQS} (Spark.south);
           \draw[->] (Spark.north east) to[out=20,in=160] (Exasol.north west);
-          \node[%
-          draw,%
-          rectangle,%
-          thick,%
-          dotted,%
-          fit=(Exasol) (Presto),%
-          inner sep=8pt,%
-          label={[align=center,scale=0.75]Apache Superset\\MicroStrategy},%
-          ] (Reporting) {};
+          \node[draw,rectangle,thick,dotted,fit=(Exasol) (Presto),%
+          inner sep=6pt,%
+          label={[align=center,scale=0.75]Apache Superset\\MicroStrategy},]%
+          (Reporting) {};
         \end{tikzpicture}
       \end{minipagebox}
     \end{itemize}
