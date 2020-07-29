@@ -9,122 +9,11 @@ footlines=0,%
 areasetadvanced,%
 toc=bibnumbered,%
 ]{scrartcl}%
+
 \directlua{pdf.setminorversion(7)}% chktex 36
 \areaset{19.5cm}{27cm}%
 \setparsizes{0pt}{0pt}{0pt plus 1fil}%
-\pagestyle{empty}
-
-%% Packages
-
-\RequirePackage{fontspec}%
-\setmainfont{Libertinus Serif}%
-\setsansfont{Libertinus Sans}%
-\setmonofont[Scale=MatchLowercase]{Fira Code}%
-\RequirePackage{fontawesome5}%
-\RequirePackage[american]{babel}
-
-\RequirePackage{xpatch}
-
-\RequirePackage{mathtools}%
-\RequirePackage{amsthm}%
-\RequirePackage[ruled,longend]{algorithm2e}%
-\RequirePackage{prftree}%
-\RequirePackage[newfloat]{minted}%
-\RequirePackage[warnings-off={
-  mathtools-colon,%
-  mathtools-overbracket,%
-}]{unicode-math}%
-\mathtoolsset{mathic}%
-\unimathsetup{%
-  math-style=ISO,%
-  bold-style=ISO,%
-}%
-\setmathfont{Libertinus Math}
-
-\RequirePackage{adjustbox}%
-\RequirePackage{tikz}%
-\RequirePackage{tcolorbox}%
-\usetikzlibrary{%
-  calc,%
-  fit,%
-  positioning,%
-}%
-\tcbuselibrary{%
-  most,%
-  minted,%
-}
-
-\RequirePackage[%
-final,%
-babel,%
-]{microtype}%
-\RequirePackage[%
-style=american,%
-autostyle,%
-autopunct,%
-strict,%
-]{csquotes}
-
-\RequirePackage[%
-inline,%
-]{enumitem}%
-\RequirePackage{array}%
-\RequirePackage{booktabs}%
-\RequirePackage{tabularx}
-
-\RequirePackage{siunitx}%
-\RequirePackage[%
-country=DE,%
-]{phonenumbers}%
-\RequirePackage[%
-shortcuts,%
-]{extdash}%
-\sisetup{%
-  detect-all,%
-  detect-display-math,%
-  binary-units,%
-}
-
-\RequirePackage{hyperref}%
-\RequirePackage{cleveref}%
-\hypersetup{%
-  unicode,%
-  breaklinks,%
-  colorlinks,%
-  pdftitle={Dario Gjorgjevski’s curriculum vitæ},%
-  pdfauthor={Dario Gjorgjevski},%
-  pdfsubject={Curriculum vitæ},%
-}
-
-\RequirePackage[%
-style=numeric,
-backend=biber,%
-datamodel=supervisor,%
-]{biblatex}%
-\addbibresource{Theses_and_Publications.bib}
-
-%% Configuration
-
-\newfontfamily\SpacedLSFamily[%
-LetterSpace=3.0,%
-]{Libertinus Sans}%
-\NewDocumentCommand{\NameFont}{}{\bfseries\scshape\SpacedLSFamily}%
-\DeclareTextFontCommand{\PrintName}{\NameFont}
-
-\DeclareTextFontCommand{\PrintISODate}{\ttfamily}%
-\DeclareTextFontCommand{\PrintInstitution}{\sffamily}%
-\DeclareTextFontCommand{\PrintDegree}{\bfseries\sffamily}%
-\DeclareTextFontCommand{\PrintPosition}{\bfseries\sffamily}
-
-\newfontfamily\SCPFamily[%
-Scale=MatchLowercase,%
-]{Source Code Pro}%
-\DeclareTextFontCommand{\TextSCP}{\SCPFamily}
-
-\newfontfamily\DSFamily[%
-Scale=MatchLowercase,%
-]{Dancing Script}%
-\DeclareTextFontCommand{\TextDS}{\DSFamily}
+\pagestyle{empty}%
 
 \makeatletter%
 \renewcommand{\sectionlinesformat}[4]{%
@@ -136,10 +25,195 @@ Scale=MatchLowercase,%
   }{%
     \@hangfrom{\hskip #2#3}{#4}%
   }%
+}%
+\makeatother%
+
+\RequirePackage{xpatch}%
+
+\RequirePackage{fontspec}%
+\RequirePackage{fontawesome5}%
+
+\setmainfont{Libertinus Serif}%
+\setsansfont{Libertinus Sans}%
+\setmonofont[Scale=MatchLowercase]{Fira Code}%
+
+\newfontfamily\SpacedLSFamily[LetterSpace=3.0]{Libertinus Sans}%
+\NewDocumentCommand{\NameFont}{}{\bfseries\scshape\SpacedLSFamily}%
+\DeclareTextFontCommand{\PrintName}{\NameFont}%
+
+\DeclareTextFontCommand{\PrintISODate}{\ttfamily}%
+\DeclareTextFontCommand{\PrintInstitution}{\sffamily}%
+\DeclareTextFontCommand{\PrintDegree}{\bfseries\sffamily}%
+\DeclareTextFontCommand{\PrintPosition}{\bfseries\sffamily}%
+
+\newfontfamily\SCPFamily[Scale=MatchLowercase]{Source Code Pro}%
+\DeclareTextFontCommand{\TextSCP}{\SCPFamily}%
+
+\newfontfamily\DSFamily[Scale=MatchLowercase]{Dancing Script}%
+\DeclareTextFontCommand{\TextDS}{\DSFamily}%
+
+\RequirePackage{mathtools}%
+\RequirePackage{amsthm}%
+\RequirePackage[ruled,longend]{algorithm2e}%
+\RequirePackage{prftree}%
+\RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{%
+  unicode-math%
+}%
+\mathtoolsset{mathic}%
+\unimathsetup{math-style=ISO,bold-style=ISO}%
+\setmathfont{Libertinus Math}%
+
+\RequirePackage[newfloat]{minted}%
+
+\RequirePackage{graphicx}%
+\RequirePackage{tikz}%
+\usetikzlibrary{calc,fit,positioning}%
+
+\RequirePackage[american]{babel}%
+\RequirePackage[style=american,autostyle,autopunct,strict]{csquotes}%
+\RequirePackage[country=DE]{phonenumbers}%
+\RequirePackage[shortcuts]{extdash}%
+
+\RequirePackage[final,babel]{microtype}%
+
+\RequirePackage{array}%
+\RequirePackage[inline]{enumitem}%
+\RequirePackage{booktabs}%
+\RequirePackage{tabularx}%
+
+\newcolumntype{P}[1]{%
+  >{%
+    \hsize=\dimexpr#1\hsize\relax%
+    \linewidth=\dimexpr\hsize\relax%
+    \arraybackslash%
+  }X%
+}%
+\newcolumntype{M}[2]{%
+  >{%
+    \hsize=\dimexpr#1\hsize+#2\tabcolsep\relax%
+    \linewidth=\dimexpr\hsize\relax%
+    \arraybackslash%
+  }X%
+}%
+\newcolumntype{R}[1]{%
+  >{%
+    \hsize=\dimexpr#1\hsize\relax%
+    \linewidth=\dimexpr\hsize\relax%
+    \raggedleft\arraybackslash%
+  }X%
+}%
+
+\NewDocumentEnvironment{citemize}{o}{%
+  \IfValueTF{#1}{%
+    \begin{itemize}[nosep,leftmargin=*,#1]% chktex 15
+  }{%
+    \begin{itemize}[nosep,leftmargin=*]% chktex 15
+  }%
+}{%
+  \end{itemize}%
+}%
+
+\NewDocumentEnvironment{vcitemize}{o}{%
+  \IfValueTF{#1}{%
+    \begin{itemize}[nosep,leftmargin=*,% chktex 15
+    before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
+    #1]%
+  }{%
+    \begin{itemize}[nosep,leftmargin=*,% chktex 15
+    before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax}]%
+  }%
+}{%
+  \end{itemize}%
 }
-\makeatother
+
+\RequirePackage{siunitx}%
+\sisetup{detect-all,detect-display-math,binary-units}%
+
+\NewDocumentCommand{\PrintRounded}{o m}{%
+  \num[%
+  round-mode=places,%
+  round-integer-to-decimal,%
+  round-precision=\IfNoValueTF{#1}{2}{#1},%
+  ]{#2}%
+}%
+\NewDocumentCommand{\PrintInteger}{m}{%
+  \num[%
+  round-mode=places,%
+  round-precision=0,%
+  zero-decimal-to-integer,%
+  ]{#1}%
+}%
+
+\RequirePackage{adjustbox}%
+\RequirePackage{tcolorbox}%
+\tcbuselibrary{most,minted}%
+
+\NewDocumentCommand{\PrintInfo}{m m}{%
+  \begin{adjustbox}{valign=m,minipage=.1\linewidth}
+    \textnormal{#1}
+  \end{adjustbox}%
+  \hfill%
+  \begin{adjustbox}{valign=m,minipage=.9\linewidth}
+    #2
+  \end{adjustbox}%
+}%
+
+\newadjustboxenv{minipagebox}[2][0]{%
+  valign=m,%
+  minipage={#2},%
+  margin=0 0 0 {#1},%
+}%
+
+\NewDocumentEnvironment{UniformTCBRaster}{m}{%
+  \begin{tcbraster}[%
+  raster columns={#1},%
+  raster every box/.style={%
+    size=fbox,%
+    rounded corners,%
+    halign=flush left,%
+    valign=center,%
+  },%
+  ]%
+}{%
+  \end{tcbraster}%
+}%
+
+\NewDocumentEnvironment{TCBItems}{}{%
+  \begin{tcolorbox}\begin{citemize}%
+}{%
+  \end{citemize}\end{tcolorbox}%
+}%
+
+\RequirePackage{hyperref}%
+\RequirePackage{cleveref}%
+\hypersetup{%
+  unicode,%
+  breaklinks,%
+  colorlinks,%
+  pdftitle={Dario Gjorgjevski’s curriculum vitæ},%
+  pdfauthor={Dario Gjorgjevski},%
+  pdfsubject={Curriculum vitæ},%
+}%
+
+\NewDocumentCommand{\GmailURL}{m}{%
+  \href{mailto:#1@gmail.com}{\nolinkurl{#1@gmail.com}}%
+}%
+\NewDocumentCommand{\GitHubURL}{o m}{%
+  \faGithub\href{https://github.com/\IfValueT{#1}{#1/}#2}{\nolinkurl{/#2}}%
+}%
+\NewDocumentCommand{\SEFlair}{m m}{%
+  \begin{adjustbox}{valign=m,minipage=\linewidth}
+    \href{https://stackexchange.com/users/#1}{%
+      \adjustimage{frame=1pt,width=\linewidth}{#2}%
+    }
+  \end{adjustbox}%
+}%
+
+\RequirePackage[style=numeric,backend=biber,datamodel=supervisor]{biblatex}%
+\addbibresource{Theses_and_Publications.bib}%
 
 \AtBeginBibliography{\small}%
+
 \newbibmacro*{name:bold}[2]{%
   \def\do##1{%
     \iffieldequalstr{hash}{##1}{\NameFont\listbreak}{}%
@@ -182,86 +256,7 @@ Scale=MatchLowercase,%
   \printfield{type}%
   \newunit%
   \usebibmacro{thesissupervisor}%
-}{}{}
-
-\NewDocumentCommand{\PrintRounded}{o m}{%
-  \num[%
-  round-mode=places,%
-  round-integer-to-decimal,%
-  round-precision=\IfNoValueTF{#1}{2}{#1},%
-  ]{#2}%
-}%
-\NewDocumentCommand{\PrintInteger}{m}{%
-  \num[%
-  round-mode=places,%
-  round-precision=0,%
-  zero-decimal-to-integer,%
-  ]{#1}%
-}%
-\NewDocumentCommand{\PrintInfo}{m m}{%
-  \begin{adjustbox}{valign=m,minipage=.1\linewidth}
-    \textnormal{#1}
-  \end{adjustbox}%
-  \hfill%
-  \begin{adjustbox}{valign=m,minipage=.9\linewidth}
-    #2
-  \end{adjustbox}%
-}%
-\NewDocumentCommand{\GmailURL}{m}{%
-  \href{mailto:#1@gmail.com}{\nolinkurl{#1@gmail.com}}%
-}%
-\NewDocumentCommand{\GitHubURL}{o m}{%
-  \faGithub\href{https://github.com/\IfValueT{#1}{#1/}#2}{\nolinkurl{/#2}}%
-}%
-\NewDocumentCommand{\SEFlair}{m m}{%
-  \begin{adjustbox}{valign=m,minipage=\linewidth}
-    \href{https://stackexchange.com/users/#1}{%
-      \adjustimage{frame=1pt,width=\linewidth}{#2}%
-    }
-  \end{adjustbox}%
-}
-
-\newcolumntype{P}[1]{%
-  >{%
-    \hsize=\dimexpr#1\hsize\relax%
-    \linewidth=\dimexpr\hsize\relax%
-    \arraybackslash%
-  }X%
-}%
-\newcolumntype{M}[2]{%
-  >{%
-    \hsize=\dimexpr#1\hsize+#2\tabcolsep\relax%
-    \linewidth=\dimexpr\hsize\relax%
-    \arraybackslash%
-  }X%
-}%
-\newcolumntype{R}[1]{%
-  >{%
-    \hsize=\dimexpr#1\hsize\relax%
-    \linewidth=\dimexpr\hsize\relax%
-    \raggedleft\arraybackslash%
-  }X%
-}
-
-\newadjustboxenv{minipagebox}[2][0]{%
-  valign=m,%
-  minipage={#2},%
-  margin=0 0 0 {#1},%
-}
-
-\NewDocumentEnvironment{UniformTCBItems}{m}{%
-  \begin{tcbitemize}[%
-  raster columns={#1},%
-  raster equal height=rows,%
-  size=fbox,%
-  halign=flush left,%
-  valign=center,%
-  on line,%
-  rounded corners,%
-  ]%
-}{%
-  \end{tcbitemize}%
-}
+}{}{}%
 
 % 1. Degree
 % 2. Institution
@@ -273,7 +268,7 @@ Scale=MatchLowercase,%
 % 8. Citation keys for other publications (optional)
 % 9. Remaining notes                      (optional)
 \NewDocumentCommand{\EducationEntry}{m m m m m m o o o}{%
-  \par%
+  \par
   \begin{tabularx}{\linewidth}{P{1.35} R{0.65}}
     \PrintDegree{#1}                        & Class of #3 \\
     \PrintInstitution{#2}                   & #4          \\
@@ -283,7 +278,7 @@ Scale=MatchLowercase,%
     GPA of \PrintRounded{#5}; scale #6.%
     \IfValueT{#9}{\par #9}%
     }
-  \end{tabularx}%
+  \end{tabularx}
   \par%
 }
 
@@ -293,39 +288,37 @@ Scale=MatchLowercase,%
 % 4. Location
 % 5. Description
 \NewDocumentCommand{\WorkEntry}{m m m m m}{%
-  \par%
+  \par
   \begin{tabularx}{\linewidth}{P{1.25} R{0.75}}
     \PrintPosition{#1}        & \PrintISODate{#3}    \\
     \PrintInstitution{#2}     & #4                   \\
     \multicolumn{2}{M{2}{2}}{\begingroup#5\endgroup}
-  \end{tabularx}%
+  \end{tabularx}
   \par%
 }
 
-%% Document
-
-\begin{document}%
+\begin{document}
 \begin{minipage}[c]{0.75\textwidth}
   {\Huge\PrintName{Dario Gjorgjevski}\par}%
   \medskip%
   {\Large\TextDS{Curriculum vitæ}\par}%
   \medskip%
-  \begingroup%
-  \renewcommand*{\arraystretch}{1.5}
-  \begin{tabularx}{\textwidth}{P{1.3} P{1.2} P{0.5}}
-    \PrintInfo{\faAt}{\GmailURL{dario.gjorgjevski}}
-    &
-      \PrintInfo{\faPhone}{\phonenumber[foreign]{01525 8666837}}%
-    &
-      \GitHubURL{d125q}
-    \\
-    \PrintInfo{\faEnvelope}{Klara\-/Franke\-/Straße 21\\10557 Berlin}
-    &
-      \PrintInfo{\faKey}{\inputminted{shell-session}{PublicKey.shell-session}}
-    &
-      \SEFlair{3671527}{Pictures/d125q-SE-Flair.png}
-  \end{tabularx}%
-  \endgroup
+  {%
+    \renewcommand*{\arraystretch}{1.5}
+    \begin{tabularx}{\textwidth}{P{1.3} P{1.2} P{0.5}}
+      \PrintInfo{\faAt}{\GmailURL{dario.gjorgjevski}}
+      &
+        \PrintInfo{\faPhone}{\phonenumber[foreign]{01525 8666837}}
+      &
+        \GitHubURL{d125q}
+      \\
+      \PrintInfo{\faEnvelope}{Klara\-/Franke\-/Straße 21\\10557 Berlin}
+      &
+        \PrintInfo{\faKey}{\inputminted{shell-session}{PublicKey.shell-session}}
+      &
+        \SEFlair{3671527}{Pictures/d125q-SE-Flair.png}
+    \end{tabularx}%
+  }
 \end{minipage}%
 \hfill%
 \begin{minipage}[t]{.25\textwidth}
@@ -340,23 +333,22 @@ Scale=MatchLowercase,%
 \begin{minipage}[t]{0.575\textwidth}
   \section{Experience}%
   \label{sec:experience}
+
   \WorkEntry%
   {Data Engineer}%
   {\href{https://corporate.zalando.com/en}{Zalando SE}}%
   {2019-09/}% chktex 8
   {Berlin, DE}%
   {%
-    \begin{itemize}[%
-      topsep=0pt,%
-      before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
+    \begin{vcitemize}[%
       label={},%
-      labelsep*=0pt,%
+      labelsep=0pt,%
       itemindent=0pt,%
-      leftmargin=*,%
       ]
     \item Part of the team handling Zalando SE’s \emph{core data}: articles and
       sales.
     \item
+      \begingroup%
       \tcbset{%
         enhanced,%
         size=fbox,%
@@ -364,50 +356,56 @@ Scale=MatchLowercase,%
         box align=center,%
         fonttitle=\small,%
         fontupper=\small,%
-        fontlower=\footnotesize,%
+        fontlower=\small,%
         halign title=center,%
         halign upper=center,%
         halign lower=center,%
       }%
-      \begin{minipagebox}{.225\linewidth}
+      \begin{minipagebox}{.2\linewidth}
         \begin{tcolorbox}[title=Nakadi,remember as=Kafka]
-          Apache Kafka%
+          JSON events%
           \tcblower%
-          \texttt{.json.gz} events
+          Kafka
         \end{tcolorbox}
       \end{minipagebox}%
       \hfill%
-      \begin{minipagebox}[16pt]{.25\linewidth}
-        \begin{tcolorbox}[title={Databricks on Amazon AWS},remember as=Spark]
-          Apache Spark™
-        \end{tcolorbox}%
+      \begin{minipagebox}[20pt]{.2\linewidth}
+        \begin{tcolorbox}[title={AWS},remember as=Spark]
+          Databricks%
+          \tcblower%
+          Spark
+        \end{tcolorbox}
         \begin{tikzpicture}[overlay,remember picture]
-          \node[draw,rectangle,thick,dotted,fit=(Spark),%
+          \node[
+          draw,rectangle,thick,dotted,fit=(Spark),%
           inner sep=6pt,%
-          label={[align=center,scale=0.75]Apache Airflow},] (Scheduling) {};
+          label={[align=center,scale=0.75]Airflow},%
+          ] (Scheduling) {};
         \end{tikzpicture}
       \end{minipagebox}%
       \hfill%
-      \begin{minipagebox}{.2\linewidth}
+      \begin{minipagebox}{.15\linewidth}
         \begin{tcolorbox}[remember as=Oracle]
           Oracle
-        \end{tcolorbox}%
-        \\%
+        \end{tcolorbox}
+        \\
         \begin{tcolorbox}[remember as=S3]
-          Amazon S3
-        \end{tcolorbox}%
+          S3
+        \end{tcolorbox}
       \end{minipagebox}%
       \hfill%
-      \begin{minipagebox}[16pt]{.15\linewidth}
+      \begin{minipagebox}[20pt]{.15\linewidth}
         \begin{tcolorbox}[remember as=Exasol]
           Exasol
-        \end{tcolorbox}%
-        \\%
+        \end{tcolorbox}
+        \\
         \begin{tcolorbox}[remember as=Presto]
           Presto
         \end{tcolorbox}%
-        \begin{tikzpicture}%
-          [overlay,remember picture,>=stealth,shorten >=2pt,shorten <=2pt]
+        \begin{tikzpicture}[%
+          overlay,remember picture,%
+          >=stealth,shorten >=2pt,shorten <=2pt%
+          ]
           \draw[->] (Kafka) to (Spark);
           \draw[->] (Spark) to (Oracle);
           \draw[->] (Spark) to (S3);
@@ -415,15 +413,16 @@ Scale=MatchLowercase,%
           \draw[<->] (Presto) to (S3);
           \draw[->] (S3.south) to[out=-160,in=-20]%
           node[near start,below right=-2pt and -2pt,scale=0.75]%
-          {Amazon SNS/SQS} (Spark.south);
+          {SNS \& SQS} (Spark.south);
           \draw[->] (Spark.north east) to[out=20,in=160] (Exasol.north west);
           \node[draw,rectangle,thick,dotted,fit=(Exasol) (Presto),%
           inner sep=6pt,%
-          label={[align=center,scale=0.75]Apache Superset\\MicroStrategy},]%
+          label={[align=center,scale=0.75]Superset\\MicroStrategy},]%
           (Reporting) {};
         \end{tikzpicture}
       \end{minipagebox}
-    \end{itemize}
+      \endgroup%
+    \end{vcitemize}%
   }
 
   \WorkEntry%
@@ -432,25 +431,25 @@ Scale=MatchLowercase,%
   {2018-07/2019-09}% chktex 8
   {Berlin, DE}%
   {%
-    \begin{itemize}[nosep,leftmargin=*]
-    \item Responsible for a self\-/hosted Vertica on Microsoft Azure:
-      \begin{itemize}[nosep]
+    \begin{citemize}
+    \item Responsible for a self\-/hosted Vertica on Azure:
+      \begin{citemize}
       \item Defined \emph{data vault} and \emph{dimensional} models of client
         data.
-      \item Developed ETL processes to ingest data from Blob Storage, Apache
-        Kafka®, and SFTP servers.
+      \item Developed ETL processes to ingest data from Blob Storage, Kafka, and
+        SFTP servers.
       \item Wrote and optimized queries to monitor KPIs and to compute features
         for machine learning models.
       \item Implemented user\-/defined extensions to evaluate machine learning
         models (e.g., LightGBM) directly inside Vertica.
-      \end{itemize}
+      \end{citemize}
     \item Translated business rules to \emph{minimum cost maximum flow}
       problems, yielding \SI{15}{\percent} greater value than previous greedy
       algorithms.
     \item Developed a microservice for top\=/\(k\) nearest neighbor queries in
       real time by utilizing \emph{locality\-/sensitive hashing} with
       \emph{MinHash} signatures.
-    \end{itemize}
+    \end{citemize}%
   }
 
   \WorkEntry%
@@ -459,12 +458,12 @@ Scale=MatchLowercase,%
   {2017-11/2018-06}% chktex 8
   {Skopje, MK}%
   {%
-    \begin{itemize}[nosep,leftmargin=*]
+    \begin{citemize}
     \item Scraped clients’ websites using Scrapy.
-    \item Developed an Apache Spark™ application to compute and visualize
+    \item Developed a Spark application to compute and visualize
       \emph{actionable insights} using over \num{2} billion facts about \num{50}
       million customers.
-    \end{itemize}
+    \end{citemize}%
   }
 
   \WorkEntry%
@@ -473,14 +472,14 @@ Scale=MatchLowercase,%
   {2017-07/09}% chktex 8
   {Lausanne, CH}%
   {%
-    \begin{itemize}[nosep,leftmargin=*]
+    \begin{citemize}
     \item Implemented software agents with \mintinline{python}{asyncio} and
       Mininet in \href{https://smartgrid.epfl.ch/t-recs/}{T\=/RECS}.
     \item Modeled smart grid power traces at a timescale of \SI{20}{\ms} using
       approaches based on wavelets and long\-/range dependence.
     \item Increased the resolution of mean\-/aggregated measurements using deep
       learning for super\-/resolution.
-    \end{itemize}
+    \end{citemize}%
   }
 
   \WorkEntry%
@@ -490,23 +489,45 @@ Scale=MatchLowercase,%
   {Lausanne, CH}%
   {%
     Studied and improved upon the complexity of state\-/of\-/the\-/art solving
-    algorithms for the \emph{Learning With Errors} (LWE) problem.
-  }%
+    algorithms for the \emph{Learning With Errors} (LWE) problem.%
+  }
 \end{minipage}%
 \hfill%
 \begin{minipage}[t]{.4\textwidth}
   \section{Strengths}%
   \label{sec:strengths}
+
   \subsection{Theoretical Knowledge}%
   \label{sec:theoretical-knowledge}
-  \begin{UniformTCBItems}{2}
-    \tcbitem{}Algorithms, Data Structures%
-    \tcbitem{}Probability Theory, Statistics%
-    \tcbitem{}Databases%
-    \tcbitem{}Distributed Systems, Big Data Technologies%
-    \tcbitem{}Linear Algebra%
-    \tcbitem{}Cryptography
-  \end{UniformTCBItems}
+
+  \begin{UniformTCBRaster}{2}
+    \begin{TCBItems}
+    \item Algorithms
+    \item Data structures
+    \end{TCBItems}
+    \begin{TCBItems}
+    \item Probability theory
+    \item Statistics
+    \end{TCBItems}
+    \begin{TCBItems}
+    \item Databases
+    \item Distributed systems
+    \item Big data
+    \end{TCBItems}
+    \begin{tcboxedraster}[raster columns=1]{blankest}
+      \begin{tcolorbox}
+        Linear algebra
+      \end{tcolorbox}
+      \begin{tcolorbox}
+        Cryptography
+      \end{tcolorbox}
+    \end{tcboxedraster}
+  \end{UniformTCBRaster}
+  \begingroup%
+  \small%
+  Additional academic exposure to \emph{compiler design} and \emph{programming
+    language theory} along with various Lisps, Haskell, and Standard ML\@.\par%
+  \endgroup%
 
   \subsection{%
     \texorpdfstring%
@@ -514,32 +535,59 @@ Scale=MatchLowercase,%
     {Hands-On Experience}%
   }%
   \label{sec:hands-on-experience}
-  \begin{UniformTCBItems}{2}
-    \tcbitem{}Python%
-    \tcbitem{}GNU/Linux, AWS incl.\ CloudFormation%
-    \tcbitem{}SQL incl.\ PL/SQL, Apache Spark™%
-    \tcbitem{}R incl.\ \TextSCP{Tidyverse} and \texttt{data.table}%
-    \tcbitem{}Redis, Apache Kafka%
-    \tcbitem{}Apache Airflow%
-    \tcbitem{}Computer Algebra%
-    \tcbitem{}\LaTeX{} incl.\ Ti\emph{k}Z/PGF
-  \end{UniformTCBItems}
+
+  \begin{UniformTCBRaster}{2}
+    \begin{tcboxedraster}[raster columns=1]{blankest}
+      \begin{TCBItems}
+      \item Python
+      \item R incl.\ \TextSCP{Tidyverse}
+      \item SQL \& PL/SQL
+      \item Scala
+      \end{TCBItems}
+      \begin{tcolorbox}
+        \begin{minipage}[t]{0.4\linewidth}
+          \begin{citemize}
+          \item Spark
+          \item Kafka
+          \end{citemize}
+        \end{minipage}%
+        \hfill%
+        \begin{minipage}[t]{0.6\linewidth}
+          \begin{citemize}
+          \item Redis
+          \item ELK stack
+          \end{citemize}          
+        \end{minipage}
+      \end{tcolorbox}
+    \end{tcboxedraster}
+    \begin{TCBItems}
+    \item GNU/Linux
+    \item AWS
+      \begin{citemize}
+      \item EC2
+      \item S3
+      \item Lambda
+      \item SNS \& SQS
+      \item CloudFormation
+      \end{citemize}
+    \end{TCBItems}
+    \begin{tcolorbox}
+      \LaTeX{} incl.\ Ti\emph{k}Z/PGF
+    \end{tcolorbox}
+    \begin{tcolorbox}
+      Computer algebra
+    \end{tcolorbox}
+  \end{UniformTCBRaster}
 
   \begingroup%
   \small%
-  \begin{itemize}[nosep,leftmargin=*]
-  \item Proficient in both \emph{scientific computing} and \emph{software
-      development}; and capable of writing clean, well\-/documented, and
-    scalable code.
-  \item Experienced with the \emph{agile methodology}, Git for (distributed)
-    version control, and Jenkins for CI/CD\@.
-  \item Strong academic exposure to programming language theory along with
-    various Lisps, Haskell, and Standard ML\@.
-  \end{itemize}
-  \endgroup
+  Adept at working in \emph{agile teams} using Git for (distributed) version
+  control and Jenkins for CI/CD\@.\par%
+  \endgroup%
 
   \section{Honors}%
   \label{sec:honors}
+
   \begin{itemize}[leftmargin=*]
   \item Graduated \emph{summa cum laude} with a perfect GPA from the
     \PrintInstitution{Ss.\ Cyril and Methodius University}.
@@ -604,9 +652,10 @@ Scale=MatchLowercase,%
 \begin{minipage}[t]{.4\textwidth}
   \section{Projects}%
   \label{sec:projects}
-  \begin{description}%
-    [style=nextline,leftmargin=!,font=\sffamily\bfseries]
-  \item[C\=/like language \(\Rightarrow\) PostScript transpiler] Transpiler
+
+  \begin{description}[%
+    style=nextline,leftmargin=!,font=\sffamily\bfseries]
+  \item[C\=/like language\(\,\to\,\)PostScript transpiler] Transpiler
     implemented in Flex and GNU Bison to translate a C\=/like language for
     \emph{turtle graphics} to PostScript.
   \item[Trusted timestamping] Flask application for a simple file\-/sharing
@@ -616,34 +665,26 @@ Scale=MatchLowercase,%
     and targeted attacks on the Internet topology.  Jupyter Notebook and source
     code available at \GitHubURL[d125q]{Internet_Robustness}.
   \item[Predicting readmission of diabetic patients]
-    \begin{itemize}[%
-      nosep,%
-      leftmargin=*,%
-      before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
-      ]
+    \begin{vcitemize}
     \item Learning from imbalanced data using \mintinline{R}{mlr}.
     \item \emph{Fully reproducible reporting} using \mintinline{R}{knitr}.
-    \end{itemize}
+    \end{vcitemize}
     Report available at \GitHubURL[d125q]{Diabetic_Patients}.
   \item[Survey of the MinRank problem] \textsc{SageMath} implementations of:
-    \begin{itemize}[nosep,leftmargin=*]
+    \begin{citemize}
     \item Algorithms for solving MinRank; and a
     \item Zero\-/knowledge authentication protocol based on MinRank.
-    \end{itemize}
+    \end{citemize}
     Report available at \GitHubURL[d125q]{MinRank}.
   \item[Checksum verification on LPC1769] C program to verify MD5 checksums of
     payloads stored on an LPC1769 microcontroller.  Won prize for highest
     throughput.  Source code available at \GitHubURL[d125q]{DMA_Workshop}.
   \item[Substitution ciphers for Macedonian text]
-    \begin{itemize}[%
-      nosep,%
-      leftmargin=*,%
-      before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
-      ]
+    \begin{vcitemize}
     \item Create substitution ciphers; and
     \item Break substitution ciphers using Markov chain Monte Carlo (MCMC)
       methods based on unigram and bigram frequencies.
-    \end{itemize}
+    \end{vcitemize}
     Mathematica® Notebook and corpus with Macedonian text suitable for frequency
     analysis available at \GitHubURL[d125q]{Macedonian_Substitution_Ciphers}.
   \end{description}
