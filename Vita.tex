@@ -54,27 +54,27 @@ toc=bibnumbered,%
 
 \RequirePackage{mathtools}%
 \RequirePackage{amsthm}%
-\RequirePackage[ruled,longend]{algorithm2e}%
+\RequirePackage[ruled, longend]{algorithm2e}%
 \RequirePackage{prftree}%
-\RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{%
+\RequirePackage[warnings-off={mathtools-colon, mathtools-overbracket}]{%
   unicode-math%
 }%
 \mathtoolsset{mathic}%
-\unimathsetup{math-style=ISO,bold-style=ISO}%
+\unimathsetup{math-style=ISO, bold-style=ISO}%
 \setmathfont{Libertinus Math}%
 
 \RequirePackage[newfloat]{minted}%
 
 \RequirePackage{graphicx}%
 \RequirePackage{tikz}%
-\usetikzlibrary{calc,fit,positioning}%
+\usetikzlibrary{arrows.meta, calc, fit, positioning}%
 
 \RequirePackage[american]{babel}%
-\RequirePackage[style=american,autostyle,autopunct,strict]{csquotes}%
+\RequirePackage[style=american, autostyle, autopunct, strict]{csquotes}%
 \RequirePackage[country=DE]{phonenumbers}%
 \RequirePackage[shortcuts]{extdash}%
 
-\RequirePackage[final,babel]{microtype}%
+\RequirePackage[final, babel]{microtype}%
 
 \RequirePackage{array}%
 \RequirePackage[inline]{enumitem}%
@@ -105,9 +105,9 @@ toc=bibnumbered,%
 
 \NewDocumentEnvironment{citemize}{o}{%
   \IfValueTF{#1}{%
-    \begin{itemize}[nosep,leftmargin=*,#1]% chktex 15
+    \begin{itemize}[nosep, leftmargin=*, #1]% chktex 15
   }{%
-    \begin{itemize}[nosep,leftmargin=*]% chktex 15
+    \begin{itemize}[nosep, leftmargin=*]% chktex 15
   }%
 }{%
   \end{itemize}%
@@ -115,11 +115,11 @@ toc=bibnumbered,%
 
 \NewDocumentEnvironment{vcitemize}{o}{%
   \IfValueTF{#1}{%
-    \begin{itemize}[nosep,leftmargin=*,% chktex 15
+    \begin{itemize}[nosep, leftmargin=*,% chktex 15
     before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
     #1]%
   }{%
-    \begin{itemize}[nosep,leftmargin=*,% chktex 15
+    \begin{itemize}[nosep, leftmargin=*,% chktex 15
     before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax}]%
   }%
 }{%
@@ -127,7 +127,7 @@ toc=bibnumbered,%
 }
 
 \RequirePackage{siunitx}%
-\sisetup{detect-all,detect-display-math,binary-units}%
+\sisetup{detect-all, detect-display-math, binary-units}%
 
 \NewDocumentCommand{\PrintRounded}{o m}{%
   \num[%
@@ -146,33 +146,30 @@ toc=bibnumbered,%
 
 \RequirePackage{adjustbox}%
 \RequirePackage{tcolorbox}%
-\tcbuselibrary{most,minted}%
+\tcbuselibrary{most, minted}%
 
 \NewDocumentCommand{\PrintInfo}{m m}{%
-  \begin{adjustbox}{valign=m,minipage=.1\linewidth}
+  \begin{adjustbox}{valign=m, minipage=.1\linewidth}
     \textnormal{#1}
   \end{adjustbox}%
   \hfill%
-  \begin{adjustbox}{valign=m,minipage=.9\linewidth}
+  \begin{adjustbox}{valign=m, minipage=.9\linewidth}
     #2
   \end{adjustbox}%
-}%
-
-\newadjustboxenv{minipagebox}[2][0]{%
-  valign=m,%
-  minipage={#2},%
-  margin=0 0 0 {#1},%
 }%
 
 \NewDocumentEnvironment{UniformTCBRaster}{m}{%
   \begin{tcbraster}[%
   raster columns={#1},%
+  raster halign=center,%
+  raster valign=center,%
   raster every box/.style={%
     size=fbox,%
     rounded corners,%
     halign=flush left,%
     valign=center,%
   },%
+  enhanced,%
   ]%
 }{%
   \end{tcbraster}%
@@ -202,14 +199,16 @@ toc=bibnumbered,%
   \faGithub\href{https://github.com/\IfValueT{#1}{#1/}#2}{\nolinkurl{/#2}}%
 }%
 \NewDocumentCommand{\SEFlair}{m m}{%
-  \begin{adjustbox}{valign=m,minipage=\linewidth}
+  \begin{adjustbox}{valign=m, minipage=\linewidth}
     \href{https://stackexchange.com/users/#1}{%
-      \adjustimage{frame=1pt,width=\linewidth}{#2}%
+      \adjustimage{frame=1pt, width=\linewidth}{#2}%
     }
   \end{adjustbox}%
 }%
 
-\RequirePackage[style=numeric,backend=biber,datamodel=supervisor]{biblatex}%
+\RequirePackage[%
+style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
+]{biblatex}%
 \addbibresource{Theses_and_Publications.bib}%
 
 \AtBeginBibliography{\small}%
@@ -324,7 +323,7 @@ toc=bibnumbered,%
 \begin{minipage}[t]{.25\textwidth}
   \center%
   \begin{tikzpicture}[baseline=(Dario.center)]
-    \node[circle,draw,inner sep=1.5cm,black,fill overzoom image*={%
+    \node[circle, draw, inner sep=1.5cm, black, fill overzoom image*={%
       clip,%
     }{Pictures/Dario-in-Delchevo_02}] (Dario) {};
   \end{tikzpicture}
@@ -346,9 +345,11 @@ toc=bibnumbered,%
       itemindent=0pt,%
       ]
     \item Part of the team handling Zalando SE’s \emph{core data}: articles and
-      sales.
+      sales. (Including \(24 \times 7\) responsibilities starting
+      \PrintISODate{2020-08}.)%chktex 8
     \item
       \begingroup%
+      \vspace{20pt}%
       \tcbset{%
         enhanced,%
         size=fbox,%
@@ -361,68 +362,75 @@ toc=bibnumbered,%
         halign upper=center,%
         halign lower=center,%
       }%
-      \begin{minipagebox}{.2\linewidth}
-        \begin{tcolorbox}[title=Nakadi,remember as=Kafka]
+      \begin{minipage}{.2\linewidth}
+        \begin{tcolorbox}[title=Nakadi, remember as=Kafka]
           JSON events%
           \tcblower%
           Kafka
         \end{tcolorbox}
-      \end{minipagebox}%
+      \end{minipage}%
       \hfill%
-      \begin{minipagebox}[20pt]{.2\linewidth}
-        \begin{tcolorbox}[title={AWS},remember as=Spark]
+      \begin{minipage}{.2\linewidth}
+        \begin{tcolorbox}[title=AWS, remember as=Spark]
           Databricks%
           \tcblower%
           Spark
-        \end{tcolorbox}
-        \begin{tikzpicture}[overlay,remember picture]
-          \node[
-          draw,rectangle,thick,dotted,fit=(Spark),%
-          inner sep=6pt,%
-          label={[align=center,scale=0.75]Airflow},%
+        \end{tcolorbox}%
+        \begin{tikzpicture}[overlay, remember picture]
+          \node[draw, rectangle, thick, dotted,%
+          fit=(Spark), inner sep=6pt,%
+          label={[align=center, scale=0.75]Airflow},%
           ] (Scheduling) {};
         \end{tikzpicture}
-      \end{minipagebox}%
+      \end{minipage}%
       \hfill%
-      \begin{minipagebox}{.15\linewidth}
+      \begin{minipage}{.2\linewidth}
         \begin{tcolorbox}[remember as=Oracle]
           Oracle
-        \end{tcolorbox}
-        \\
+        \end{tcolorbox}%
+        \\%
         \begin{tcolorbox}[remember as=S3]
+          Delta Lake%
+          \tcblower%
           S3
         \end{tcolorbox}
-      \end{minipagebox}%
+      \end{minipage}%
       \hfill%
-      \begin{minipagebox}[20pt]{.15\linewidth}
+      \begin{minipage}{.15\linewidth}
         \begin{tcolorbox}[remember as=Exasol]
           Exasol
-        \end{tcolorbox}
-        \\
+        \end{tcolorbox}%
+        \\%
         \begin{tcolorbox}[remember as=Presto]
           Presto
         \end{tcolorbox}%
-        \begin{tikzpicture}[%
-          overlay,remember picture,%
-          >=stealth,shorten >=2pt,shorten <=2pt%
+        \begin{tikzpicture}[overlay, remember picture,%
+          >=stealth, shorten >=1pt, shorten <=1pt,%
           ]
           \draw[->] (Kafka) to (Spark);
           \draw[->] (Spark) to (Oracle);
           \draw[->] (Spark) to (S3);
           \draw[->] (Oracle) to (Exasol);
           \draw[<->] (Presto) to (S3);
-          \draw[->] (S3.south) to[out=-160,in=-20]%
-          node[near start,below right=-2pt and -2pt,scale=0.75]%
-          {SNS \& SQS} (Spark.south);
-          \draw[->] (Spark.north east) to[out=20,in=160] (Exasol.north west);
-          \node[draw,rectangle,thick,dotted,fit=(Exasol) (Presto),%
+          \draw[->]%
+          ($(S3.south)!0.5!(S3.south west)$)%
+          to[out=-150, in=-30]%
+          node[midway, below, scale=0.75]%
+          {SNS \& SQS}%
+          ($(Spark.south)!0.5!(Spark.south east)$);
+          \draw[->]%
+          ($(Spark.north)!0.5!(Spark.north east)$)%
+          to[out=30, in=150]%
+          ($(Exasol.north)!0.5!(Exasol.north west)$);
+          \node[draw, rectangle,%
+          thick, dotted, fit=(Exasol) (Presto),%
           inner sep=6pt,%
-          label={[align=center,scale=0.75]Superset\\MicroStrategy},]%
-          (Reporting) {};
+          label={[align=center, scale=0.75]Superset\\MicroStrategy},%
+          ] (Reporting) {};
         \end{tikzpicture}
-      \end{minipagebox}
+      \end{minipage}
       \endgroup%
-    \end{vcitemize}%
+    \end{vcitemize}
   }
 
   \WorkEntry%
@@ -461,8 +469,8 @@ toc=bibnumbered,%
     \begin{citemize}
     \item Scraped clients’ websites using Scrapy.
     \item Developed a Spark application to compute and visualize
-      \emph{actionable insights} using over \num{2} billion facts about \num{50}
-      million customers.
+      \emph{actionable insights} using over \PrintInteger{2} billion facts about
+      \PrintInteger{50} million customers.
     \end{citemize}%
   }
 
@@ -474,7 +482,8 @@ toc=bibnumbered,%
   {%
     \begin{citemize}
     \item Implemented software agents with \mintinline{python}{asyncio} and
-      Mininet in \href{https://smartgrid.epfl.ch/t-recs/}{T\=/RECS}.
+      Mininet in
+      \href{https://www.epfl.ch/labs/desl-pwrs/smartgrid/t-recs/}{T\=/RECS}.
     \item Modeled smart grid power traces at a timescale of \SI{20}{\ms} using
       approaches based on wavelets and long\-/range dependence.
     \item Increased the resolution of mean\-/aggregated measurements using deep
@@ -545,14 +554,15 @@ toc=bibnumbered,%
       \item Scala
       \end{TCBItems}
       \begin{tcolorbox}
-        \begin{minipage}[t]{0.4\linewidth}
+        \begin{minipage}[t]{0.45\linewidth}
           \begin{citemize}
           \item Spark
           \item Kafka
+          \item Airflow
           \end{citemize}
         \end{minipage}%
         \hfill%
-        \begin{minipage}[t]{0.6\linewidth}
+        \begin{minipage}[t]{0.55\linewidth}
           \begin{citemize}
           \item Redis
           \item ELK stack
@@ -570,6 +580,7 @@ toc=bibnumbered,%
       \item SNS \& SQS
       \item CloudFormation
       \end{citemize}
+    \item Databricks
     \end{TCBItems}
     \begin{tcolorbox}
       \LaTeX{} incl.\ Ti\emph{k}Z/PGF
@@ -582,7 +593,7 @@ toc=bibnumbered,%
   \begingroup%
   \small%
   Adept at working in \emph{agile teams} using Git for (distributed) version
-  control and Jenkins for CI/CD\@.\par%
+  control, and Jenkins for CI/CD\@.\par%
   \endgroup%
 
   \section{Honors}%
@@ -598,9 +609,8 @@ toc=bibnumbered,%
     \href{http://summerschool-croatia.cs.ru.nl/2017/}{2017} editions of the
     Summer School on Real\-/World Crypto and Privacy held in Šibenik, Croatia.
   \item Dean’s list at the \PrintInstitution{Ss.\ Cyril and Methodius
-      University} and merit\-/based scholarships\---awarded to the top
-    \SI{2.5}{\percent} students on a national level\---throughout the entire
-    duration of study.
+      University}\---awarded to the top \SI{2.5}{\percent}\---throughout the
+    entire duration of study.
   \end{itemize}
 \end{minipage}
 
@@ -622,8 +632,10 @@ toc=bibnumbered,%
   [%
   Earned \PrintInteger{240} ECTS credits.  As a senior, conducted computational
   exercises, homework assignments, and exams in:
-  \begin{description}%
-    [leftmargin=*,widest=Linear Algebra,font=\normalfont\itshape]
+  \begin{description}[%
+    leftmargin=*, font=\normalfont\itshape,%
+    widest=Linear Algebra,%
+    ]
   \item[Linear Algebra] Least squares, linear codes, and low\-/rank
     approximations in \textsc{SageMath} and Mathematica®.
   \item[Statistics] Data visualization, Monte Carlo methods, inference,
@@ -633,28 +645,27 @@ toc=bibnumbered,%
   Presentations available at \GitHubURL[d125q]{Presentations}.%
   ]
 
-  \begin{tcolorbox}[%
-    size=fbox,%
-    fontlower=\small,%
-    ]
-    Over \num{40} \emph{Massive Open Online Courses} on topics related to game
-    theory, probabilistic graphical models, Bayesian statistics, combinatorics,
-    automata and formal languages, mathematical optimization, etc.%
+  \begin{tcolorbox}[size=fbox, fontlower=\small]
+    Over \PrintInteger{40} \emph{Massive Open Online Courses} on topics related
+    to game theory, probabilistic graphical models, Bayesian statistics,
+    combinatorics, automata and formal languages, mathematical optimization,
+    etc.%
     \tcblower%
     Certifications available at
     \GitHubURL[d125q]{Personal/tree/master/Certifications}.
   \end{tcolorbox}
 
-  \printbibliography[type=thesis,title=Theses]%
-  \printbibliography[nottype=thesis,title=Publications]
+  \printbibliography[type=thesis, title=Theses]%
+  \printbibliography[nottype=thesis, title=Publications]
 \end{minipage}%
 \hfill%
 \begin{minipage}[t]{.4\textwidth}
   \section{Projects}%
   \label{sec:projects}
 
-  \begin{description}[%
-    style=nextline,leftmargin=!,font=\sffamily\bfseries]
+  \begin{description}[style=nextline,%
+    leftmargin=!, font=\sffamily\bfseries,%
+    ]
   \item[C\=/like language\(\,\to\,\)PostScript transpiler] Transpiler
     implemented in Flex and GNU Bison to translate a C\=/like language for
     \emph{turtle graphics} to PostScript.
