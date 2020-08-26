@@ -11,7 +11,7 @@ toc=bibnumbered,%
 ]{scrartcl}%
 
 \directlua{pdf.setminorversion(7)}% chktex 36
-\areaset{19.5cm}{27cm}%
+\areaset{20cm}{28cm}%
 \setparsizes{0pt}{0pt}{0pt plus 1fil}%
 \pagestyle{empty}%
 
@@ -80,6 +80,7 @@ toc=bibnumbered,%
 \RequirePackage[inline]{enumitem}%
 \RequirePackage{booktabs}%
 \RequirePackage{tabularx}%
+\RequirePackage{makecell}%
 
 \newcolumntype{P}[1]{%
   >{%
@@ -103,28 +104,21 @@ toc=bibnumbered,%
   }X%
 }%
 
-\NewDocumentEnvironment{citemize}{o}{%
-  \IfValueTF{#1}{%
-    \begin{itemize}[nosep, leftmargin=*, #1]% chktex 15
-  }{%
-    \begin{itemize}[nosep, leftmargin=*]% chktex 15
-  }%
-}{%
-  \end{itemize}%
+\newlist{Items}{itemize}{2}%
+\setlist[Items, 1]{label={\textbullet}}%
+\setlist[Items, 2]{label={\==}}%
+\setlist[Items]{
+  nosep,%
+  leftmargin=*,%
 }%
-
-\NewDocumentEnvironment{vcitemize}{o}{%
-  \IfValueTF{#1}{%
-    \begin{itemize}[nosep, leftmargin=*,% chktex 15
-    before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
-    #1]%
-  }{%
-    \begin{itemize}[nosep, leftmargin=*,% chktex 15
-    before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax}]%
-  }%
-}{%
-  \end{itemize}%
-}
+\newlist{DescriptionItems}{itemize}{2}%
+\setlist[DescriptionItems, 1]{label={\textbullet}}%
+\setlist[DescriptionItems, 2]{label={--}}%
+\setlist[DescriptionItems]{%
+  nosep,%
+  leftmargin=*,%
+  before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
+}%
 
 \RequirePackage{siunitx}%
 \sisetup{detect-all, detect-display-math, binary-units}%
@@ -176,9 +170,9 @@ toc=bibnumbered,%
 }%
 
 \NewDocumentEnvironment{TCBItems}{}{%
-  \begin{tcolorbox}\begin{citemize}%
+  \begin{tcolorbox}\begin{Items}%
 }{%
-  \end{citemize}\end{tcolorbox}%
+  \end{Items}\end{tcolorbox}%
 }%
 
 \RequirePackage{hyperref}%
@@ -272,14 +266,14 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     \PrintDegree{#1}                        & Class of #3 \\
     \PrintInstitution{#2}                   & #4          \\
     \multicolumn{2}{M{2}{2}}{%
-    \IfValueT{#7}{Thesis: \citetitle{#7}~\autocite{#7}.}%
-    \IfValueT{#8}{\par Publications: \autocites{#8}.\par}%
+    \IfValueT{#7}{Thesis: \citetitle{#7}~\autocite{#7}.\par}%
+    \IfValueT{#8}{Publications: \autocites{#8}.\par}%
     GPA of \PrintRounded{#5}; scale #6.%
     \IfValueT{#9}{\par #9}%
     }
   \end{tabularx}
   \par%
-}
+}%
 
 % 1. Position
 % 2. Institution
@@ -291,10 +285,10 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   \begin{tabularx}{\linewidth}{P{1.25} R{0.75}}
     \PrintPosition{#1}        & \PrintISODate{#3}    \\
     \PrintInstitution{#2}     & #4                   \\
-    \multicolumn{2}{M{2}{2}}{\begingroup#5\endgroup}
+    \multicolumn{2}{M{2}{2}}{#5}
   \end{tabularx}
   \par%
-}
+}%
 
 \begin{document}
 \begin{minipage}[c]{0.75\textwidth}
@@ -339,98 +333,93 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   {2019-09/}% chktex 8
   {Berlin, DE}%
   {%
-    \begin{vcitemize}[%
-      label={},%
-      labelsep=0pt,%
-      itemindent=0pt,%
-      ]
-    \item Part of the team handling Zalando SE’s \emph{core data}: articles and
-      sales. (Including \(24 \times 7\) responsibilities starting
-      \PrintISODate{2020-08}.)% chktex 8
-    \item
-      \begingroup%
-      \vspace{20pt}%
-      \tcbset{%
-        enhanced,%
-        size=fbox,%
-        on line,%
-        box align=center,%
-        fonttitle=\small,%
-        fontupper=\small,%
-        fontlower=\small,%
-        halign title=center,%
-        halign upper=center,%
-        halign lower=center,%
-      }%
-      \begin{minipage}{.2\linewidth}
-        \begin{tcolorbox}[title=Nakadi, remember as=Kafka]
-          JSON events%
-          \tcblower%
-          Kafka
-        \end{tcolorbox}
-      \end{minipage}%
-      \hfill%
-      \begin{minipage}{.2\linewidth}
-        \begin{tcolorbox}[title=AWS, remember as=Spark]
-          Databricks%
-          \tcblower%
-          Spark
-        \end{tcolorbox}%
-        \begin{tikzpicture}[overlay, remember picture]
-          \node[draw, rectangle, thick, dotted,%
-          fit=(Spark), inner sep=6pt,%
-          label={[align=center, scale=0.75]Airflow},%
-          ] (Scheduling) {};
-        \end{tikzpicture}
-      \end{minipage}%
-      \hfill%
-      \begin{minipage}{.2\linewidth}
-        \begin{tcolorbox}[remember as=Oracle]
-          Oracle
-        \end{tcolorbox}%
-        \\%
-        \begin{tcolorbox}[remember as=S3]
-          Delta Lake%
-          \tcblower%
-          S3
-        \end{tcolorbox}
-      \end{minipage}%
-      \hfill%
-      \begin{minipage}{.15\linewidth}
-        \begin{tcolorbox}[remember as=Exasol]
-          Exasol
-        \end{tcolorbox}%
-        \\%
-        \begin{tcolorbox}[remember as=Presto]
-          Presto
-        \end{tcolorbox}%
-        \begin{tikzpicture}[overlay, remember picture,%
-          >=stealth, shorten >=1pt, shorten <=1pt,%
-          ]
-          \draw[->] (Kafka) to (Spark);
-          \draw[->] (Spark) to (Oracle);
-          \draw[->] (Spark) to (S3);
-          \draw[->] (Oracle) to (Exasol);
-          \draw[<->] (Presto) to (S3);
-          \draw[->]%
-          ($(S3.south)!0.5!(S3.south west)$)%
-          to[out=-150, in=-30]%
-          node[midway, below, scale=0.75]%
-          {SNS \& SQS}%
-          ($(Spark.south)!0.5!(Spark.south east)$);
-          \draw[->]%
-          ($(Spark.north)!0.5!(Spark.north east)$)%
-          to[out=30, in=150]%
-          ($(Exasol.north)!0.5!(Exasol.north west)$);
-          \node[draw, rectangle,%
-          thick, dotted, fit=(Exasol) (Presto),%
-          inner sep=6pt,%
-          label={[align=center, scale=0.75]Superset\\MicroStrategy},%
-          ] (Reporting) {};
-        \end{tikzpicture}
-      \end{minipage}
-      \endgroup%
-    \end{vcitemize}%
+    Part of the team handling Zalando SE’s \emph{core data}: articles and
+    sales. (Including \(24 \times 7\) responsibilities starting
+    \PrintISODate{2020-08}.)% chktex 8
+    \vspace*{20pt}
+    \newline
+    \begingroup%
+    \tcbset{%
+      enhanced,%
+      size=fbox,%
+      on line,%
+      box align=center,%
+      fonttitle=\small,%
+      fontupper=\small,%
+      fontlower=\small,%
+      halign title=center,%
+      halign upper=center,%
+      halign lower=center,%
+    }%
+    \begin{minipage}{.2\linewidth}
+      \begin{tcolorbox}[title=Nakadi, remember as=Kafka]
+        JSON events%
+        \tcblower%
+        Kafka
+      \end{tcolorbox}
+    \end{minipage}%
+    \hfill%
+    \begin{minipage}{.2\linewidth}
+      \begin{tcolorbox}[title=AWS, remember as=Spark]
+        Databricks%
+        \tcblower%
+        Spark
+      \end{tcolorbox}%
+      \begin{tikzpicture}[overlay, remember picture]
+        \node[draw, rectangle, thick, dotted,%
+        fit=(Spark), inner sep=6pt,%
+        label={[align=center, scale=0.75]Airflow},%
+        ] (Scheduling) {};
+      \end{tikzpicture}
+    \end{minipage}%
+    \hfill%
+    \begin{minipage}{.2\linewidth}
+      \begin{tcolorbox}[remember as=Oracle]
+        Oracle
+      \end{tcolorbox}%
+      \\%
+      \begin{tcolorbox}[remember as=S3]
+        Delta Lake%
+        \tcblower%
+        S3
+      \end{tcolorbox}
+    \end{minipage}%
+    \hfill%
+    \begin{minipage}{.15\linewidth}
+      \begin{tcolorbox}[remember as=Exasol]
+        Exasol
+      \end{tcolorbox}%
+      \\%
+      \begin{tcolorbox}[remember as=Presto]
+        Presto
+      \end{tcolorbox}%
+      \begin{tikzpicture}[overlay, remember picture,%
+        >=stealth, shorten >=1pt, shorten <=1pt,%
+        ]
+        \draw[->] (Kafka) to (Spark);
+        \draw[->] (Spark) to (Oracle);
+        \draw[->] (Spark) to (S3);
+        \draw[->] (Oracle) to (Exasol);
+        \draw[<->] (Presto) to (S3);
+        \draw[->]%
+        ($(S3.south)!0.5!(S3.south west)$)%
+        to[out=-150, in=-30]%
+        node[midway, below, scale=0.75]%
+        {SNS \& SQS}%
+        ($(Spark.south)!0.5!(Spark.south east)$);
+        \draw[->]%
+        ($(Spark.north)!0.5!(Spark.north east)$)%
+        to[out=30, in=150]%
+        ($(Exasol.north)!0.5!(Exasol.north west)$);
+        \node[draw, rectangle,%
+        thick, dotted, fit=(Exasol) (Presto),%
+        inner sep=6pt,%
+        label={[align=center, scale=0.75]Superset\\MicroStrategy},%
+        ] (Reporting) {};
+      \end{tikzpicture}
+    \end{minipage}
+    \endgroup%
+    \vspace*{\baselineskip}%
   }
 
   \WorkEntry%
@@ -439,9 +428,9 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   {2018-07/2019-09}% chktex 8
   {Berlin, DE}%
   {%
-    \begin{citemize}
+    \begin{Items}
     \item Responsible for a self\-/hosted Vertica on Azure:
-      \begin{citemize}
+      \begin{Items}
       \item Defined \emph{data vault} and \emph{dimensional} models of client
         data.
       \item Developed ETL processes to ingest data from Blob Storage, Kafka, and
@@ -450,14 +439,14 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
         for machine learning models.
       \item Implemented user\-/defined extensions to evaluate machine learning
         models (e.g., LightGBM) directly inside Vertica.
-      \end{citemize}
+      \end{Items}
     \item Translated business rules to \emph{minimum cost maximum flow}
       problems, yielding \SI{15}{\percent} greater value than previous greedy
       algorithms.
     \item Developed a microservice for top\=/\(k\) nearest neighbor queries in
       real time by utilizing \emph{locality\-/sensitive hashing} with
       \emph{MinHash} signatures.
-    \end{citemize}%
+    \end{Items}%
   }
 
   \WorkEntry%
@@ -466,12 +455,12 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   {2017-11/2018-06}% chktex 8
   {Skopje, MK}%
   {%
-    \begin{citemize}
+    \begin{Items}
     \item Scraped clients’ websites using Scrapy.
     \item Developed a Spark application to compute and visualize
       \emph{actionable insights} using over \PrintInteger{2} billion facts about
       \PrintInteger{50} million customers.
-    \end{citemize}%
+    \end{Items}%
   }
 
   \WorkEntry%
@@ -480,7 +469,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   {2017-07/09}% chktex 8
   {Lausanne, CH}%
   {%
-    \begin{citemize}
+    \begin{Items}
     \item Implemented software agents with \mintinline{python}{asyncio} and
       Mininet in
       \href{https://www.epfl.ch/labs/desl-pwrs/smartgrid/t-recs/}{T\=/RECS}.
@@ -488,7 +477,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
       approaches based on wavelets and long\-/range dependence.
     \item Increased the resolution of mean\-/aggregated measurements using deep
       learning for super\-/resolution.
-    \end{citemize}%
+    \end{Items}%
   }
 
   \WorkEntry%
@@ -555,31 +544,31 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
       \end{TCBItems}
       \begin{tcolorbox}
         \begin{minipage}[t]{0.45\linewidth}
-          \begin{citemize}
+          \begin{Items}
           \item Spark
           \item Kafka
           \item Airflow
-          \end{citemize}
+          \end{Items}
         \end{minipage}%
         \hfill%
         \begin{minipage}[t]{0.55\linewidth}
-          \begin{citemize}
+          \begin{Items}
           \item Redis
           \item ELK stack
-          \end{citemize}          
+          \end{Items}
         \end{minipage}
       \end{tcolorbox}
     \end{tcboxedraster}
     \begin{TCBItems}
     \item GNU/Linux
     \item AWS
-      \begin{citemize}
+      \begin{Items}
       \item EC2
       \item S3
       \item Lambda
       \item SNS \& SQS
       \item CloudFormation
-      \end{citemize}
+      \end{Items}
     \item Databricks
     \end{TCBItems}
     \begin{tcolorbox}
@@ -676,26 +665,26 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     and targeted attacks on the Internet topology.  Jupyter Notebook and source
     code available at \GitHubURL[d125q]{Internet_Robustness}.
   \item[Predicting readmission of diabetic patients]
-    \begin{vcitemize}
+    \begin{DescriptionItems}
     \item Learning from imbalanced data using \mintinline{R}{mlr}.
     \item \emph{Fully reproducible reporting} using \mintinline{R}{knitr}.
-    \end{vcitemize}
+    \end{DescriptionItems}
     Report available at \GitHubURL[d125q]{Diabetic_Patients}.
   \item[Survey of the MinRank problem] \textsc{SageMath} implementations of:
-    \begin{citemize}
+    \begin{Items}
     \item Algorithms for solving MinRank; and a
     \item Zero\-/knowledge authentication protocol based on MinRank.
-    \end{citemize}
+    \end{Items}
     Report available at \GitHubURL[d125q]{MinRank}.
   \item[Checksum verification on LPC1769] C program to verify MD5 checksums of
     payloads stored on an LPC1769 microcontroller.  Won prize for highest
     throughput.  Source code available at \GitHubURL[d125q]{DMA_Workshop}.
   \item[Substitution ciphers for Macedonian text]
-    \begin{vcitemize}
+    \begin{DescriptionItems}
     \item Create substitution ciphers; and
     \item Break substitution ciphers using Markov chain Monte Carlo (MCMC)
       methods based on unigram and bigram frequencies.
-    \end{vcitemize}
+    \end{DescriptionItems}
     Mathematica® Notebook and corpus with Macedonian text suitable for frequency
     analysis available at \GitHubURL[d125q]{Macedonian_Substitution_Ciphers}.
   \end{description}
