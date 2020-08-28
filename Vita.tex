@@ -15,6 +15,18 @@ toc=bibnumbered,%
 \setparsizes{0pt}{0pt}{0pt plus 1fil}%
 \pagestyle{empty}%
 
+\RedeclareSectionCommand[
+afterindent=false,%
+beforeskip=.5\baselineskip,%
+afterskip=.5\baselineskip,%
+]{section}%
+
+\RedeclareSectionCommand[
+afterindent=false,%
+beforeskip=.5\baselineskip,%
+afterskip=.5\baselineskip,%
+]{subsection}%
+
 \makeatletter%
 \renewcommand{\sectionlinesformat}[4]{%
   \Ifstr{#1}{section}{%
@@ -261,7 +273,6 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
 % 8. Citation keys for other publications (optional)
 % 9. Remaining notes                      (optional)
 \NewDocumentCommand{\EducationEntry}{m m m m m m o o o}{%
-  \par
   \begin{tabularx}{\linewidth}{P{1.35} R{0.65}}
     \PrintDegree{#1}                        & Class of #3 \\
     \PrintInstitution{#2}                   & #4          \\
@@ -281,7 +292,6 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
 % 4. Location
 % 5. Description
 \NewDocumentCommand{\WorkEntry}{m m m m m}{%
-  \par
   \begin{tabularx}{\linewidth}{P{1.25} R{0.75}}
     \PrintPosition{#1}        & \PrintISODate{#3}    \\
     \PrintInstitution{#2}     & #4                   \\
@@ -324,6 +334,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
 \end{minipage}
 
 \begin{minipage}[t]{0.575\textwidth}
+  \vspace*{0cm}%
   \section{Experience}%
   \label{sec:experience}
 
@@ -333,11 +344,10 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   {2019-09/}% chktex 8
   {Berlin, DE}%
   {%
-    Part of the team handling Zalando SE’s \emph{core data}: articles and
-    sales. (Including \(24 \times 7\) responsibilities starting
-    \PrintISODate{2020-08}.)% chktex 8
-    \vspace*{20pt}
-    \newline
+    Part of the team providing Zalando SE’s \emph{core data}\---articles and
+    sales\---in near real\-/time. (Including \(24 \times 7\) responsibilities
+    starting \PrintISODate{2020-08}.)% chktex 8
+    \vspace*{20pt}\newline%
     \begingroup%
     \tcbset{%
       enhanced,%
@@ -492,6 +502,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
 \end{minipage}%
 \hfill%
 \begin{minipage}[t]{.4\textwidth}
+  \vspace*{0cm}%
   \section{Strengths}%
   \label{sec:strengths}
 
