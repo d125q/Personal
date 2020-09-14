@@ -1,2 +1,2 @@
-$ FPR='744A4F0B4F1C9371'
-$ gpg --recv-keys "$FPR"
+$ FPR=744A4F0B4F1C9371
+$ gpg --recv-keys $FPR
