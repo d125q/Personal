@@ -123,13 +123,22 @@ afterskip=.5\baselineskip,%
   nosep,%
   leftmargin=*,%
 }%
-\newlist{DescriptionItems}{itemize}{2}%
-\setlist[DescriptionItems, 1]{label={\textbullet}}%
-\setlist[DescriptionItems, 2]{label={--}}%
-\setlist[DescriptionItems]{%
+
+\newlist{ItemsAfterDescriptionItem}{itemize}{2}%
+\setlist[ItemsAfterDescriptionItem, 1]{label={\textbullet}}%
+\setlist[ItemsAfterDescriptionItem, 2]{label={\==}}%
+\setlist[ItemsAfterDescriptionItem]{%
   nosep,%
   leftmargin=*,%
   before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
+}%
+
+\newlist{UnlabeledItems}{itemize}{1}%
+\setlist[UnlabeledItems]{%
+  label={},%
+  labelsep=0pt,
+  nosep,%
+  leftmargin=*,
 }%
 
 \RequirePackage{siunitx}%
@@ -181,10 +190,10 @@ afterskip=.5\baselineskip,%
   \end{tcbraster}%
 }%
 
-\NewDocumentEnvironment{TCBItems}{}{%
-  \begin{tcolorbox}\begin{Items}%
+\NewDocumentEnvironment{TCBUnlabeledItems}{}{%
+  \begin{tcolorbox}\begin{UnlabeledItems}%
 }{%
-  \end{Items}\end{tcolorbox}%
+  \end{UnlabeledItems}\end{tcolorbox}%
 }%
 
 \RequirePackage{hyperref}%
@@ -511,19 +520,19 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   \label{sec:theoretical-knowledge}
 
   \begin{UniformTCBRaster}{2}
-    \begin{TCBItems}
+    \begin{TCBUnlabeledItems}
     \item Algorithms
     \item Data structures
-    \end{TCBItems}
-    \begin{TCBItems}
+    \end{TCBUnlabeledItems}
+    \begin{TCBUnlabeledItems}
     \item Probability theory
     \item Statistics
-    \end{TCBItems}
-    \begin{TCBItems}
+    \end{TCBUnlabeledItems}
+    \begin{TCBUnlabeledItems}
     \item Databases
     \item Distributed systems
     \item Big data
-    \end{TCBItems}
+    \end{TCBUnlabeledItems}
     \begin{tcboxedraster}[raster columns=1]{blankest}
       \begin{tcolorbox}
         Linear algebra
@@ -548,33 +557,34 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
 
   \begin{UniformTCBRaster}{2}
     \begin{tcboxedraster}[raster columns=1]{blankest}
-      \begin{TCBItems}
+      \begin{TCBUnlabeledItems}
       \item Python
       \item R incl.\ \TextSCP{Tidyverse}
       \item SQL \& PL/SQL
       \item Scala
-      \end{TCBItems}
+      \end{TCBUnlabeledItems}
       \begin{tcolorbox}
-        \begin{minipage}[t]{0.45\linewidth}
-          \begin{Items}
+        \begin{minipage}[t]{.5\linewidth}
+          \begin{UnlabeledItems}
           \item Spark
           \item Kafka
           \item Airflow
-          \end{Items}
+          \end{UnlabeledItems}
         \end{minipage}%
         \hfill%
-        \begin{minipage}[t]{0.55\linewidth}
-          \begin{Items}
-          \item Redis
+        \begin{minipage}[t]{.5\linewidth}
+          \begin{UnlabeledItems}
+          \item SciPy stack
           \item ELK stack
-          \end{Items}
+          \item Redis
+          \end{UnlabeledItems}
         \end{minipage}
       \end{tcolorbox}
     \end{tcboxedraster}
-    \begin{TCBItems}
+    \begin{TCBUnlabeledItems}
     \item GNU/Linux
     \item AWS
-      \begin{Items}
+      \begin{Items}[labelindent=10pt, labelsep=3pt, leftmargin=*]
       \item EC2
       \item S3
       \item Lambda
@@ -582,7 +592,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
       \item CloudFormation
       \end{Items}
     \item Databricks
-    \end{TCBItems}
+    \end{TCBUnlabeledItems}
     \begin{tcolorbox}
       \LaTeX{} incl.\ Ti\emph{k}Z/PGF
     \end{tcolorbox}
@@ -619,7 +629,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   \section{Education}%
   \label{sec:education}
   \EducationEntry%
-  {Computer Science \& Engineering (B.Sc.)}%
+  {Computer Science \& Engineering}%
   {\href{http://ukim.edu.mk/}{Ss.\ Cyril and Methodius University}}%
   {2017}%
   {Skopje, MK}%
@@ -677,10 +687,10 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     and targeted attacks on the Internet topology.  Jupyter Notebook and source
     code available at \GitHubURL[d125q]{Internet_Robustness}.
   \item[Predicting readmission of diabetic patients]
-    \begin{DescriptionItems}
+    \begin{ItemsAfterDescriptionItem}
     \item Learning from imbalanced data using \mintinline{R}{mlr}.
     \item \emph{Fully reproducible reporting} using \mintinline{R}{knitr}.
-    \end{DescriptionItems}
+    \end{ItemsAfterDescriptionItem}
     Report available at \GitHubURL[d125q]{Diabetic_Patients}.
   \item[Survey of the MinRank problem] \textsc{SageMath} implementations of:
     \begin{Items}
@@ -692,11 +702,11 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     payloads stored on an LPC1769 microcontroller.  Won prize for highest
     throughput.  Source code available at \GitHubURL[d125q]{DMA_Workshop}.
   \item[Substitution ciphers for Macedonian text]
-    \begin{DescriptionItems}
+    \begin{ItemsAfterDescriptionItem}
     \item Create substitution ciphers; and
     \item Break substitution ciphers using Markov chain Monte Carlo (MCMC)
       methods based on unigram and bigram frequencies.
-    \end{DescriptionItems}
+    \end{ItemsAfterDescriptionItem}
     Mathematica® Notebook and corpus with Macedonian text suitable for frequency
     analysis available at \GitHubURL[d125q]{Macedonian_Substitution_Ciphers}.
   \end{description}
