@@ -1,33 +1,42 @@
+% ------------------------------------------------------------------------------
+% Use the ‘scrartcl’ class from KOMA-Script with:
+% - 11pt font;
+% - A4 paper with 20 cm × 28 cm type area;
+% - Numbered entries in the TOC for all bibliographies;
+% - No paragraph indentation or inter-paragraph spacing;
+% - Customized spacing around ‘\section’ and ‘\subsection’;
+% - Horizontal rule after ‘\section’; and
+% - Empty page style.
+
 \documentclass[%
 version=last,%
 fontsize=11pt,%
 paper=A4,%
+areasetadvanced,%
 headinclude=false,%
 footinclude=false,%
 headlines=0,%
 footlines=0,%
-areasetadvanced,%
 toc=bibnumbered,%
-]{scrartcl}%
+]{scrartcl}
 
 \directlua{pdf.setminorversion(7)}% chktex 36
-\areaset{20cm}{28cm}%
-\setparsizes{0pt}{0pt}{0pt plus 1fil}%
-\pagestyle{empty}%
+\areaset{20cm}{28cm}
+\setparsizes{0pt}{0pt}{0pt plus 1fil}
+\pagestyle{empty}
 
 \RedeclareSectionCommand[
 afterindent=false,%
-beforeskip=.5\baselineskip,%
-afterskip=.5\baselineskip,%
-]{section}%
-
+beforeskip=\baselineskip,%
+afterskip=.75\baselineskip,%
+]{section}
 \RedeclareSectionCommand[
 afterindent=false,%
-beforeskip=.5\baselineskip,%
+beforeskip=.75\baselineskip,%
 afterskip=.5\baselineskip,%
-]{subsection}%
+]{subsection}
 
-\makeatletter%
+\makeatletter
 \renewcommand{\sectionlinesformat}[4]{%
   \Ifstr{#1}{section}{%
     \parbox[t]{\linewidth}{%
@@ -37,62 +46,99 @@ afterskip=.5\baselineskip,%
   }{%
     \@hangfrom{\hskip #2#3}{#4}%
   }%
-}%
-\makeatother%
+}
+\makeatother
 
-\RequirePackage{xpatch}%
+% ------------------------------------------------------------------------------
+% Load ‘xpatch’ so that it can be used to patch the ‘thesis’ driver from
+% ‘biblatex’.
 
-\RequirePackage{fontspec}%
-\RequirePackage{fontawesome5}%
+\RequirePackage{xpatch}
 
-\setmainfont{Libertinus Serif}%
-\setsansfont{Libertinus Sans}%
-\setmonofont[Scale=MatchLowercase]{Fira Code}%
+% ------------------------------------------------------------------------------
+% Load ‘minted’ for highlighting of source code.
 
-\newfontfamily\SpacedLSFamily[LetterSpace=3.0]{Libertinus Sans}%
-\NewDocumentCommand{\NameFont}{}{\bfseries\scshape\SpacedLSFamily}%
-\DeclareTextFontCommand{\PrintName}{\NameFont}%
+\RequirePackage[newfloat]{minted}
 
-\DeclareTextFontCommand{\PrintISODate}{\ttfamily}%
-\DeclareTextFontCommand{\PrintInstitution}{\sffamily}%
-\DeclareTextFontCommand{\PrintDegree}{\bfseries\sffamily}%
-\DeclareTextFontCommand{\PrintPosition}{\bfseries\sffamily}%
+% ------------------------------------------------------------------------------
+% Configure the document’s language and fonts.
+%
+% Typeset the document in en-US, but use DE for phone numbers; furthermore, load
+% the ‘microtype’ package.
 
-\newfontfamily\SCPFamily[Scale=MatchLowercase]{Source Code Pro}%
-\DeclareTextFontCommand{\TextSCP}{\SCPFamily}%
+\RequirePackage[american]{babel}
+\RequirePackage[style=american,autostyle,autopunct,strict]{csquotes}
+\RequirePackage[country=DE]{phonenumbers}
+\RequirePackage[shortcuts]{extdash}
 
-\newfontfamily\DSFamily[Scale=MatchLowercase]{Dancing Script}%
-\DeclareTextFontCommand{\TextDS}{\DSFamily}%
+\RequirePackage[final,babel]{microtype}
 
-\RequirePackage{mathtools}%
-\RequirePackage{amsthm}%
-\RequirePackage[ruled, longend]{algorithm2e}%
-\RequirePackage{prftree}%
-\RequirePackage[warnings-off={mathtools-colon, mathtools-overbracket}]{%
+\RequirePackage{fontawesome5}
+
+\babelfont{rm}[Language=Default]{Libertinus Serif}
+\babelfont{sf}[Language=Default]{Libertinus Sans}
+\babelfont{tt}[Language=Default,Scale=MatchLowercase]{Inconsolata}
+
+\newfontfamily\SpacedLSFamily[Language=Default,LetterSpace=4.0]{Libertinus Sans}
+\NewDocumentCommand{\NameFont}{}{\bfseries\scshape\SpacedLSFamily}
+\DeclareTextFontCommand{\PrintName}{\NameFont}
+
+\DeclareTextFontCommand{\PrintISODate}{\ttfamily}
+\DeclareTextFontCommand{\PrintInstitution}{\sffamily}
+\DeclareTextFontCommand{\PrintDegree}{\bfseries\sffamily}
+\DeclareTextFontCommand{\PrintPosition}{\bfseries\sffamily}
+
+\newfontfamily\SCPFamily[Language=Default,Scale=MatchLowercase]{Source Code Pro}
+\DeclareTextFontCommand{\TextSCP}{\SCPFamily}
+
+\newfontfamily\DSFamily[Language=Default,Scale=MatchLowercase]{Dancing Script}
+\DeclareTextFontCommand{\TextDS}{\DSFamily}
+
+% ------------------------------------------------------------------------------
+% Load ‘mathtools’ and ‘amsthm’ along with some additional packages for
+% mathematical typesetting.
+
+\RequirePackage{mathtools}
+\RequirePackage{amsthm}
+\RequirePackage[ruled,longend]{algorithm2e}
+\RequirePackage{prftree}
+\RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{%
   unicode-math%
-}%
-\mathtoolsset{mathic}%
-\unimathsetup{math-style=ISO, bold-style=ISO}%
-\setmathfont{Libertinus Math}%
+}
+\mathtoolsset{mathic}
+\unimathsetup{math-style=ISO,bold-style=ISO}
+\setmathfont[Language=Default]{Libertinus Math}
 
-\RequirePackage[newfloat]{minted}%
+% ------------------------------------------------------------------------------
+% Enable extended support for graphics and load TikZ and some libraries.
 
-\RequirePackage{graphicx}%
-\RequirePackage{tikz}%
-\usetikzlibrary{arrows.meta, calc, fit, positioning}%
+\RequirePackage{graphicx}
+\RequirePackage{tikz}
+\usetikzlibrary{%
+  arrows.meta,%
+  calc,%
+  fit,%
+  positioning,%
+}
+\tikzset{%
+  surround/.style 2 args={%
+    draw,%
+    rectangle,%
+    thick,%
+    dotted,%
+    fit=#1,%
+    inner sep=6pt,
+    label={[align=center,scale=0.75]#2},%
+  },%
+}
 
-\RequirePackage[american]{babel}%
-\RequirePackage[style=american, autostyle, autopunct, strict]{csquotes}%
-\RequirePackage[country=DE]{phonenumbers}%
-\RequirePackage[shortcuts]{extdash}%
+% ------------------------------------------------------------------------------
+% Enhancements for arrays and tabulars.
 
-\RequirePackage[final, babel]{microtype}%
-
-\RequirePackage{array}%
-\RequirePackage[inline]{enumitem}%
-\RequirePackage{booktabs}%
-\RequirePackage{tabularx}%
-\RequirePackage{makecell}%
+\RequirePackage{array}
+\RequirePackage{booktabs}
+\RequirePackage{tabularx}
+\RequirePackage{makecell}
 
 \newcolumntype{P}[1]{%
   >{%
@@ -100,49 +146,61 @@ afterskip=.5\baselineskip,%
     \linewidth=\dimexpr\hsize\relax%
     \arraybackslash%
   }X%
-}%
+}
 \newcolumntype{M}[2]{%
   >{%
     \hsize=\dimexpr#1\hsize+#2\tabcolsep\relax%
     \linewidth=\dimexpr\hsize\relax%
     \arraybackslash%
   }X%
-}%
+}
 \newcolumntype{R}[1]{%
   >{%
     \hsize=\dimexpr#1\hsize\relax%
     \linewidth=\dimexpr\hsize\relax%
     \raggedleft\arraybackslash%
   }X%
-}%
+}
 
-\newlist{Items}{itemize}{2}%
-\setlist[Items, 1]{label={\textbullet}}%
-\setlist[Items, 2]{label={\==}}%
-\setlist[Items]{
+% ------------------------------------------------------------------------------
+% Enhancements for lists.
+
+\RequirePackage[inline]{enumitem}
+
+\newlist{Items}{itemize}{2}
+\setlist[Items,1]{label={\textbullet}}
+\setlist[Items,2]{label={\==}}
+\setlist[Items]{%
   nosep,%
   leftmargin=*,%
-}%
+}
 
-\newlist{ItemsAfterDescriptionItem}{itemize}{2}%
-\setlist[ItemsAfterDescriptionItem, 1]{label={\textbullet}}%
-\setlist[ItemsAfterDescriptionItem, 2]{label={\==}}%
+\newlist{ItemsAfterDescriptionItem}{itemize}{2}
+\setlist[ItemsAfterDescriptionItem,1]{label={\textbullet}}
+\setlist[ItemsAfterDescriptionItem,2]{label={\==}}
 \setlist[ItemsAfterDescriptionItem]{%
   nosep,%
   leftmargin=*,%
   before=\leavevmode\vspace*{-\dimexpr2\topsep+\baselineskip\relax},%
-}%
+}
 
-\newlist{UnlabeledItems}{itemize}{1}%
+\newlist{UnlabeledItems}{itemize}{1}
 \setlist[UnlabeledItems]{%
   label={},%
   labelsep=0pt,
   nosep,%
-  leftmargin=*,
-}%
+  leftmargin=*,%
+}
 
-\RequirePackage{siunitx}%
-\sisetup{detect-all, detect-display-math, binary-units}%
+% ------------------------------------------------------------------------------
+% Load ‘siunitx’ for typesetting of units.
+
+\RequirePackage{siunitx}
+\sisetup{%
+  detect-all,%
+  detect-display-math,%
+  binary-units,%
+}
 
 \NewDocumentCommand{\PrintRounded}{o m}{%
   \num[%
@@ -150,29 +208,34 @@ afterskip=.5\baselineskip,%
   round-integer-to-decimal,%
   round-precision=\IfNoValueTF{#1}{2}{#1},%
   ]{#2}%
-}%
+}
 \NewDocumentCommand{\PrintInteger}{m}{%
   \num[%
   round-mode=places,%
   round-precision=0,%
   zero-decimal-to-integer,%
   ]{#1}%
+}
+
+% ------------------------------------------------------------------------------
+% Boxes.
+
+\RequirePackage{adjustbox}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{%
+  most,%
+  minted,%
 }%
 
-\RequirePackage{adjustbox}%
-\RequirePackage{tcolorbox}%
-\tcbuselibrary{most, minted}%
-
 \NewDocumentCommand{\PrintInfo}{m m}{%
-  \begin{adjustbox}{valign=m, minipage=.1\linewidth}
+  \begin{adjustbox}{valign=m,minipage=.1\linewidth}
     \textnormal{#1}
   \end{adjustbox}%
   \hfill%
-  \begin{adjustbox}{valign=m, minipage=.9\linewidth}
+  \begin{adjustbox}{valign=m,minipage=.9\linewidth}
     #2
   \end{adjustbox}%
-}%
-
+}
 \NewDocumentEnvironment{UniformTCBRaster}{m}{%
   \begin{tcbraster}[%
   raster columns={#1},%
@@ -180,24 +243,24 @@ afterskip=.5\baselineskip,%
   raster valign=center,%
   raster every box/.style={%
     size=fbox,%
-    rounded corners,%
     halign=flush left,%
     valign=center,%
   },%
-  enhanced,%
   ]%
 }{%
   \end{tcbraster}%
-}%
-
+}
 \NewDocumentEnvironment{TCBUnlabeledItems}{}{%
   \begin{tcolorbox}\begin{UnlabeledItems}%
 }{%
   \end{UnlabeledItems}\end{tcolorbox}%
-}%
+}
 
-\RequirePackage{hyperref}%
-\RequirePackage{cleveref}%
+% ------------------------------------------------------------------------------
+% Hypertext and references.
+
+\RequirePackage{hyperref}
+\RequirePackage{cleveref}
 \hypersetup{%
   unicode,%
   breaklinks,%
@@ -205,55 +268,77 @@ afterskip=.5\baselineskip,%
   pdftitle={Dario Gjorgjevski’s curriculum vitæ},%
   pdfauthor={Dario Gjorgjevski},%
   pdfsubject={Curriculum vitæ},%
-}%
+}
 
 \NewDocumentCommand{\GmailURL}{m}{%
   \href{mailto:#1@gmail.com}{\nolinkurl{#1@gmail.com}}%
-}%
+}
 \NewDocumentCommand{\GitHubURL}{o m}{%
   \faGithub\href{https://github.com/\IfValueT{#1}{#1/}#2}{\nolinkurl{/#2}}%
-}%
+}
 \NewDocumentCommand{\SEFlair}{m m}{%
-  \begin{adjustbox}{valign=m, minipage=\linewidth}
+  \begin{adjustbox}{valign=m,minipage=\linewidth}
     \href{https://stackexchange.com/users/#1}{%
-      \adjustimage{frame=1pt, width=\linewidth}{#2}%
+      \adjustimage{frame=1pt,width=\linewidth}{#2}%
     }
   \end{adjustbox}%
-}%
+}
+
+% ------------------------------------------------------------------------------
+% Use BibLaTeX with Biber to process the bibliography.
 
 \RequirePackage[%
-style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
-]{biblatex}%
-\addbibresource{Theses_and_Publications.bib}%
-
-\AtBeginBibliography{\small}%
+style=numeric,%
+backend=biber,%
+defernumbers=true,%
+datamodel=supervisor,%
+]{biblatex}
+\addbibresource{Theses_and_Publications.bib}
+\AtBeginBibliography{\small}
 
 \newbibmacro*{name:bold}[2]{%
   \def\do##1{%
     \iffieldequalstr{hash}{##1}{\NameFont\listbreak}{}%
   }%
   \dolistloop{\boldnames}%
-}%
+}
+
 \xpretobibmacro{name:family}{%
   \begingroup\usebibmacro{name:bold}{#1}{#2}%
-}{}{}%
+}{}{}
+\xapptobibmacro{name:family}{%
+  \endgroup%
+}{}{}
+
 \xpretobibmacro{name:given-family}{%
   \begingroup\usebibmacro{name:bold}{#1}{#2}%
-}{}{}%
+}{}{}
+\xapptobibmacro{name:given-family}{%
+  \endgroup%
+}{}{}
+
 \xpretobibmacro{name:family-given}{%
   \begingroup\usebibmacro{name:bold}{#1}{#2}%
-}{}{}%
+}{}{}
+\xapptobibmacro{name:family-given}{%
+  \endgroup%
+}{}{}
+
 \xpretobibmacro{name:delim}{%
   \begingroup\normalfont%
-}{}{}%
-\xapptobibmacro{name:family}{\endgroup}{}{}%
-\xapptobibmacro{name:given-family}{\endgroup}{}{}%
-\xapptobibmacro{name:family-given}{\endgroup}{}{}%
-\xapptobibmacro{name:delim}{\endgroup}{}{}%
+}{}{}
+\xapptobibmacro{name:delim}{%
+  \endgroup%
+}{}{}
+
 \forcsvlist{\listadd\boldnames}{%
+  % Where does this hash come from?
+  % Open the ‘\jobname.bbl’ that, find the author whose name should be typeset
+  % in bold, and copy the ‘hash’ field.
   {90e97b67720ed4a478d19395e2c396d7}%
-}%
-\DeclareLanguageMapping{english}{supervisor-english}%
+}
+
+\DeclareLanguageMapping{english}{supervisor-english}
 \newbibmacro*{thesissupervisor}{%
   \ifnameundef{supervisor}{}{%
     \ifnumgreater{\value{supervisor}}{1}{%
@@ -263,24 +348,31 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     }%
     \addspace\printnames{supervisor}%
   }%
-}%
+}
 \xpatchbibdriver{thesis}{%
   \printfield{type}%
 }{%
   \printfield{type}%
   \newunit%
   \usebibmacro{thesissupervisor}%
-}{}{}%
+}{}{}
 
-% 1. Degree
-% 2. Institution
-% 3. Date
-% 4. Location
-% 5. GPA
-% 6. Grading scale
-% 7. Citation key for thesis              (optional)
-% 8. Citation keys for other publications (optional)
-% 9. Remaining notes                      (optional)
+% ------------------------------------------------------------------------------
+% ‘\EducationEntry’
+%
+% Mandatory parameters:
+%   1. Degree
+%   2. Institution
+%   3. Date
+%   4. Location
+%   5. GPA
+%   6. Grading scale
+%
+% Optional parameters:
+%   7. Citation key for thesis
+%   8. Citation keys for other publications
+%   9. Remaining notes
+
 \NewDocumentCommand{\EducationEntry}{m m m m m m o o o}{%
   \begin{tabularx}{\linewidth}{P{1.35} R{0.65}}
     \PrintDegree{#1}                        & Class of #3 \\
@@ -293,13 +385,18 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     }
   \end{tabularx}
   \par%
-}%
+}
 
-% 1. Position
-% 2. Institution
-% 3. Date
-% 4. Location
-% 5. Description
+% ------------------------------------------------------------------------------
+% ‘\WorkEntry
+%
+% Mandatory parameters:
+%   1. Position
+%   2. Institution
+%   3. Date
+%   4. Location
+%   5. Description
+
 \NewDocumentCommand{\WorkEntry}{m m m m m}{%
   \begin{tabularx}{\linewidth}{P{1.25} R{0.75}}
     \PrintPosition{#1}        & \PrintISODate{#3}    \\
@@ -307,7 +404,9 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     \multicolumn{2}{M{2}{2}}{#5}
   \end{tabularx}
   \par%
-}%
+}
+
+% ------------------------------------------------------------------------------
 
 \begin{document}
 \begin{minipage}{0.75\textwidth}
@@ -328,7 +427,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
       &
         \PrintInfo{\faKey}{\inputminted{shell-session}{PublicKey.shell-session}}
       &
-        \SEFlair{3671527}{Pictures/d125q-SE-Flair.png}
+        \SEFlair{3671527}{Pictures/SE-Flair.png}
     \end{tabularx}%
   }
 \end{minipage}%
@@ -336,9 +435,9 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
 \begin{minipage}{.25\textwidth}
   \center%
   \begin{tikzpicture}[baseline=(Dario.center)]
-    \node[circle, draw, inner sep=1.5cm, black, fill overzoom image*={%
+    \node[circle,draw,inner sep=1.5cm,black,fill overzoom image*={%
       clip,%
-    }{Pictures/Dario-in-Delchevo_02}] (Dario) {};
+    }{Pictures/Profile}] (Dario) {};
   \end{tikzpicture}
 \end{minipage}
 
@@ -359,8 +458,8 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     \vspace*{20pt}\newline%
     \begingroup%
     \tcbset{%
-      enhanced,%
       size=fbox,%
+      enhanced,%
       on line,%
       box align=center,%
       fonttitle=\small,%
@@ -371,7 +470,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
       halign lower=center,%
     }%
     \begin{minipage}{.2\linewidth}
-      \begin{tcolorbox}[title=Nakadi, remember as=Kafka]
+      \begin{tcolorbox}[title=Nakadi,remember as=Kafka]
         JSON events%
         \tcblower%
         Kafka
@@ -379,16 +478,13 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     \end{minipage}%
     \hfill%
     \begin{minipage}{.2\linewidth}
-      \begin{tcolorbox}[title=AWS, remember as=Spark]
+      \begin{tcolorbox}[title=AWS,remember as=Spark]
         Databricks%
         \tcblower%
         Spark
       \end{tcolorbox}%
-      \begin{tikzpicture}[overlay, remember picture]
-        \node[draw, rectangle, thick, dotted,%
-        fit=(Spark), inner sep=6pt,%
-        label={[align=center, scale=0.75]Airflow},%
-        ] (Scheduling) {};
+      \begin{tikzpicture}[overlay,remember picture]
+        \node[surround={(Spark)}{Airflow}] (Scheduling) {};
       \end{tikzpicture}
     \end{minipage}%
     \hfill%
@@ -412,8 +508,12 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
       \begin{tcolorbox}[remember as=Presto]
         Presto
       \end{tcolorbox}%
-      \begin{tikzpicture}[overlay, remember picture,%
-        >=stealth, shorten >=1pt, shorten <=1pt,%
+      \begin{tikzpicture}[%
+        overlay,%
+        remember picture,%
+        >=stealth,%
+        shorten >=1pt,%
+        shorten <=1pt,%
         ]
         \draw[->] (Kafka) to (Spark);
         \draw[->] (Spark) to (Oracle);
@@ -422,19 +522,16 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
         \draw[<->] (Presto) to (S3);
         \draw[->]%
         ($(S3.south)!0.5!(S3.south west)$)%
-        to[out=-150, in=-30]%
-        node[midway, below, scale=0.75]%
+        to[out=-150,in=-30]%
+        node[midway,below,scale=0.75]%
         {SNS \& SQS}%
         ($(Spark.south)!0.5!(Spark.south east)$);
         \draw[->]%
         ($(Spark.north)!0.5!(Spark.north east)$)%
-        to[out=30, in=150]%
+        to[out=30,in=150]%
         ($(Exasol.north)!0.5!(Exasol.north west)$);
-        \node[draw, rectangle,%
-        thick, dotted, fit=(Exasol) (Presto),%
-        inner sep=6pt,%
-        label={[align=center, scale=0.75]Superset\\MicroStrategy},%
-        ] (Reporting) {};
+        \node[surround={(Exasol)(Presto)}{Superset\\MicroStrategy}]%
+        (Reporting) {};
       \end{tikzpicture}
     \end{minipage}
     \endgroup%
@@ -548,11 +645,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     language theory} along with various Lisps, Haskell, and Standard ML\@.\par%
   \endgroup%
 
-  \subsection{%
-    \texorpdfstring%
-    {Hands\=/On Experience}%
-    {Hands-On Experience}%
-  }%
+  \subsection{\texorpdfstring{Hands\=/On Experience}{Hands-On Experience}}%
   \label{sec:hands-on-experience}
 
   \begin{UniformTCBRaster}{2}
@@ -584,7 +677,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     \begin{TCBUnlabeledItems}
     \item GNU/Linux
     \item AWS
-      \begin{Items}[labelindent=10pt, labelsep=3pt, leftmargin=*]
+      \begin{Items}[labelindent=10pt,labelsep=3pt,leftmargin=*]
       \item EC2
       \item S3
       \item Lambda
@@ -644,7 +737,8 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   Earned \PrintInteger{240} ECTS credits.  As a senior, conducted computational
   exercises, homework assignments, and exams in:
   \begin{description}[%
-    leftmargin=*, font=\normalfont\itshape,%
+    leftmargin=*,%
+    font=\normalfont\itshape,%
     widest=Linear Algebra,%
     ]
   \item[Linear Algebra] Least squares, linear codes, and low\-/rank
@@ -656,7 +750,7 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   Presentations available at \GitHubURL[d125q]{Presentations}.%
   ]
 
-  \begin{tcolorbox}[size=fbox, fontlower=\small]
+  \begin{tcolorbox}[size=fbox,fontlower=\small]
     Over \PrintInteger{40} \emph{Massive Open Online Courses} on topics related
     to game theory, probabilistic graphical models, Bayesian statistics,
     combinatorics, automata and formal languages, mathematical optimization,
@@ -666,16 +760,18 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
     \GitHubURL[d125q]{Personal/tree/master/Certifications}.
   \end{tcolorbox}
 
-  \printbibliography[type=thesis, title=Theses]%
-  \printbibliography[nottype=thesis, title=Publications]
+  \printbibliography[type=thesis,title=Theses]%
+  \printbibliography[nottype=thesis,title=Publications]
 \end{minipage}%
 \hfill%
 \begin{minipage}[t]{.4\textwidth}
   \section{Projects}%
   \label{sec:projects}
 
-  \begin{description}[style=nextline,%
-    leftmargin=!, font=\sffamily\bfseries,%
+  \begin{description}[%
+    style=nextline,%
+    leftmargin=!,%
+    font=\sffamily\bfseries,%
     ]
   \item[C\=/like language\(\,\to\,\)PostScript transpiler] Transpiler
     implemented in Flex and GNU Bison to translate a C\=/like language for
@@ -712,6 +808,8 @@ style=numeric, backend=biber, defernumbers=true, datamodel=supervisor%
   \end{description}
 \end{minipage}
 \end{document}
+
+% ------------------------------------------------------------------------------
 
 % Local Variables:
 % fill-column: 80
