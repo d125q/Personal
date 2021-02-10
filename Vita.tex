@@ -25,12 +25,12 @@ toc=bibnumbered,%
 \setparsizes{0pt}{0pt}{0pt plus 1fil}
 \pagestyle{empty}
 
-\RedeclareSectionCommand[
+\RedeclareSectionCommand[%
 afterindent=false,%
 beforeskip=\baselineskip,%
 afterskip=.75\baselineskip,%
 ]{section}
-\RedeclareSectionCommand[
+\RedeclareSectionCommand[%
 afterindent=false,%
 beforeskip=.75\baselineskip,%
 afterskip=.5\baselineskip,%
@@ -77,7 +77,7 @@ afterskip=.5\baselineskip,%
 
 \babelfont{rm}[Language=Default]{Libertinus Serif}
 \babelfont{sf}[Language=Default]{Libertinus Sans}
-\babelfont{tt}[Language=Default,Scale=MatchLowercase]{Inconsolata}
+\babelfont{tt}[Language=Default,Scale=MatchLowercase]{Fantasque Sans Mono}
 
 \newfontfamily\SpacedLSFamily[Language=Default,LetterSpace=4.0]{Libertinus Sans}
 \NewDocumentCommand{\NameFont}{}{\bfseries\scshape\SpacedLSFamily}
@@ -102,12 +102,16 @@ afterskip=.5\baselineskip,%
 \RequirePackage{amsthm}
 \RequirePackage[ruled,longend]{algorithm2e}
 \RequirePackage{prftree}
-\RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{%
-  unicode-math%
-}
+\RequirePackage[warnings-off={mathtools-colon,mathtools-overbracket}]{unicode-math}
 \mathtoolsset{mathic}
 \unimathsetup{math-style=ISO,bold-style=ISO}
 \setmathfont[Language=Default]{Libertinus Math}
+
+% ------------------------------------------------------------------------------
+% Colors.
+\RequirePackage{xcolor}
+\colorlet{framered}{red!75!white}
+\colorlet{backred}{red!5!white}
 
 % ------------------------------------------------------------------------------
 % Enable extended support for graphics and load TikZ and some libraries.
@@ -118,6 +122,7 @@ afterskip=.5\baselineskip,%
   arrows.meta,%
   calc,%
   fit,%
+  patterns,%
   positioning,%
 }
 \tikzset{%
@@ -127,7 +132,7 @@ afterskip=.5\baselineskip,%
     thick,%
     dotted,%
     fit=#1,%
-    inner sep=6pt,
+    inner sep=8pt,
     label={[align=center,scale=0.75]#2},%
   },%
 }
@@ -138,7 +143,6 @@ afterskip=.5\baselineskip,%
 \RequirePackage{array}
 \RequirePackage{booktabs}
 \RequirePackage{tabularx}
-\RequirePackage{makecell}
 
 \newcolumntype{P}[1]{%
   >{%
@@ -161,6 +165,11 @@ afterskip=.5\baselineskip,%
     \raggedleft\arraybackslash%
   }X%
 }
+
+% ------------------------------------------------------------------------------
+% Paragraph notes.
+
+\RequirePackage[restart,symbol]{parnotes}
 
 % ------------------------------------------------------------------------------
 % Enhancements for lists.
@@ -202,13 +211,20 @@ afterskip=.5\baselineskip,%
   binary-units,%
 }
 
-\NewDocumentCommand{\PrintRounded}{o m}{%
+% \PrintDecimal[precision]{number} prints number rounded to precision.
+% The default value of precision is 2.
+% Integers will be converted to decimal; e.g., \PrintDecimal[2]{10} ⇒ 10.00.
+\NewDocumentCommand{\PrintDecimal}{o m}{%
   \num[%
   round-mode=places,%
   round-integer-to-decimal,%
   round-precision=\IfNoValueTF{#1}{2}{#1},%
   ]{#2}%
 }
+% \PrintInteger{number} prints number as an integer.
+% \PrintInteger{5}    ⇒ 5
+% \PrintInteger{5.61} ⇒ 6
+% \PrintInteger{5.47} ⇒ 5
 \NewDocumentCommand{\PrintInteger}{m}{%
   \num[%
   round-mode=places,%
@@ -332,9 +348,10 @@ datamodel=supervisor,%
 }{}{}
 
 \forcsvlist{\listadd\boldnames}{%
-  % Where does this hash come from?
-  % Open the ‘\jobname.bbl’ that, find the author whose name should be typeset
-  % in bold, and copy the ‘hash’ field.
+  % Where does this value come from?
+  %   1. Open the ‘\jobname.bbl’ file
+  %   2. Find the author whose name should be typeset in bold
+  %   3. Copy the ‘hash’ field below
   {90e97b67720ed4a478d19395e2c396d7}%
 }
 
@@ -380,7 +397,7 @@ datamodel=supervisor,%
     \multicolumn{2}{M{2}{2}}{%
     \IfValueT{#7}{Thesis: \citetitle{#7}~\autocite{#7}.\par}%
     \IfValueT{#8}{Publications: \autocites{#8}.\par}%
-    GPA of \PrintRounded{#5}; scale #6.%
+    GPA of \PrintDecimal{#5}; scale #6.%
     \IfValueT{#9}{\par #9}%
     }
   \end{tabularx}
@@ -415,17 +432,17 @@ datamodel=supervisor,%
   {\Large\TextDS{Curriculum vitæ}\par}%
   \medskip%
   {%
-    \renewcommand*{\arraystretch}{1.5}
+    \renewcommand*{\arraystretch}{1.5}%
     \begin{tabularx}{\textwidth}{P{1.3} P{1.2} P{0.5}}
-      \PrintInfo{\faAt}{\GmailURL{dario.gjorgjevski}}
+      \PrintInfo{\faAt}{\GmailURL{dario.gjorgjevski}}%
       &
-        \PrintInfo{\faPhone}{\phonenumber[foreign]{01525 8666837}}
+        \PrintInfo{\faPhone}{\phonenumber[foreign]{01525 8666837}}%
       &
-        \GitHubURL{d125q}
+        \GitHubURL{d125q}%
       \\
-      \PrintInfo{\faEnvelope}{Klara\-/Franke\-/Straße 21\\10557 Berlin}
+      \PrintInfo{\faEnvelope}{Klara\-/Franke\-/Straße 21\\10557 Berlin}%
       &
-        \PrintInfo{\faKey}{\inputminted{shell-session}{PublicKey.shell-session}}
+        \PrintInfo{\faKey}{\inputminted{shell-session}{PublicKey.shell-session}}%
       &
         \SEFlair{3671527}{Pictures/SE-Flair.png}
     \end{tabularx}%
@@ -435,9 +452,7 @@ datamodel=supervisor,%
 \begin{minipage}{.25\textwidth}
   \center%
   \begin{tikzpicture}[baseline=(Dario.center)]
-    \node[circle,draw,inner sep=1.5cm,black,fill overzoom image*={%
-      clip,%
-    }{Pictures/Profile}] (Dario) {};
+    \node[circle,draw,inner sep=1.5cm,black,fill overzoom image*={clip}{Pictures/Profile}] (Dario) {};
   \end{tikzpicture}
 \end{minipage}
 
@@ -453,19 +468,17 @@ datamodel=supervisor,%
   {2019-09/}% chktex 8
   {Berlin, DE}%
   {%
-    Development of ETL pipelines which every day process over\---
-    \PrintInteger{750} thousand \emph{attribute}, \PrintInteger{60} million
-    \emph{price}, \PrintInteger{100} million \emph{stock}, and
+    Development\parnote{Including \(24 \times 7\) responsibilities starting
+      \PrintISODate{2020-08}} of ETL pipelines which every day process %chktex 8
+    over\--- \PrintInteger{750} thousand \emph{attribute}, \PrintInteger{60}
+    million \emph{price}, \PrintInteger{100} million \emph{stock}, and
     \PrintInteger{500} million \emph{availability}\--- update events into a
     coherent data landscape used to report on key business metrics and train
-    machine learning models.\newline%
-    {\footnotesize (Including \(24 \times 7\) responsibilities starting
-      \PrintISODate{2020-08}.)}% chktex 8
-    \leavevmode\vspace*{20pt}\newline%
-    \begingroup%
+    machine learning models.%
+    \leavevmode\vspace*{20pt}\newline\begingroup%
     \tcbset{%
-      size=fbox,%
       enhanced,%
+      size=fbox,%
       on line,%
       box align=center,%
       fonttitle=\small,%
@@ -477,32 +490,23 @@ datamodel=supervisor,%
     }%
     \begin{minipage}{.2\linewidth}
       \begin{tcolorbox}[title=Nakadi,remember as=Kafka]
-        JSON events%
-        \tcblower%
-        Kafka
+        JSON events\tcblower{}Kafka
       \end{tcolorbox}
     \end{minipage}%
     \hfill%
     \begin{minipage}{.2\linewidth}
       \begin{tcolorbox}[title=AWS,remember as=Spark]
-        Databricks%
-        \tcblower%
-        Spark
+        Databricks\tcblower{}Spark
       \end{tcolorbox}%
-      \begin{tikzpicture}[overlay,remember picture]
-        \node[surround={(Spark)}{Airflow}] (Scheduling) {};
-      \end{tikzpicture}
     \end{minipage}%
     \hfill%
     \begin{minipage}{.2\linewidth}
-      \begin{tcolorbox}[remember as=Oracle]
-        Oracle
+      \begin{tcolorbox}[remember as=Oracle,colframe=framered,colback=backred]
+        Oracle\parnote{Oracle is being deprecated and migrated away from}
       \end{tcolorbox}%
       \\%
       \begin{tcolorbox}[remember as=S3]
-        Delta Lake%
-        \tcblower%
-        S3
+        Delta Lake\tcblower{}S3
       \end{tcolorbox}
     \end{minipage}%
     \hfill%
@@ -514,34 +518,23 @@ datamodel=supervisor,%
       \begin{tcolorbox}[remember as=Presto]
         Presto
       \end{tcolorbox}%
-      \begin{tikzpicture}[%
-        overlay,%
-        remember picture,%
-        >=stealth,%
-        shorten >=1pt,%
-        shorten <=1pt,%
-        ]
-        \draw[->] (Kafka) to (Spark);
-        \draw[->] (Spark) to (Oracle);
-        \draw[->] (Spark) to (S3);
-        \draw[->] (Oracle) to (Exasol);
-        \draw[<->] (Presto) to (S3);
-        \draw[->]%
-        ($(S3.south)!0.5!(S3.south west)$)%
-        to[out=-150,in=-30]%
-        node[midway,below,scale=0.75]%
-        {SNS \& SQS}%
-        ($(Spark.south)!0.5!(Spark.south east)$);
-        \draw[->]%
-        ($(Spark.north)!0.5!(Spark.north east)$)%
-        to[out=30,in=150]%
-        ($(Exasol.north)!0.5!(Exasol.north west)$);
-        \node[surround={(Exasol)(Presto)}{Superset\\MicroStrategy}]%
-        (Reporting) {};
+      \begin{tikzpicture}[overlay,remember picture,>=Stealth,shorten >=1pt,shorten <=1pt]
+        \coordinate (Spark-SSE)  at ($(Spark.south)!0.5!(Spark.south east)$);
+        \coordinate (Spark-NNE)  at ($(Spark.north)!0.5!(Spark.north east)$);
+        \coordinate (S3-SSW)     at ($(S3.south)!0.5!(S3.south west)$);
+        \coordinate (Exasol-NNW) at ($(Exasol.north)!0.5!(Exasol.north west)$);
+        \path[->] (Kafka)     edge                                                             (Spark)
+                  (Spark)     edge[draw=framered]                                              (Oracle)
+                  (Oracle)    edge[draw=framered]                                              (Exasol)
+                  (Spark)     edge                                                             (S3)
+                  (S3)        edge[<->]                                                        (Presto)
+                  (S3-SSW)    edge[out=-150,in=-30] node[midway,below,scale=0.75] {SNS \& SQS} (Spark-SSE)
+                  (Spark-NNE) edge[out=30,in=150]                                              (Exasol-NNW);
+        \node[surround={(Spark)}{Airflow}]                          (Scheduling) {};
+        \node[surround={(Exasol)(Presto)}{Superset\\MicroStrategy}] (Reporting)  {};
       \end{tikzpicture}
     \end{minipage}
-    \endgroup%
-    \vspace*{\baselineskip}%
+    \endgroup\vspace*{\baselineskip}\parnotes{}%
   }
 
   \WorkEntry%
@@ -644,11 +637,10 @@ datamodel=supervisor,%
       \end{tcolorbox}
     \end{tcboxedraster}
   \end{UniformTCBRaster}
-  \begingroup%
-  \small%
+  \begingroup\small%
   Additional academic exposure to \emph{compiler design} and \emph{programming
     language theory} along with various Lisps, Haskell, and Standard ML\@.\par%
-  \endgroup%
+  \endgroup
 
   \subsection{\texorpdfstring{Hands\=/On Experience}{Hands-On Experience}}%
   \label{sec:hands-on-experience}
@@ -682,7 +674,7 @@ datamodel=supervisor,%
     \begin{TCBUnlabeledItems}
     \item GNU/Linux
     \item AWS
-      \begin{Items}[labelindent=10pt,labelsep=3pt,leftmargin=*]
+      \begin{Items}[labelindent=8pt,labelsep=4pt,leftmargin=*]
       \item EC2
       \item S3
       \item Lambda
@@ -699,11 +691,10 @@ datamodel=supervisor,%
     \end{tcolorbox}
   \end{UniformTCBRaster}
 
-  \begingroup%
-  \small%
-  Adept at working in \emph{agile teams} using Git for (distributed) version
-  control, and Jenkins for CI/CD\@.\par%
-  \endgroup%
+  \begingroup\small%
+  Adept at working in \emph{agile teams} with Git for version control and
+  various CI/CD workflows.\par%
+  \endgroup
 
   \section{Honors}%
   \label{sec:honors}
@@ -741,11 +732,7 @@ datamodel=supervisor,%
   [%
   Earned \PrintInteger{240} ECTS credits.  As a senior, conducted computational
   exercises, homework assignments, and exams in:
-  \begin{description}[%
-    leftmargin=*,%
-    font=\normalfont\itshape,%
-    widest=Linear Algebra,%
-    ]
+  \begin{description}[leftmargin=*,font=\normalfont\itshape,widest=Linear Algebra]
   \item[Linear Algebra] Least squares, linear codes, and low\-/rank
     approximations in \textsc{SageMath} and Mathematica®.
   \item[Statistics] Data visualization, Monte Carlo methods, inference,
@@ -765,7 +752,8 @@ datamodel=supervisor,%
     \GitHubURL[d125q]{Personal/tree/master/Certifications}.
   \end{tcolorbox}
 
-  \printbibliography[type=thesis,title=Theses]%
+  \printbibliography[type=thesis,title=Theses]
+
   \printbibliography[nottype=thesis,title=Publications]
 \end{minipage}%
 \hfill%
@@ -773,11 +761,7 @@ datamodel=supervisor,%
   \section{Projects}%
   \label{sec:projects}
 
-  \begin{description}[%
-    style=nextline,%
-    leftmargin=!,%
-    font=\sffamily\bfseries,%
-    ]
+  \begin{description}[style=nextline,leftmargin=!,font=\sffamily\bfseries]
   \item[C\=/like language\(\,\to\,\)PostScript transpiler] Transpiler
     implemented in Flex and GNU Bison to translate a C\=/like language for
     \emph{turtle graphics} to PostScript.
